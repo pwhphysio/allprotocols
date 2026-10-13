@@ -105,10 +105,16 @@
         border-bottom-color: #f59e0b;}
     .protocol-tab.active[data-target="panel-kss"]{color: #1d4ed8;
         border-bottom-color: #3b82f6;}
+    .protocol-tab.active[data-target="panel-ksfa"]{color: #15803d;
+        border-bottom-color: #22c55e;}
+    .protocol-tab.active[data-target="panel-nomo"]{color: #c2410c;
+        border-bottom-color: #f97316;}
     .protocol-tab.active[data-target="panel-tfcc"]{color: #6d28d9;
         border-bottom-color: #8b5cf6;}
     .protocol-tab.active[data-target="panel-sl"]{color: #be185d;
         border-bottom-color: #ec4899;}
+    .protocol-tab.active[data-target="panel-rc"]{color: #0369a1;
+        border-bottom-color: #0ea5e9;}
     .protocol-panel{display: none;}
     .protocol-panel.active{display: block;}
 
@@ -136,6 +142,14 @@
         border-left-color: #3b82f6;}
     #panel-kss .acl-header h1{color: #1e3a8a;}
     #panel-kss .acl-header p{color: #1d4ed8;}
+    #panel-ksfa .acl-header{background-color: #f0fdf4;
+        border-left-color: #22c55e;}
+    #panel-ksfa .acl-header h1{color: #14532d;}
+    #panel-ksfa .acl-header p{color: #15803d;}
+    #panel-nomo .acl-header{background-color: #fff7ed;
+        border-left-color: #f97316;}
+    #panel-nomo .acl-header h1{color: #7c2d12;}
+    #panel-nomo .acl-header p{color: #c2410c;}
     #panel-tfcc .acl-header{background-color: #f5f3ff;
         border-left-color: #8b5cf6;}
     #panel-tfcc .acl-header h1{color: #4c1d95;}
@@ -144,6 +158,10 @@
         border-left-color: #ec4899;}
     #panel-sl .acl-header h1{color: #831843;}
     #panel-sl .acl-header p{color: #be185d;}
+    #panel-rc .acl-header{background-color: #f0f9ff;
+        border-left-color: #0ea5e9;}
+    #panel-rc .acl-header h1{color: #0c4a6e;}
+    #panel-rc .acl-header p{color: #0369a1;}
 
     /* ============================================================
        INPUT SECTION
@@ -328,15 +346,19 @@
         transform: translateX(-50%) translateY(0);}
 
     /* ============================================================
-       KSS TAB STYLES (BLUE THEME)
+       KSS TAB STYLES (BLUE THEME) – classes also reused by KSFA / Nomogram
        ============================================================ */
+    #panel-kss .status-bar,
+    #panel-ksfa .status-bar,
+    #panel-nomo .status-bar{padding: 18px 20px;}
     #panel-kss .status-bar{background-color: #eff6ff;
-        border-color: #bfdbfe;
-        padding: 18px 20px;}
+        border-color: #bfdbfe;}
     #panel-kss .status-title h2{color: #1e3a8a;}
-    #panel-kss .status-title p{color: #1d4ed8;
-        font-size: 13px;
+    #panel-kss .status-title p,
+    #panel-ksfa .status-title p,
+    #panel-nomo .status-title p{font-size: 13px;
         font-weight: 500;}
+    #panel-kss .status-title p{color: #1d4ed8;}
     .kss-total-display{display: flex;
         align-items: baseline;
         gap: 4px;
@@ -376,6 +398,8 @@
         font-weight: 700;
         margin-right: 10px;
         flex-shrink: 0;}
+    .kss-nb.green{background: #22c55e;}
+    .kss-nb.orange{background: #f97316;}
     .kss-sp{font-size: 13px;
         font-weight: 700;
         padding: 4px 14px;
@@ -538,6 +562,38 @@
         transition: all .15s;}
     .kss-reset-btn:hover{border-color: #ef4444;
         color: #ef4444;}
+
+    /* ============================================================
+       KSFA (GREEN) + NOMOGRAM (ORANGE) OVERRIDES
+       ============================================================ */
+    #panel-ksfa .status-bar{background-color: #f0fdf4;
+        border-color: #bbf7d0;}
+    #panel-ksfa .status-title h2{color: #14532d;}
+    #panel-ksfa .status-title p{color: #15803d;}
+    #panel-ksfa .kss-total-val{color: #14532d;}
+    #panel-nomo .status-bar{background-color: #fff7ed;
+        border-color: #fed7aa;}
+    #panel-nomo .status-title h2{color: #7c2d12;}
+    #panel-nomo .status-title p{color: #c2410c;}
+    #panel-nomo .kss-total-val{color: #7c2d12;}
+    .nomo-score-display{margin-top: 10px;
+        padding: 8px 12px;
+        background: #f9fafb;
+        border: 1px solid #f3f4f6;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #4b5563;
+        display: none;}
+    .nomo-score-display strong{color: #c2410c;}
+    .nomo-threshold{display: none;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;}
+    .nomo-threshold.poor{background: #fef2f2; color: #b91c1c; border: 1.5px solid #fecaca;}
+    .nomo-threshold.good{background: #f0fdf4; color: #15803d; border: 1.5px solid #bbf7d0;}
 
     /* ============================================================
        UPPER LIMB (TFCC + SL) SHARED STYLES  — default VIOLET theme
@@ -789,6 +845,54 @@
     #panel-sl .tfcc-qr-output h3{color: #831843;}
     #panel-sl .tfcc-until-box{background: #fdf2f8; border-color: #fbcfe8;}
 
+    /* ============================================================
+       STANDARD ROTATOR CUFF REPAIR TAB (SKY THEME)
+       ============================================================ */
+    #panel-rc .acl-input:focus{border-color: #0ea5e9;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);}
+    #panel-rc .acl-btn{background-color: #0369a1;}
+    #panel-rc .acl-btn:hover{background-color: #0c4a6e;}
+    #panel-rc .week-selector-bar{background-color: #e0f2fe;
+        border-color: #7dd3fc;}
+    #panel-rc .week-selector-bar label{color: #0c4a6e;}
+    #panel-rc .week-start-info strong{color: #0c4a6e;}
+    #panel-rc .status-bar{background-color: #f0f9ff;
+        border-color: #bae6fd;}
+    #panel-rc .status-title h2{color: #0c4a6e;}
+    #panel-rc .status-title p{color: #0369a1;}
+    #panel-rc .days-badge{color: #0369a1;
+        border-color: #7dd3fc;}
+    #panel-rc .tfcc-phase-pill{background: #0369a1;}
+    #panel-rc .ul-phase-start{border-color: #7dd3fc;}
+    #panel-rc .ul-phase-start strong{color: #0c4a6e;}
+    .rc-tenodesis{display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+        padding: 10px 14px;
+        background: #f0f9ff;
+        border: 1px solid #bae6fd;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #0c4a6e;
+        cursor: pointer;}
+    .rc-tenodesis input{transform: scale(1.3); accent-color: #0369a1; cursor: pointer; margin: 0;}
+    .rc-tenodesis small{font-weight: 400; color: #6b7280;}
+    .info-box li.rc-bt-item{background: #fef9c3;
+        border-radius: 4px;
+        padding: 2px 6px;}
+    .rc-bt-tag{display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        background: #fde68a;
+        color: #78350f;
+        padding: 1px 7px;
+        border-radius: 8px;
+        margin-left: 4px;
+        vertical-align: middle;
+        white-space: nowrap;}
+
     /* ===== UPPER LIMB PRINT SHEET (QR + phase + until date, Traditional Chinese) ===== */
     @media screen{#ulPrintSheet{display: none !important;}}
     @media print{
@@ -943,7 +1047,7 @@
             <span class="region-bar-label">Body Region</span>
             <button type="button" class="region-btn" data-region="ul">
                 💪 Upper Limb
-                <small>TFCC · SL</small>
+                <small>TFCC · SL · Rotator Cuff</small>
             </button>
             <button type="button" class="region-btn active" data-region="ll">
                 🦵 Lower Limb
@@ -951,7 +1055,7 @@
             </button>
             <button type="button" class="region-btn" data-region="om">
                 📊 Outcome Measures
-                <small>KSS</small>
+                <small>KSS · KSFA · Nomogram</small>
             </button>
         </div>
 
@@ -959,6 +1063,7 @@
         <div class="protocol-tabs" data-region="ul" role="tablist">
             <button type="button" class="protocol-tab active" data-target="panel-tfcc">TFCC (Conservative)</button>
             <button type="button" class="protocol-tab" data-target="panel-sl">SL Ligament (Conservative)</button>
+            <button type="button" class="protocol-tab" data-target="panel-rc">Standard Rotator Cuff Repair</button>
         </div>
 
         <!-- LOWER LIMB TABS -->
@@ -967,9 +1072,11 @@
             <button type="button" class="protocol-tab" data-target="panel-ta">TA Repair</button>
         </div>
 
-        <!-- OUTCOME MEASURE TABS (add more outcome measure tabs here later) -->
+        <!-- OUTCOME MEASURE TABS -->
         <div class="protocol-tabs" data-region="om" role="tablist">
             <button type="button" class="protocol-tab active" data-target="panel-kss">KSS (Knee Society Score)</button>
+            <button type="button" class="protocol-tab" data-target="panel-ksfa">KSFA (Function)</button>
+            <button type="button" class="protocol-tab" data-target="panel-nomo">Clinical Nomogram</button>
         </div>
 
         <!-- ===================== ACL PANEL (LL) ===================== -->
@@ -1252,6 +1359,160 @@
             </div>
         </div>
 
+        <!-- ===================== KSFA PANEL (OUTCOME MEASURES) ===================== -->
+        <div id="panel-ksfa" class="protocol-panel">
+            <div class="acl-header">
+                <h1>Knee Society Functional Assessment (KSFA)</h1>
+                <p>Functional knee scoring. Tap to score each domain — total auto-calculates out of 100.</p>
+            </div>
+
+            <div class="acl-output visible" style="display:block; padding: 24px;">
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2>KSFA Total</h2>
+                        <p id="ksfa-bd">Complete all items</p>
+                    </div>
+                    <div class="kss-total-display">
+                        <span class="kss-total-val" id="ksfa-totalVal">--</span>
+                        <span class="kss-total-max">/ 100</span>
+                    </div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb green">1</span>Walking</div>
+                        <span class="kss-sp mt" id="ksfa-s1">--</span>
+                    </div>
+                    <div class="kss-label">Select walking ability</div>
+                    <div class="kss-opt-list" id="ksfa-walking"></div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb green">2</span>Stairs</div>
+                        <span class="kss-sp mt" id="ksfa-s2">--</span>
+                    </div>
+                    <div class="kss-label">Select stair climbing ability</div>
+                    <div class="kss-opt-list" id="ksfa-stairs"></div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb green">3</span>Walking Aids</div>
+                        <span class="kss-sp mt" id="ksfa-s3">--</span>
+                    </div>
+                    <div class="kss-label">Select walking aid used</div>
+                    <div class="kss-opt-list" id="ksfa-aids"></div>
+                </div>
+
+                <div style="margin-top:18px;">
+                    <div class="copy-header">
+                        <span class="copy-label">📋 KSFA Notes</span>
+                        <button id="ksfa-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                    </div>
+                    <textarea id="ksfa-generatedText" class="generated-text" readonly placeholder="Notes will appear here once all items are completed..."></textarea>
+                </div>
+
+                <button class="kss-reset-btn" id="ksfa-resetBtn" type="button">🔄 Reset KSFA</button>
+            </div>
+        </div>
+
+        <!-- ===================== CLINICAL NOMOGRAM PANEL (OUTCOME MEASURES) ===================== -->
+        <div id="panel-nomo" class="protocol-panel">
+            <div class="acl-header">
+                <h1>Clinical Nomogram – Knee OA</h1>
+                <p>Predicts poor response to non-surgical management. Total score &gt; 19.5 = poor responder.</p>
+            </div>
+
+            <div class="acl-output visible" style="display:block; padding: 24px;">
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2>Nomogram Score</h2>
+                        <p id="nomo-bd">Complete all items</p>
+                    </div>
+                    <div class="kss-total-display">
+                        <span class="kss-total-val" id="nomo-totalVal">--</span>
+                        <span class="kss-total-max">(cut-off 19.5)</span>
+                    </div>
+                </div>
+
+                <div class="nomo-threshold" id="nomo-threshold"></div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb orange">1</span>XR Comments</div>
+                        <span class="kss-sp mt" id="nomo-s1">--</span>
+                    </div>
+                    <div class="kss-label">XR of symptomatic knee</div>
+                    <div class="kss-ticks" id="nomo-xr">
+                        <div class="kss-tick" data-val="0">Normal<small>0</small></div>
+                        <div class="kss-tick" data-val="2.5">Mild / KL1 / KL2<small>2.5</small></div>
+                        <div class="kss-tick" data-val="4.2">Mod / KL3<small>4.2</small></div>
+                        <div class="kss-tick" data-val="4.5">Severe / KL4<small>4.5</small></div>
+                    </div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb orange">2</span>Knee Alignment</div>
+                        <span class="kss-sp mt" id="nomo-s2">--</span>
+                    </div>
+                    <div class="kss-label">Select alignment type</div>
+                    <div class="kss-align-row" style="margin-bottom:12px;">
+                        <button type="button" class="kss-align-btn" id="nomo-varusBtn">Genu Varus</button>
+                        <button type="button" class="kss-align-btn" id="nomo-valgusBtn">Genu Valgus</button>
+                    </div>
+                    <div class="kss-label">Alignment angle</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="nomo-alignIn" placeholder="0" min="0" max="25" step="1">
+                        <span class="kss-unit">degrees</span>
+                    </div>
+                    <div class="nomo-score-display" id="nomo-alignDisplay">
+                        Chart lookup → <strong id="nomo-alignLookup">--</strong>
+                    </div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb orange">3</span>Expected Benefit</div>
+                        <span class="kss-sp mt" id="nomo-s3">--</span>
+                    </div>
+                    <div class="kss-label">Patient's expected benefit (0–10)</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="nomo-benefitIn" placeholder="0" min="0" max="10" step="0.1">
+                        <span class="kss-unit">score = 10 − input</span>
+                    </div>
+                </div>
+
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb orange">4</span>KOOS-ADL Subscore</div>
+                        <span class="kss-sp mt" id="nomo-s4">--</span>
+                    </div>
+                    <div class="kss-label">KOOS-ADL score (0–100)</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="nomo-koosIn" placeholder="0" min="0" max="100">
+                        <span class="kss-unit">→ converted score</span>
+                    </div>
+                    <div class="nomo-score-display" id="nomo-koosDisplay">
+                        Chart lookup → <strong id="nomo-koosLookup">--</strong>
+                    </div>
+                </div>
+
+                <div style="margin-top:18px;">
+                    <div class="copy-header">
+                        <span class="copy-label">📋 Nomogram Notes</span>
+                        <button id="nomo-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                    </div>
+                    <textarea id="nomo-generatedText" class="generated-text" readonly placeholder="Notes will appear here once all items are completed..."></textarea>
+                </div>
+
+                <button class="kss-reset-btn" id="nomo-resetBtn" type="button">🔄 Reset Nomogram</button>
+            </div>
+        </div>
+
         <!-- ===================== TFCC PANEL (UL) ===================== -->
         <div id="panel-tfcc" class="protocol-panel">
             <div id="tfccTool">
@@ -1518,12 +1779,94 @@
             </div>
         </div>
 
+        <!-- ===================== STANDARD ROTATOR CUFF REPAIR PANEL (UL) ===================== -->
+        <div id="panel-rc" class="protocol-panel">
+            <div class="acl-header">
+                <h1>PWH Physio Standard Rotator Cuff Repair Rehab Protocol</h1>
+                <p>Enter the operation date to generate goals, interventions, precautions and assessments for any post-op week.</p>
+            </div>
+
+            <div class="acl-input-section">
+                <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
+                <div class="acl-controls">
+                    <input type="text" id="rc-opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input" inputmode="numeric" autocomplete="off">
+                    <button id="rc-btnGenerate" class="acl-btn">Enter</button>
+                </div>
+                <label class="rc-tenodesis" for="rc-tenodesis">
+                    <input type="checkbox" id="rc-tenodesis">
+                    Biceps tenodesis performed
+                    <small>(shows tenodesis-specific items)</small>
+                </label>
+                <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
+                <p id="rc-dateError" class="acl-error">Invalid date format.</p>
+            </div>
+
+            <div id="rc-outputContainer" class="acl-output">
+                <div class="week-selector-bar">
+                    <label for="rc-weekSelector">View programme for:</label>
+                    <select id="rc-weekSelector"></select>
+                    <span class="week-start-info">
+                        First day of this week: <strong id="rc-weekStartDate">--</strong>
+                    </span>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2 id="rc-weekHeader">Post-Operation - Week</h2>
+                        <p id="rc-dayRange">Day range</p>
+                        <span class="tfcc-phase-pill" id="rc-phasePill">Phase</span>
+                        <span class="ul-phase-start">First day of this phase: <strong id="rc-phaseStartDate">--</strong></span>
+                    </div>
+                    <div class="days-badge">
+                        <span id="rc-daysPastBadge">0 Days Post-Op</span>
+                    </div>
+                </div>
+
+                <div class="tfcc-notes" id="rc-notes"><ul id="rc-notesList"></ul></div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="info-box box-green">
+                            <h3>Goals</h3>
+                            <ul id="rc-goalList"></ul>
+                        </div>
+                        <div class="info-box box-red">
+                            <h3>Precautions & ROM Limits</h3>
+                            <ul id="rc-precautionList"></ul>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3>Outcome Measures / Assessment</h3>
+                            <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
+                            <ul id="rc-outcomeList"></ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box box-indigo">
+                            <h3>Interventions</h3>
+                            <ul id="rc-interventionList"></ul>
+                        </div>
+                        <div>
+                            <div class="copy-header">
+                                <span class="copy-label">Generated Treatment Record Text</span>
+                                <button id="rc-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                            </div>
+                            <textarea id="rc-generatedText" class="generated-text" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="rc-emptyState" class="empty-state">
+                <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
+            </div>
+        </div>
+
     </div>
 
     <div id="aclToast" class="acl-toast"></div>
 </div>
 
-<!-- ===================== MAIN SCRIPT: ACL / TA / KSS / TABS ===================== -->
+<!-- ===================== MAIN SCRIPT: ACL / TA / RC / KSS / KSFA / NOMOGRAM / TABS ===================== -->
 <script data-skip-moving="true">
 (function(){
     /* ============================================================
@@ -1621,6 +1964,19 @@
                 .catch(function(){ fallbackCopy(copyTarget); });
         } else {
             fallbackCopy(copyTarget);
+        }
+    }
+
+    /* Score badge used by KSFA and Nomogram */
+    function setScoreBadge(id, val){
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (val === null || val === undefined){
+            el.textContent = '--';
+            el.className = 'kss-sp mt';
+        } else {
+            el.textContent = (typeof val === 'number') ? Math.round(val * 10) / 10 : val;
+            el.className = val < 0 ? 'kss-sp neg' : 'kss-sp pos';
         }
     }
 
@@ -2095,6 +2451,437 @@
     }
 
     /* ============================================================
+       STANDARD ROTATOR CUFF REPAIR TOOL
+       Items can be a plain string, or {t: "text", bt: true} for
+       items that only apply when biceps tenodesis was performed.
+       ============================================================ */
+    function initRCTool(){
+        var RC_MAX_WEEK = 52;
+        var RC_END_DAY = 365;
+
+        var rcPhases = [
+            {
+                phaseName: "Post-op 0-1 Week",
+                startDay: 0, endDay: 13,
+                goals: [
+                    "Maintain repair integrity",
+                    "Minimize pain and inflammation",
+                    "Normalize scapula position and mobility",
+                    "Initial staged PROM exercises (<15% supraspinatus EMG activity)",
+                    "Aim PROM F/Abd 60-90°, ER 0-20° at 20° Abd, IR to belly by 2 weeks"
+                ],
+                precautions: [
+                    "Avoid shoulder AROM exercise",
+                    "Avoid excessive stretching or sudden movements",
+                    "Avoid lifting/supporting of body weight by hands",
+                    "ADL: Avoid cloth donning with the affected limb",
+                    "Avoid clothing with small buttons, hooks or zips",
+                    "Ladies may prefer to wear a front fastening bra"
+                ],
+                outcomes: [
+                    "Check wound healing",
+                    "Pain levels (VAS)",
+                    "Sling fit and position"
+                ],
+                interventions: [
+                    "Arm sling in neutral position",
+                    "Pendulum exercise",
+                    "PROM F/Abd < 90°, ER < 20° at 20° Abd",
+                    "Self forward bow",
+                    "Self-assisted passive F with opposite hand",
+                    "Bar-assisted ER in supine/upright position",
+                    "Therapist assisted F in seated/side lying/supine",
+                    "Active scapula retraction & depression in side-lying",
+                    "Active neck mobilization exercise",
+                    "Elbow/wrist/finger mobilizing exercise",
+                    { t: "PROM for elbow only if bicep Tenodesis performed (allow AROM at 6 weeks)", bt: true },
+                    "Cryotherapy and electrotherapy for swelling control",
+                    "Manual soft-tissue techniques"
+                ]
+            },
+            {
+                phaseName: "Post-op 2 Weeks",
+                startDay: 14, endDay: 20,
+                goals: [
+                    "Progress staged PROM exercises (<15% supraspinatus EMG activity)",
+                    "Aim PROM F 90-120°, ER 20-30° at 20° Abd by 6 weeks"
+                ],
+                precautions: [
+                    "Continue previous precautions",
+                    "Sling use continues"
+                ],
+                outcomes: [
+                    "PROM measurements",
+                    "Scapular mobility check"
+                ],
+                interventions: [
+                    "PROM F < 120°, ER < 30° at 20° Abd",
+                    "Grade I & II shoulder girdle joints gliding (GH, SC, AC, ST)",
+                    "Continue previous appropriate exercises"
+                ]
+            },
+            {
+                phaseName: "Post-op 3-5 Weeks",
+                startDay: 21, endDay: 41,
+                goals: [
+                    "Initial AAROM exercises (<15% supraspinatus EMG activity)",
+                    "Aim AAROM F/Abd 60-90°, ER 0-20° at 20° of Abd by 6 weeks"
+                ],
+                precautions: [
+                    { t: "Delay elbow strengthening till 6 weeks if bicep tenodesis performed", bt: true }
+                ],
+                outcomes: [
+                    "Criteria to advance to Phase 2 (6 weeks): PROM F 90-120°, ER 20-30° at 20° Abd"
+                ],
+                interventions: [
+                    "AAROM F/Abd < 90°, ER < 30°",
+                    "Supine press up",
+                    "Supine active assisted ER",
+                    "Supine active assisted Abd",
+                    "Side-lying assisted active F",
+                    "Elbow/wrist/fingers light strengthening"
+                ]
+            },
+            {
+                phaseName: "Post-op 6-9 Weeks",
+                startDay: 42, endDay: 69,
+                goals: [
+                    "Regain full A/PROM in all direction (< 20% supraspinatus EMG activity)",
+                    "Restore stability, strength and scapular neuromuscular control",
+                    "Initiate light, non-repetitive muscle activities/ADL below chest level"
+                ],
+                precautions: [
+                    "Avoid active over-head lifting/ ADL",
+                    "Avoid sudden jerking movements",
+                    "Avoid supporting of body weight by hands",
+                    "Avoid cloth donning with the affected limb till 8 weeks"
+                ],
+                outcomes: [
+                    "ROM Assessment (A/PROM)",
+                    "Scapular control assessment"
+                ],
+                interventions: [
+                    "Full A/PROM as pain tolerated",
+                    "Inclined/seated press up",
+                    "Seated ER at 90° of Abd",
+                    "Towel slides at sagittal/ medial/ scapular plane",
+                    "Wall slides/ wall walks",
+                    "Ball roll",
+                    "Pulley",
+                    "Grade III & IV shoulder girdle joints gliding (GH, SC,AC, ST)",
+                    "Proprioception exercises",
+                    "Scapula and core strengthening",
+                    "Muscle re-education with ES in symmetrical pattern",
+                    "Light isometric/ isotonic ex (ER/IR/Ext)",
+                    "Light isotonic ex for shoulder ER in side lying (low-weight/high-rep)"
+                ]
+            },
+            {
+                phaseName: "Post-op 10-11 Weeks",
+                startDay: 70, endDay: 83,
+                goals: [
+                    "Regain full A/PROM in all direction",
+                    "Restore stability, strength and scapular neuromuscular control",
+                    "Initiate light, non-repetitive muscle activities/ADL below chest level"
+                ],
+                precautions: [
+                    "Avoid active over-head lifting/ ADL",
+                    "Avoid sudden jerking movements",
+                    "Avoid supporting of body weight by hands"
+                ],
+                outcomes: [
+                    "Criteria to advance to Phase 3 (12 weeks): PROM FF >140°, ER > 30° at 20° Abd, ER > 75° at 90° Abd",
+                    "AROM FF >120°",
+                    "Satisfactory posture/ scapular control"
+                ],
+                interventions: [
+                    "Continue Full A/PROM as pain tolerated",
+                    "Continue strengthening exercises from previous phase",
+                    "Grade III & IV shoulder girdle joints gliding",
+                    "Proprioception exercises",
+                    "Scapula and core strengthening",
+                    "Muscle re-education"
+                ]
+            },
+            {
+                phaseName: "Post-op 12-19 Weeks",
+                startDay: 84, endDay: 149,
+                goals: [
+                    "Optimize neuromuscular control",
+                    "Gradually restore strength, power and endurance",
+                    "Return to ADL/ work/ recreational activities that do not require heavy lifting"
+                ],
+                precautions: [
+                    "Avoid lifting of objects heavier than 15-20lbs",
+                    "Avoid sudden lifting, jerking or pushing activities",
+                    "Avoid uncontrolled movements"
+                ],
+                outcomes: [
+                    "Criteria to advance to Phase 4 (5 months): MMT > 4+/5",
+                    "Completed basic ADL and phase 3 strengthening with satisfactory dynamic stability",
+                    "Surgeon approval"
+                ],
+                interventions: [
+                    "Capsular stretching (corner, towel, cross-body, sleeper stretch)",
+                    "Aggressive strengthening",
+                    "Thera band x F/ER/IR/ throwing accelerate ex",
+                    "High, middle and low scapular rows",
+                    "OB pulley",
+                    "PNF pattern",
+                    "Body-blade ex",
+                    "Locked elbow extension for trapezius",
+                    "Press-up ex with dumbbell for serratus"
+                ]
+            },
+            {
+                phaseName: "Post-op 5-6 Months+",
+                startDay: 150, endDay: 365,
+                goals: [
+                    "Normalize muscular strength, power and endurance",
+                    "Returning to demanding functional activities",
+                    "Complete return to sports training"
+                ],
+                precautions: [
+                    "Avoid exercises that provide a large increase in load compared to previous exercises",
+                    "Avoid exercises significantly more stressful/ demanding than functional needs"
+                ],
+                outcomes: [
+                    "Termination Assessment (5-8 months): Surgeon clearance (UCLA/Constant-Murley score)",
+                    "Symmetrical scapula-thoracic mobility and strength",
+                    "Complete functional progression with minimal pain",
+                    "Return to Sport: Initiate interval sport program after successful 3-6 weeks of plyometric program"
+                ],
+                interventions: [
+                    "Advance strengthening (Gradual increase weight over 6-12 weeks)",
+                    "Multi push and lift machine",
+                    "Forward punch",
+                    "Dynamic hugs with OB pulley",
+                    "Prone ER x 90°",
+                    "Prone horizontal ABD x 90°",
+                    "Push-up/ push-up plus",
+                    "BTE Isokinetic training at 90/90°",
+                    "Activity specific training and technique modification",
+                    "Thrower ten Program",
+                    "Plyometric program"
+                ]
+            }
+        ];
+
+        var rcOpDate = null;
+        var rcDaysPast = 0;
+
+        function rcPhaseIndexForDay(d){
+            for (var i = 0; i < rcPhases.length; i++){
+                if (d >= rcPhases[i].startDay && d <= rcPhases[i].endDay) return i;
+            }
+            return rcPhases.length - 1;   // beyond 1 year -> last phase
+        }
+
+        function tenodesisOn(){
+            var cb = document.getElementById('rc-tenodesis');
+            return !!(cb && cb.checked);
+        }
+        function isBT(it){ return typeof it !== 'string' && it && it.bt; }
+        function itemText(it){ return typeof it === 'string' ? it : it.t; }
+        function visibleItems(items){
+            var on = tenodesisOn();
+            return (items || []).filter(function(it){ return !isBT(it) || on; });
+        }
+
+        function renderRCList(id, items, emptyMsg){
+            var list = document.getElementById(id);
+            if (!list) return;
+            list.innerHTML = '';
+            var vis = visibleItems(items);
+            if (!vis.length){
+                list.innerHTML = '<li style="color:#999; font-style:italic;">' + (emptyMsg || 'None specified') + '</li>';
+                return;
+            }
+            vis.forEach(function(it){
+                var li = document.createElement('li');
+                if (isBT(it)){
+                    li.className = 'rc-bt-item';
+                    li.appendChild(document.createTextNode(it.t + ' '));
+                    var tag = document.createElement('span');
+                    tag.className = 'rc-bt-tag';
+                    tag.textContent = 'Biceps tenodesis';
+                    li.appendChild(tag);
+                } else {
+                    li.textContent = itemText(it);
+                }
+                list.appendChild(li);
+            });
+        }
+
+        function rcMonthsText(date){
+            var months = calendarMonthsBetween(rcOpDate, date);
+            if (months < 1) return 'Less than 1 month post-op';
+            if (months === 1) return '1 month post-op';
+            return months + ' months post-op';
+        }
+
+        function rcTodayBadge(today){
+            var months = calendarMonthsBetween(rcOpDate, today);
+            if (months < 3) return 'Day ' + rcDaysPast + ' · Week ' + Math.floor(rcDaysPast / 7) + ' Post-Op (today)';
+            return 'Day ' + rcDaysPast + ' · Month ' + months + ' Post-Op (today)';
+        }
+
+        function populateRCWeekSelector(currentWeek){
+            var sel = document.getElementById('rc-weekSelector');
+            sel.innerHTML = '';
+            for (var i = 0; i <= RC_MAX_WEEK; i++){
+                var opt = document.createElement('option');
+                opt.value = i;
+                var label = 'Week ' + i;
+                var weekStart = new Date(rcOpDate);
+                weekStart.setDate(weekStart.getDate() + i * 7);
+                var months = calendarMonthsBetween(rcOpDate, weekStart);
+                if (months >= 3) label += ' / Month ' + months;
+                if (i === currentWeek) label += '  (current)';
+                opt.text = label;
+                if (i === currentWeek) opt.selected = true;
+                sel.appendChild(opt);
+            }
+        }
+
+        function renderRCWeek(weekNum){
+            if (!rcOpDate) return;
+            var weekStartDay = weekNum * 7;
+            var weekStart = new Date(rcOpDate);
+            weekStart.setDate(weekStart.getDate() + weekStartDay);
+
+            var currentWeek = Math.min(Math.floor(rcDaysPast / 7), RC_MAX_WEEK);
+            var isCurrent = (weekNum === currentWeek);
+            // Current week -> use today's exact day post-op; other weeks -> first day of that week
+            var dayUsed = isCurrent ? rcDaysPast : weekStartDay;
+            var idx = rcPhaseIndexForDay(dayUsed);
+            var ph = rcPhases[idx];
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            document.getElementById('rc-weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
+            document.getElementById('rc-weekHeader').innerText = 'Post-Operation Week ' + weekNum;
+            document.getElementById('rc-dayRange').innerText = '(Day ' + weekStartDay + '\u2013' + (weekStartDay + 6) + ' \u00B7 ' + rcMonthsText(weekStart) + ')';
+            document.getElementById('rc-daysPastBadge').innerText = rcTodayBadge(today);
+            document.getElementById('rc-phasePill').innerText = 'Phase ' + (idx + 1) + ': ' + ph.phaseName;
+
+            var phaseStart = new Date(rcOpDate);
+            phaseStart.setDate(phaseStart.getDate() + ph.startDay);
+            document.getElementById('rc-phaseStartDate').innerText = formatDateDDMMYYYY(phaseStart) + ' (Day ' + ph.startDay + ')';
+
+            // ---- Notes ----
+            var notes = [];
+            if (dayUsed > RC_END_DAY){
+                notes.push('Beyond 1-year protocol timeline (Day ' + dayUsed + ' post-op) \u2013 showing the last phase ("' + ph.phaseName + '").');
+            }
+            for (var j = 1; j < rcPhases.length; j++){
+                var s = rcPhases[j].startDay;
+                if (s > weekStartDay && s <= weekStartDay + 6){
+                    var sd = new Date(rcOpDate);
+                    sd.setDate(sd.getDate() + s);
+                    notes.push('Phase change within this week: "' + rcPhases[j].phaseName + '" starts on Day ' + s +
+                        ' (' + formatDateDDMMYYYY(sd) + '). Programme shown is based on ' +
+                        (isCurrent ? 'today (Day ' + rcDaysPast + ')' : 'the first day of this week (Day ' + weekStartDay + ')') + '.');
+                }
+            }
+            var notesBox = document.getElementById('rc-notes');
+            var notesList = document.getElementById('rc-notesList');
+            notesList.innerHTML = '';
+            notes.forEach(function(n){
+                var li = document.createElement('li');
+                li.textContent = n;
+                notesList.appendChild(li);
+            });
+            notesBox.style.display = notes.length ? 'block' : 'none';
+
+            // ---- Lists ----
+            renderRCList('rc-goalList', ph.goals);
+            renderRCList('rc-precautionList', ph.precautions, 'No additional precautions listed in protocol for this phase');
+            renderRCList('rc-outcomeList', ph.outcomes);
+            renderRCList('rc-interventionList', ph.interventions);
+
+            // ---- Record text ----
+            var interventions = visibleItems(ph.interventions).map(itemText);
+            var t = 'INTERVENTIONS:\n- ' + interventions.join('\n- ') + '\n\n';
+            if (tenodesisOn()){
+                var btPrec = (ph.precautions || []).filter(isBT).map(itemText);
+                if (btPrec.length) t += 'BICEPS TENODESIS PRECAUTIONS:\n- ' + btPrec.join('\n- ') + '\n\n';
+            }
+            t += 'Precautions given and contraindications checked for EPT';
+            document.getElementById('rc-generatedText').value = t;
+        }
+
+        function generateRCProtocol(){
+            var dateInputStr = document.getElementById('rc-opDate').value;
+            var errorMsg = document.getElementById('rc-dateError');
+            var match = dateInputStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+            if (!match){
+                errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            errorMsg.style.display = 'none';
+
+            var day = parseInt(match[1], 10);
+            var month = parseInt(match[2], 10) - 1;
+            var year = parseInt(match[3], 10);
+            var opDate = new Date(year, month, day);
+            var today = new Date();
+
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){
+                errorMsg.innerText = "Invalid calendar date.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            opDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            var daysPast = Math.floor((today - opDate) / (1000 * 60 * 60 * 24));
+
+            if (daysPast < 0){
+                errorMsg.innerText = "Operation date cannot be in the future.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            rcOpDate = opDate;
+            rcDaysPast = daysPast;
+            var currentWeek = Math.min(Math.floor(daysPast / 7), RC_MAX_WEEK);
+
+            document.getElementById('rc-emptyState').style.display = 'none';
+            var outputContainer = document.getElementById('rc-outputContainer');
+            outputContainer.classList.add('visible');
+            outputContainer.style.animation = 'none';
+            outputContainer.offsetHeight;
+            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
+
+            populateRCWeekSelector(currentWeek);
+            renderRCWeek(currentWeek);
+        }
+
+        var rcDateInput = document.getElementById('rc-opDate');
+        var rcBtnGenerate = document.getElementById('rc-btnGenerate');
+        var rcBtnCopy = document.getElementById('rc-btnCopy');
+        var rcWeekSelector = document.getElementById('rc-weekSelector');
+        var rcTenodesis = document.getElementById('rc-tenodesis');
+
+        if (rcDateInput){
+            rcDateInput.addEventListener('input', handleDateInput);
+            rcDateInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') generateRCProtocol(); });
+        }
+        if (rcBtnGenerate) rcBtnGenerate.addEventListener('click', generateRCProtocol);
+        if (rcBtnCopy) rcBtnCopy.addEventListener('click', function(){ copyFromTextarea('rc-generatedText'); });
+        if (rcWeekSelector){
+            rcWeekSelector.addEventListener('change', function(){ renderRCWeek(parseInt(rcWeekSelector.value, 10)); });
+        }
+        if (rcTenodesis){
+            rcTenodesis.addEventListener('change', function(){
+                if (rcOpDate) renderRCWeek(parseInt(rcWeekSelector.value, 10));
+            });
+        }
+    }
+
+    /* ============================================================
        KSS TOOL  (Knee Society Score)
        ============================================================ */
     function initKSSTool(){
@@ -2337,6 +3124,277 @@
     }
 
     /* ============================================================
+       KSFA TOOL  (Knee Society Functional Assessment)
+       ============================================================ */
+    function initKSFATool(){
+        var SF = { walking: null, stairs: null, aids: null };
+
+        var walkOpts = [{l:'Unlimited', s:50}, {l:'>60 minutes', s:40}, {l:'30–60 minutes', s:30}, {l:'<30 minutes', s:20}, {l:'Housebound', s:10}, {l:'Unable', s:0}];
+        var stairOpts = [{l:'Normal', s:50}, {l:'Normal up, down with rail', s:40}, {l:'Up & down with rail', s:30}, {l:'Up with rail, unable down', s:15}, {l:'Unable', s:0}];
+        var aidOpts = [{l:'Nil', s:0}, {l:'One stick', s:-5}, {l:'Two sticks', s:-10}, {l:'Crutches / Frame', s:-20}];
+
+        function buildOptList(containerId, opts, field, badgeId){
+            var c = document.getElementById(containerId);
+            opts.forEach(function(o){
+                var d = document.createElement('div');
+                d.className = 'kss-opt-item';
+                d.innerHTML = '<div class="kss-opt-left"><span class="kss-opt-dot"></span><span></span></div><span class="kss-opt-pts"></span>';
+                d.querySelector('.kss-opt-left span:last-child').textContent = o.l;
+                d.querySelector('.kss-opt-pts').textContent = o.s + ' pts';
+                d.addEventListener('click', function(){
+                    c.querySelectorAll('.kss-opt-item').forEach(function(x){ x.classList.remove('sel'); });
+                    d.classList.add('sel');
+                    SF[field] = o.s;
+                    setScoreBadge(badgeId, o.s);
+                    calcKSFA();
+                });
+                c.appendChild(d);
+            });
+        }
+
+        buildOptList('ksfa-walking', walkOpts, 'walking', 'ksfa-s1');
+        buildOptList('ksfa-stairs', stairOpts, 'stairs', 'ksfa-s2');
+        buildOptList('ksfa-aids', aidOpts, 'aids', 'ksfa-s3');
+
+        function calcKSFA(){
+            var items = [SF.walking, SF.stairs, SF.aids];
+            var names = ['Walking', 'Stairs', 'Aids'];
+            var filled = items.filter(function(x){ return x !== null; });
+            var bd = document.getElementById('ksfa-bd');
+            var tv = document.getElementById('ksfa-totalVal');
+            var ta = document.getElementById('ksfa-generatedText');
+
+            if (filled.length === 0){
+                tv.textContent = '--';
+                tv.style.opacity = '1';
+                bd.textContent = 'Complete all items';
+                ta.value = '';
+                return;
+            }
+            var sum = 0, parts = [];
+            items.forEach(function(v, i){
+                if (v !== null){
+                    sum += v;
+                    parts.push(names[i] + ': ' + (v >= 0 ? '+' : '') + v);
+                }
+            });
+            tv.textContent = Math.max(0, Math.min(100, sum));
+
+            if (filled.length === 3){
+                tv.style.opacity = '1';
+                bd.textContent = parts.join(' | ');
+                ta.value = buildKSFANotes();
+            } else {
+                tv.style.opacity = '.55';
+                bd.textContent = parts.join(' | ') + ' (incomplete)';
+                ta.value = '';
+            }
+        }
+
+        function buildKSFANotes(){
+            var t = Math.max(0, Math.min(100, SF.walking + SF.stairs + SF.aids));
+            return 'Knee Society Functional Assessment (Total 100)\n'
+                 + 'Walking: ' + SF.walking + '\n'
+                 + 'Stairs: ' + SF.stairs + '\n'
+                 + 'Aids: ' + SF.aids + '\n'
+                 + 'Total: ' + t;
+        }
+
+        document.getElementById('ksfa-resetBtn').addEventListener('click', function(){
+            Object.keys(SF).forEach(function(k){ SF[k] = null; });
+            document.querySelectorAll('#panel-ksfa .kss-opt-item').forEach(function(x){ x.classList.remove('sel'); });
+            ['ksfa-s1', 'ksfa-s2', 'ksfa-s3'].forEach(function(id){ setScoreBadge(id, null); });
+            calcKSFA();
+        });
+
+        document.getElementById('ksfa-btnCopy').addEventListener('click', function(){
+            var ta = document.getElementById('ksfa-generatedText');
+            if (!ta.value){ showToast('Complete all 3 items first.'); return; }
+            copyFromTextarea('ksfa-generatedText');
+        });
+
+        calcKSFA();
+    }
+
+    /* ============================================================
+       CLINICAL NOMOGRAM TOOL
+       Total > 19.5 = predicted poor response to non-surgical management
+       ============================================================ */
+    function initNomoTool(){
+        /* KOOS-ADL (0-100) -> nomogram points */
+        var funcData = [[0,8.2],[1,8.1],[3,8],[4,7.9],[6,7.7],[7,7.6],[9,7.5],[10,7.4],[12,7.2],[13,7.1],[15,7],[16,6.9],[18,6.7],[19,6.6],[21,6.5],[22,6.4],[24,6.2],[25,6.2],[26,6.1],[28,5.9],[29,5.8],[31,5.7],[32,5.6],[34,5.4],[35,5.3],[37,5.2],[38,5.1],[40,4.9],[41,4.8],[43,4.7],[44,4.6],[46,4.4],[47,4.3],[49,4.2],[50,4.1],[51,4],[53,3.9],[54,3.8],[56,3.6],[57,3.5],[59,3.4],[60,3.3],[62,3.1],[63,3],[65,2.9],[66,2.8],[68,2.6],[69,2.5],[71,2.4],[72,2.3],[74,2.1],[75,2.1],[76,2],[78,1.8],[79,1.7],[81,1.6],[82,1.5],[84,1.3],[85,1.2],[87,1.1],[88,1],[90,0.8],[91,0.7],[93,0.6],[94,0.5],[96,0.3],[97,0.2],[99,0.1],[100,0]];
+        /* Alignment angle (varus +, valgus -) -> nomogram points */
+        var alignNomoData = [[-25,0],[-24,0.2],[-23,0.4],[-22,0.6],[-21,0.8],[-20,1],[-19,1.2],[-18,1.4],[-17,1.6],[-16,1.7],[-15,1.9],[-14,2.1],[-13,2.3],[-12,2.5],[-11,2.7],[-10,2.9],[-9,3.1],[-8,3.3],[-7,3.5],[-6,3.7],[-5,3.9],[-4,4.1],[-3,4.3],[-2,4.5],[-1,4.7],[0,4.9],[1,5],[2,5.2],[3,5.4],[4,5.6],[5,5.8],[6,6],[7,6.2],[8,6.4],[9,6.6],[10,6.8],[11,7],[12,7.2],[13,7.4],[14,7.6],[15,7.8],[16,8],[17,8.1],[18,8.3],[19,8.5],[20,8.7],[21,8.9],[22,9.1],[23,9.3],[24,9.5],[25,9.7]];
+
+        function interp(data, val){
+            if (val <= data[0][0]) return data[0][1];
+            if (val >= data[data.length - 1][0]) return data[data.length - 1][1];
+            for (var i = 0; i < data.length - 1; i++){
+                if (val >= data[i][0] && val <= data[i + 1][0]){
+                    if (data[i + 1][0] === data[i][0]) return data[i][1];
+                    var t = (val - data[i][0]) / (data[i + 1][0] - data[i][0]);
+                    return Math.round((data[i][1] + t * (data[i + 1][1] - data[i][1])) * 10) / 10;
+                }
+            }
+            return data[data.length - 1][1];
+        }
+
+        var SN = { xr: null, alignDir: null, alignAngle: null, alignScore: null,
+                   benefitIn: null, benefitScore: null, koosIn: null, koosScore: null };
+
+        /* ----- XR ----- */
+        document.querySelectorAll('#nomo-xr .kss-tick').forEach(function(tick){
+            tick.addEventListener('click', function(){
+                document.querySelectorAll('#nomo-xr .kss-tick').forEach(function(t){ t.classList.remove('sel'); });
+                tick.classList.add('sel');
+                SN.xr = parseFloat(tick.getAttribute('data-val'));
+                setScoreBadge('nomo-s1', SN.xr);
+                calcNomo();
+            });
+        });
+
+        /* ----- Alignment ----- */
+        function pickAlignDir(dir){
+            SN.alignDir = dir;
+            document.getElementById('nomo-varusBtn').classList.toggle('sel', dir === 'varus');
+            document.getElementById('nomo-valgusBtn').classList.toggle('sel', dir === 'valgus');
+            calcAlign();
+            calcNomo();
+        }
+
+        function calcAlign(){
+            var inp = document.getElementById('nomo-alignIn');
+            var v = parseFloat(inp.value);
+            var disp = document.getElementById('nomo-alignDisplay');
+            var lk = document.getElementById('nomo-alignLookup');
+            if (isNaN(v) || inp.value === '' || SN.alignDir === null){
+                SN.alignAngle = null;
+                SN.alignScore = null;
+                disp.style.display = 'none';
+                setScoreBadge('nomo-s2', null);
+                return;
+            }
+            SN.alignAngle = v;
+            var cv = (SN.alignDir === 'valgus') ? -v : v;
+            SN.alignScore = interp(alignNomoData, cv);
+            disp.style.display = 'block';
+            lk.textContent = v + '\u00B0 ' + (SN.alignDir === 'valgus' ? 'Valgus' : 'Varus') + ' \u2192 ' + SN.alignScore;
+            setScoreBadge('nomo-s2', SN.alignScore);
+        }
+
+        document.getElementById('nomo-varusBtn').addEventListener('click', function(){ pickAlignDir('varus'); });
+        document.getElementById('nomo-valgusBtn').addEventListener('click', function(){ pickAlignDir('valgus'); });
+        document.getElementById('nomo-alignIn').addEventListener('input', function(){ calcAlign(); calcNomo(); });
+
+        /* ----- Expected benefit ----- */
+        document.getElementById('nomo-benefitIn').addEventListener('input', function(){
+            var v = parseFloat(this.value);
+            if (isNaN(v) || this.value === ''){ SN.benefitIn = null; SN.benefitScore = null; }
+            else { SN.benefitIn = v; SN.benefitScore = Math.round((10 - v) * 10) / 10; }
+            setScoreBadge('nomo-s3', SN.benefitScore);
+            calcNomo();
+        });
+
+        /* ----- KOOS-ADL ----- */
+        document.getElementById('nomo-koosIn').addEventListener('input', function(){
+            var v = parseFloat(this.value);
+            var disp = document.getElementById('nomo-koosDisplay');
+            var lk = document.getElementById('nomo-koosLookup');
+            if (isNaN(v) || this.value === ''){
+                SN.koosIn = null;
+                SN.koosScore = null;
+                disp.style.display = 'none';
+            } else {
+                SN.koosIn = v;
+                SN.koosScore = interp(funcData, v);
+                disp.style.display = 'block';
+                lk.textContent = 'KOOS-ADL ' + v + ' \u2192 ' + SN.koosScore;
+            }
+            setScoreBadge('nomo-s4', SN.koosScore);
+            calcNomo();
+        });
+
+        /* ----- Total ----- */
+        function calcNomo(){
+            var items = [SN.xr, SN.alignScore, SN.benefitScore, SN.koosScore];
+            var names = ['XR', 'Alignment', 'Benefit', 'KOOS-ADL'];
+            var filled = items.filter(function(x){ return x !== null; });
+            var bd = document.getElementById('nomo-bd');
+            var tv = document.getElementById('nomo-totalVal');
+            var ta = document.getElementById('nomo-generatedText');
+            var th = document.getElementById('nomo-threshold');
+
+            if (filled.length === 0){
+                tv.textContent = '--';
+                tv.style.opacity = '1';
+                bd.textContent = 'Complete all items';
+                ta.value = '';
+                th.style.display = 'none';
+                return;
+            }
+            var sum = 0, parts = [];
+            items.forEach(function(v, i){
+                if (v !== null){ sum += v; parts.push(names[i] + ': ' + v); }
+            });
+            var total = Math.round(sum * 10) / 10;
+            tv.textContent = total;
+
+            if (filled.length === 4){
+                tv.style.opacity = '1';
+                bd.textContent = parts.join(' | ');
+                ta.value = buildNomoNotes();
+                th.style.display = 'block';
+                if (total > 19.5){
+                    th.className = 'nomo-threshold poor';
+                    th.textContent = '\u26A0\uFE0F Score > 19.5 \u2014 Predicts poor response to non-surgical management';
+                } else {
+                    th.className = 'nomo-threshold good';
+                    th.textContent = '\u2713 Score \u2264 19.5 \u2014 May respond to non-surgical management';
+                }
+            } else {
+                tv.style.opacity = '.55';
+                bd.textContent = parts.join(' | ') + ' (incomplete)';
+                ta.value = '';
+                th.style.display = 'none';
+            }
+        }
+
+        function buildNomoNotes(){
+            var t = Math.round((SN.xr + SN.alignScore + SN.benefitScore + SN.koosScore) * 10) / 10;
+            return 'Clinical Nomogram for predicting Poor Response to non-surgical management\n'
+                 + 'Total score: ' + t + '\n'
+                 + '* > 19.5 as poor responders\n\n'
+                 + 'Subscores:\n'
+                 + '1. XR comments of symptomatic knee: ' + SN.xr + '\n'
+                 + '2. Knee Alignment angle score: ' + SN.alignScore + '\n'
+                 + '3. Patient\'s expected benefit: ' + SN.benefitScore + '\n'
+                 + '4. KOOs-ADL subscore: ' + SN.koosScore;
+        }
+
+        /* ----- Reset ----- */
+        document.getElementById('nomo-resetBtn').addEventListener('click', function(){
+            Object.keys(SN).forEach(function(k){ SN[k] = null; });
+            document.querySelectorAll('#nomo-xr .kss-tick').forEach(function(t){ t.classList.remove('sel'); });
+            document.getElementById('nomo-varusBtn').classList.remove('sel');
+            document.getElementById('nomo-valgusBtn').classList.remove('sel');
+            ['nomo-alignIn', 'nomo-benefitIn', 'nomo-koosIn'].forEach(function(id){ document.getElementById(id).value = ''; });
+            document.getElementById('nomo-alignDisplay').style.display = 'none';
+            document.getElementById('nomo-koosDisplay').style.display = 'none';
+            ['nomo-s1', 'nomo-s2', 'nomo-s3', 'nomo-s4'].forEach(function(id){ setScoreBadge(id, null); });
+            calcNomo();
+        });
+
+        /* ----- Copy ----- */
+        document.getElementById('nomo-btnCopy').addEventListener('click', function(){
+            var ta = document.getElementById('nomo-generatedText');
+            if (!ta.value){ showToast('Complete all 4 items first.'); return; }
+            copyFromTextarea('nomo-generatedText');
+        });
+
+        calcNomo();
+    }
+
+    /* ============================================================
        REGION + PROTOCOL TABS
        ============================================================ */
     function setupTabs(){
@@ -2385,11 +3443,23 @@
         activateRegion(initial ? initial.getAttribute('data-region') : 'll');
     }
 
+    /* Each tool starts independently – one error will not stop the others */
+    function safeRun(name, fn){
+        try { fn(); }
+        catch (err){
+            if (window.console && console.error) console.error(name + ' failed to start:', err);
+            showToast(name + ' failed to load: ' + (err && err.message ? err.message : err));
+        }
+    }
+
     function init(){
-        initACLTool();
-        initTATool();
-        initKSSTool();
-        setupTabs();
+        safeRun('ACL tool', initACLTool);
+        safeRun('TA tool', initTATool);
+        safeRun('Rotator Cuff tool', initRCTool);
+        safeRun('KSS tool', initKSSTool);
+        safeRun('KSFA tool', initKSFATool);
+        safeRun('Nomogram tool', initNomoTool);
+        safeRun('Tabs', setupTabs);
     }
 
     if (document.readyState === 'loading'){
@@ -2407,6 +3477,7 @@
     window.__ulDateFmtLoaded = true;
 
     // Add new date-field IDs here when adding more upper limb protocols
+    // (the Rotator Cuff date field is handled by the main script)
     var DATE_IDS = {
         tfccInjuryDate: true, tfccUntilDate: true,
         slInjuryDate: true,   slUntilDate: true
@@ -2433,10 +3504,10 @@
      <script data-skip-moving="true"> ...QRCode library code... </script>
      (Only ONE copy is needed – it is shared by TFCC and SL.)
      ===================================================================== -->
+
   <script>
 var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],d=0,e=this.data.length;e>d;d++){var f=this.data.charCodeAt(d);f>65536?(b[0]=240|(1835008&f)>>>18,b[1]=128|(258048&f)>>>12,b[2]=128|(4032&f)>>>6,b[3]=128|63&f):f>2048?(b[0]=224|(61440&f)>>>12,b[1]=128|(4032&f)>>>6,b[2]=128|63&f):f>128?(b[0]=192|(1984&f)>>>6,b[1]=128|63&f):b[0]=f,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function i(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=new Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function j(a,b){this.totalCount=a,this.dataCount=b}function k(){this.buffer=[],this.length=0}function m(){return"undefined"!=typeof CanvasRenderingContext2D}function n(){var a=!1,b=navigator.userAgent;return/android/i.test(b)&&(a=!0,aMat=b.toString().match(/android ([0-9]\.[0-9])/i),aMat&&aMat[1]&&(a=parseFloat(aMat[1]))),a}function r(a,b){for(var c=1,e=s(a),f=0,g=l.length;g>=f;f++){var h=0;switch(b){case d.L:h=l[f][0];break;case d.M:h=l[f][1];break;case d.Q:h=l[f][2];break;case d.H:h=l[f][3]}if(h>=e)break;c++}if(c>l.length)throw new Error("Too long data");return c}function s(a){var b=encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g,"a");return b.length+(b.length!=a?3:0)}a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}},b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=f.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){var d=a.createEmptyMovieClip(b,c),e=1;this.make();for(var f=0;f<this.modules.length;f++)for(var g=f*e,h=0;h<this.modules[f].length;h++){var i=h*e,j=this.modules[f][h];j&&(d.beginFill(0,100),d.moveTo(i,g),d.lineTo(i+e,g),d.lineTo(i+e,g+e),d.lineTo(i,g+e),d.endFill())}return d},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(var b=8;b<this.moduleCount-8;b++)null==this.modules[6][b]&&(this.modules[6][b]=0==b%2)},setupPositionAdjustPattern:function(){for(var a=f.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var g=-2;2>=g;g++)for(var h=-2;2>=h;h++)this.modules[d+g][e+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h?!0:!1}},setupTypeNumber:function(a){for(var b=f.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=f.getBCHTypeInfo(c),e=0;15>e;e++){var g=!a&&1==(1&d>>e);6>e?this.modules[e][8]=g:8>e?this.modules[e+1][8]=g:this.modules[this.moduleCount-15+e][8]=g}for(var e=0;15>e;e++){var g=!a&&1==(1&d>>e);8>e?this.modules[8][this.moduleCount-e-1]=g:9>e?this.modules[8][15-e-1+1]=g:this.modules[8][15-e-1]=g}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,g=0,h=this.moduleCount-1;h>0;h-=2)for(6==h&&h--;;){for(var i=0;2>i;i++)if(null==this.modules[d][h-i]){var j=!1;g<a.length&&(j=1==(1&a[g]>>>e));var k=f.getMask(b,d,h-i);k&&(j=!j),this.modules[d][h-i]=j,e--,-1==e&&(g++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},b.PAD0=236,b.PAD1=17,b.createData=function(a,c,d){for(var e=j.getRSBlocks(a,c),g=new k,h=0;h<d.length;h++){var i=d[h];g.put(i.mode,4),g.put(i.getLength(),f.getLengthInBits(i.mode,a)),i.write(g)}for(var l=0,h=0;h<e.length;h++)l+=e[h].dataCount;if(g.getLengthInBits()>8*l)throw new Error("code length overflow. ("+g.getLengthInBits()+">"+8*l+")");for(g.getLengthInBits()+4<=8*l&&g.put(0,4);0!=g.getLengthInBits()%8;)g.putBit(!1);for(;;){if(g.getLengthInBits()>=8*l)break;if(g.put(b.PAD0,8),g.getLengthInBits()>=8*l)break;g.put(b.PAD1,8)}return b.createBytes(g,e)},b.createBytes=function(a,b){for(var c=0,d=0,e=0,g=new Array(b.length),h=new Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k;d=Math.max(d,k),e=Math.max(e,l),g[j]=new Array(k);for(var m=0;m<g[j].length;m++)g[j][m]=255&a.buffer[m+c];c+=k;var n=f.getErrorCorrectPolynomial(l),o=new i(g[j],n.getLength()-1),p=o.mod(n);h[j]=new Array(n.getLength()-1);for(var m=0;m<h[j].length;m++){var q=m+p.getLength()-h[j].length;h[j][m]=q>=0?p.get(q):0}}for(var r=0,m=0;m<b.length;m++)r+=b[m].totalCount;for(var s=new Array(r),t=0,m=0;d>m;m++)for(var j=0;j<b.length;j++)m<g[j].length&&(s[t++]=g[j][m]);for(var m=0;e>m;m++)for(var j=0;j<b.length;j++)m<h[j].length&&(s[t++]=h[j][m]);return s};for(var c={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},d={L:1,M:0,Q:3,H:2},e={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},f={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;f.getBCHDigit(b)-f.getBCHDigit(f.G15)>=0;)b^=f.G15<<f.getBCHDigit(b)-f.getBCHDigit(f.G15);return(a<<10|b)^f.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;f.getBCHDigit(b)-f.getBCHDigit(f.G18)>=0;)b^=f.G18<<f.getBCHDigit(b)-f.getBCHDigit(f.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return f.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case e.PATTERN000:return 0==(b+c)%2;case e.PATTERN001:return 0==b%2;case e.PATTERN010:return 0==c%3;case e.PATTERN011:return 0==(b+c)%3;case e.PATTERN100:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case e.PATTERN101:return 0==b*c%2+b*c%3;case e.PATTERN110:return 0==(b*c%2+b*c%3)%2;case e.PATTERN111:return 0==(b*c%3+(b+c)%2)%2;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new i([1],0),c=0;a>c;c++)b=b.multiply(new i([1,g.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case c.MODE_NUMBER:return 10;case c.MODE_ALPHA_NUM:return 9;case c.MODE_8BIT_BYTE:return 8;case c.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case c.MODE_NUMBER:return 12;case c.MODE_ALPHA_NUM:return 11;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case c.MODE_NUMBER:return 14;case c.MODE_ALPHA_NUM:return 13;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(var e=0;b>e;e++)for(var d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(var k=0,e=0;b>e;e++)for(var d=0;b>d;d++)a.isDark(d,e)&&k++;var l=Math.abs(100*k/b/b-50)/5;return c+=10*l}},g={glog:function(a){if(1>a)throw new Error("glog("+a+")");return g.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return g.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)},h=0;8>h;h++)g.EXP_TABLE[h]=1<<h;for(var h=8;256>h;h++)g.EXP_TABLE[h]=g.EXP_TABLE[h-4]^g.EXP_TABLE[h-5]^g.EXP_TABLE[h-6]^g.EXP_TABLE[h-8];for(var h=0;255>h;h++)g.LOG_TABLE[g.EXP_TABLE[h]]=h;i.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=g.gexp(g.glog(this.get(c))+g.glog(a.get(d)));return new i(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;for(var b=g.glog(this.get(0))-g.glog(a.get(0)),c=new Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(var d=0;d<a.getLength();d++)c[d]^=g.gexp(g.glog(a.get(d))+b);return new i(c,0).mod(a)}},j.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],j.getRSBlocks=function(a,b){var c=j.getRsBlockTable(a,b);if(void 0==c)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,e=[],f=0;d>f;f++)for(var g=c[3*f+0],h=c[3*f+1],i=c[3*f+2],k=0;g>k;k++)e.push(new j(h,i));return e},j.getRsBlockTable=function(a,b){switch(b){case d.L:return j.RS_BLOCK_TABLE[4*(a-1)+0];case d.M:return j.RS_BLOCK_TABLE[4*(a-1)+1];case d.Q:return j.RS_BLOCK_TABLE[4*(a-1)+2];case d.H:return j.RS_BLOCK_TABLE[4*(a-1)+3];default:return void 0}},k.prototype={get:function(a){var b=Math.floor(a/8);return 1==(1&this.buffer[b]>>>7-a%8)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(1&a>>>b-c-1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var l=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],[586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],[929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],[1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],[1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],[2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]],o=function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){function g(a,b){var c=document.createElementNS("http://www.w3.org/2000/svg",a);for(var d in b)b.hasOwnProperty(d)&&c.setAttribute(d,b[d]);return c}var b=this._htOption,c=this._el,d=a.getModuleCount();Math.floor(b.width/d),Math.floor(b.height/d),this.clear();var h=g("svg",{viewBox:"0 0 "+String(d)+" "+String(d),width:"100%",height:"100%",fill:b.colorLight});h.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),c.appendChild(h),h.appendChild(g("rect",{fill:b.colorDark,width:"1",height:"1",id:"template"}));for(var i=0;d>i;i++)for(var j=0;d>j;j++)if(a.isDark(i,j)){var k=g("use",{x:String(i),y:String(j)});k.setAttributeNS("http://www.w3.org/1999/xlink","href","#template"),h.appendChild(k)}},a.prototype.clear=function(){for(;this._el.hasChildNodes();)this._el.removeChild(this._el.lastChild)},a}(),p="svg"===document.documentElement.tagName.toLowerCase(),q=p?o:m()?function(){function a(){this._elImage.src=this._elCanvas.toDataURL("image/png"),this._elImage.style.display="block",this._elCanvas.style.display="none"}function d(a,b){var c=this;if(c._fFail=b,c._fSuccess=a,null===c._bSupportDataURI){var d=document.createElement("img"),e=function(){c._bSupportDataURI=!1,c._fFail&&_fFail.call(c)},f=function(){c._bSupportDataURI=!0,c._fSuccess&&c._fSuccess.call(c)};return d.onabort=e,d.onerror=e,d.onload=f,d.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",void 0}c._bSupportDataURI===!0&&c._fSuccess?c._fSuccess.call(c):c._bSupportDataURI===!1&&c._fFail&&c._fFail.call(c)}if(this._android&&this._android<=2.1){var b=1/window.devicePixelRatio,c=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(a,d,e,f,g,h,i,j){if("nodeName"in a&&/img/i.test(a.nodeName))for(var l=arguments.length-1;l>=1;l--)arguments[l]=arguments[l]*b;else"undefined"==typeof j&&(arguments[1]*=b,arguments[2]*=b,arguments[3]*=b,arguments[4]*=b);c.apply(this,arguments)}}var e=function(a,b){this._bIsPainted=!1,this._android=n(),this._htOption=b,this._elCanvas=document.createElement("canvas"),this._elCanvas.width=b.width,this._elCanvas.height=b.height,a.appendChild(this._elCanvas),this._el=a,this._oContext=this._elCanvas.getContext("2d"),this._bIsPainted=!1,this._elImage=document.createElement("img"),this._elImage.style.display="none",this._el.appendChild(this._elImage),this._bSupportDataURI=null};return e.prototype.draw=function(a){var b=this._elImage,c=this._oContext,d=this._htOption,e=a.getModuleCount(),f=d.width/e,g=d.height/e,h=Math.round(f),i=Math.round(g);b.style.display="none",this.clear();for(var j=0;e>j;j++)for(var k=0;e>k;k++){var l=a.isDark(j,k),m=k*f,n=j*g;c.strokeStyle=l?d.colorDark:d.colorLight,c.lineWidth=1,c.fillStyle=l?d.colorDark:d.colorLight,c.fillRect(m,n,f,g),c.strokeRect(Math.floor(m)+.5,Math.floor(n)+.5,h,i),c.strokeRect(Math.ceil(m)-.5,Math.ceil(n)-.5,h,i)}this._bIsPainted=!0},e.prototype.makeImage=function(){this._bIsPainted&&d.call(this,a)},e.prototype.isPainted=function(){return this._bIsPainted},e.prototype.clear=function(){this._oContext.clearRect(0,0,this._elCanvas.width,this._elCanvas.height),this._bIsPainted=!1},e.prototype.round=function(a){return a?Math.floor(1e3*a)/1e3:a},e}():function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){for(var b=this._htOption,c=this._el,d=a.getModuleCount(),e=Math.floor(b.width/d),f=Math.floor(b.height/d),g=['<table style="border:0;border-collapse:collapse;">'],h=0;d>h;h++){g.push("<tr>");for(var i=0;d>i;i++)g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+e+"px;height:"+f+"px;background-color:"+(a.isDark(h,i)?b.colorDark:b.colorLight)+';"></td>');g.push("</tr>")}g.push("</table>"),c.innerHTML=g.join("");var j=c.childNodes[0],k=(b.width-j.offsetWidth)/2,l=(b.height-j.offsetHeight)/2;k>0&&l>0&&(j.style.margin=l+"px "+k+"px")},a.prototype.clear=function(){this._el.innerHTML=""},a}();QRCode=function(a,b){if(this._htOption={width:256,height:256,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:d.H},"string"==typeof b&&(b={text:b}),b)for(var c in b)this._htOption[c]=b[c];"string"==typeof a&&(a=document.getElementById(a)),this._android=n(),this._el=a,this._oQRCode=null,this._oDrawing=new q(this._el,this._htOption),this._htOption.text&&this.makeCode(this._htOption.text)},QRCode.prototype.makeCode=function(a){this._oQRCode=new b(r(a,this._htOption.correctLevel),this._htOption.correctLevel),this._oQRCode.addData(a),this._oQRCode.make(),this._el.title=a,this._oDrawing.draw(this._oQRCode),this.makeImage()},QRCode.prototype.makeImage=function(){"function"==typeof this._oDrawing.makeImage&&(!this._android||this._android>=3)&&this._oDrawing.makeImage()},QRCode.prototype.clear=function(){this._oDrawing.clear()},QRCode.CorrectLevel=d}();
     </script>
-
 
 <!-- ===================== END QR CODE LIBRARY ===================== -->
 
