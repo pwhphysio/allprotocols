@@ -1,0 +1,1727 @@
+<section class="landing-block g-pt-0 g-pb-0 g-pl-0 g-pr-0">
+
+<style>
+    .acl-tool-wrapper{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #333;
+        line-height: 1.5;
+        box-sizing: border-box;
+        background-color: #faf8f4;
+        padding: 20px;
+        border-radius: 12px;}.acl-tool-wrapper *{box-sizing: border-box;}.acl-card{max-width: 900px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+        border: 1px solid #ece9e2;}/* ---------- TABS ---------- */
+    .protocol-tabs{display: flex;
+        background-color: #f5f4f0;
+        border-bottom: 1px solid #e7e5e0;
+        padding: 0;
+        gap: 0;
+        flex-wrap: wrap;}.protocol-tab{flex: 1;
+        min-width: 120px;
+        padding: 16px 12px;
+        background-color: transparent;
+        color: #78716c;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        border-bottom: 3px solid transparent;
+        letter-spacing: 0.01em;}.protocol-tab:hover{background-color: #ebe9e3;
+        color: #44403c;}.protocol-tab.active{background-color: #ffffff;
+        font-weight: 600;}.protocol-tab.active[data-target="panel-acl"]{color: #0f766e;
+        border-bottom-color: #14b8a6;}.protocol-tab.active[data-target="panel-ta"]{color: #b45309;
+        border-bottom-color: #f59e0b;}.protocol-tab.active[data-target="panel-meniscus"]{color: #4d7c0f;
+        border-bottom-color: #84cc16;}.protocol-tab.active[data-target="panel-kss"]{color: #1d4ed8;
+        border-bottom-color: #3b82f6;}.protocol-panel{display: none;}.protocol-panel.active{display: block;}/* ---------- HEADER ---------- */
+    .acl-header{padding: 26px 24px 24px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        border-left: 5px solid #14b8a6;
+        background-color: #f0fdfa;
+        color: #134e4a;}.acl-header h1{margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        color: #134e4a;
+        letter-spacing: -0.01em;}.acl-header p{margin: 8px 0 0 0;
+        color: #0f766e;
+        font-size: 14px;}#panel-ta .acl-header{background-color: #fffbeb;
+        border-left-color: #f59e0b;}#panel-ta .acl-header h1{color: #78350f;}#panel-ta .acl-header p{color: #b45309;}#panel-meniscus .acl-header{background-color: #f7fee7;
+        border-left-color: #84cc16;}#panel-meniscus .acl-header h1{color: #365314;}#panel-meniscus .acl-header p{color: #4d7c0f;}#panel-kss .acl-header{background-color: #eff6ff;
+        border-left-color: #3b82f6;}#panel-kss .acl-header h1{color: #1e3a8a;}#panel-kss .acl-header p{color: #1d4ed8;}/* ---------- INPUT SECTION ---------- */
+    .acl-input-section{padding: 24px;
+        border-bottom: 1px solid #e5e7eb;
+        background-color: #ffffff;}.acl-label{display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;}.acl-controls{display: flex; gap: 12px; flex-wrap: wrap;}.acl-input{flex-grow: 1;
+        padding: 12px;
+        border: 1px solid #d6d3d0;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: monospace;
+        min-width: 200px;
+        background-color: #faf8f4;
+        transition: border-color 0.2s, box-shadow 0.2s;}.acl-input:focus{outline: none;
+        border-color: #14b8a6;
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+        background-color: #ffffff;}.acl-btn{background-color: #0f766e;
+        color: white;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;}.acl-btn:hover{background-color: #134e4a;}.acl-helper-text{font-size: 12px; color: #78716c; margin-top: 8px;}.acl-error{color: #dc2626; font-size: 12px; margin-top: 4px; display: none;}/* ---------- TA panel amber overrides ---------- */
+    #panel-ta .acl-input:focus{border-color: #f59e0b;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);}#panel-ta .acl-btn{background-color: #b45309;}#panel-ta .acl-btn:hover{background-color: #78350f;}#panel-ta .week-selector-bar{background-color: #fef3c7;
+        border-color: #fcd34d;}#panel-ta .week-selector-bar label{color: #78350f;}#panel-ta .status-bar{background-color: #fffbeb;
+        border-color: #fde68a;}#panel-ta .status-title h2{color: #78350f;}#panel-ta .status-title p{color: #b45309;}#panel-ta .days-badge{color: #b45309;
+        border-color: #fcd34d;}#panel-ta .week-start-info strong{color: #78350f;}/* ---------- Meniscus panel lime-green overrides ---------- */
+    #panel-meniscus .acl-input:focus{border-color: #84cc16;
+        box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.15);}#panel-meniscus .acl-btn{background-color: #4d7c0f;}#panel-meniscus .acl-btn:hover{background-color: #365314;}#panel-meniscus .week-selector-bar{background-color: #ecfccb;
+        border-color: #d9f99d;}#panel-meniscus .week-selector-bar label{color: #365314;}#panel-meniscus .status-bar{background-color: #f7fee7;
+        border-color: #d9f99d;}#panel-meniscus .status-title h2{color: #365314;}#panel-meniscus .status-title p{color: #4d7c0f;}#panel-meniscus .days-badge{color: #4d7c0f;
+        border-color: #d9f99d;}#panel-meniscus .week-start-info strong{color: #365314;}.acl-output{padding: 24px; display: none;}.acl-output.visible{display: block; animation: fadeIn 0.5s ease-in-out;}/* Week selector */
+    .week-selector-bar{background-color: #fefce8;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 14px 16px;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;}.week-selector-bar label{font-size: 13px;
+        font-weight: 600;
+        color: #78350f;}.week-selector-bar select{padding: 8px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: white;
+        cursor: pointer;}.week-start-info{font-size: 13px;
+        color: #374151;}.week-start-info strong{color: #134e4a;}.status-bar{background-color: #f0fdfa;
+        border: 1px solid #ccfbf1;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;}.status-title h2{margin: 0; color: #134e4a; font-size: 20px;}.status-title p{margin: 4px 0 0 0; color: #0f766e; font-weight: 500;}.days-badge{background-color: white;
+        color: #0f766e;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid #99f6e4;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);}/* Brace status banner (Meniscus) */
+    .brace-status-banner{background-color: #fef3c7;
+        border: 1px solid #fcd34d;
+        border-left: 4px solid #d97706;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #78350f;}.brace-status-banner .brace-label{font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background-color: #d97706;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;}.info-grid{display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;}@media (max-width: 768px){.info-grid{grid-template-columns: 1fr;}}.info-box{padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border-left-width: 4px;
+        border-left-style: solid;}.info-box h3{margin-top: 0; margin-bottom: 12px; font-size: 16px; font-weight: bold;}.info-box ul{margin: 0; padding-left: 20px; font-size: 14px;}.info-box li{margin-bottom: 4px;}.box-green{background-color: #f0fdf4; border-left-color: #22c55e;}.box-green h3{color: #14532d;}.box-red{background-color: #fef2f2; border-left-color: #ef4444;}.box-red h3{color: #7f1d1d;}.box-purple{background-color: #faf5ff; border-left-color: #a855f7;}.box-purple h3{color: #581c87;}.box-indigo{background-color: #eef2ff; border-left-color: #6366f1;}.box-indigo h3{color: #312e81;}.box-amber{background-color: #fffbeb; border-left-color: #f59e0b;}.box-amber h3{color: #78350f;}.criteria-content{font-size: 14px;}.criteria-content .criteria-heading{font-weight: 600;
+        color: #78350f;
+        margin-top: 8px;
+        margin-bottom: 4px;}.criteria-content .criteria-heading:first-child{margin-top: 0;}.criteria-content ul{margin: 0 0 8px 0;
+        padding-left: 20px;}.criteria-content ul:last-child{margin-bottom: 0;}.copy-header{display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;}.copy-label{font-size: 14px; font-weight: bold; color: #374151;}.btn-copy-small{font-size: 12px;
+        background-color: #e5e7eb;
+        border: none;
+        padding: 4px 12px;
+        border-radius: 4px;
+        cursor: pointer;}.btn-copy-small:hover{background-color: #d1d5db;}textarea.generated-text{width: 100%;
+        height: 200px;
+        padding: 12px;
+        font-family: monospace;
+        font-size: 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background-color: #f9fafb;
+        resize: vertical;}.empty-state{padding: 48px; text-align: center; color: #9ca3af;}.placeholder-state{padding: 80px 30px;
+        text-align: center;
+        color: #6b7280;}.placeholder-state h2{color: #374151; margin-bottom: 10px;}@keyframes fadeIn{from{opacity: 0; transform: translateY(10px);}to{opacity: 1; transform: translateY(0);}}.acl-toast{position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background-color: #0f766e;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 9999;
+        pointer-events: none;}.acl-toast.show{opacity: 1;
+        transform: translateX(-50%) translateY(0);}/* ============================================================
+       KSS TAB STYLES (BLUE THEME)
+       ============================================================ */
+    #panel-kss .status-bar{background-color: #eff6ff;
+        border-color: #bfdbfe;
+        padding: 18px 20px;}#panel-kss .status-title h2{color: #1e3a8a;}#panel-kss .status-title p{color: #1d4ed8;
+        font-size: 13px;
+        font-weight: 500;}.kss-total-display{display: flex;
+        align-items: baseline;
+        gap: 4px;
+        flex-shrink: 0;}.kss-total-val{font-size: 36px;
+        font-weight: 700;
+        line-height: 1;
+        color: #1e3a8a;
+        transition: opacity .3s;}.kss-total-max{font-size: 16px;
+        color: #6b7280;
+        font-weight: 500;}.kss-section-card{background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 14px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);}.kss-card-header{display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;}.kss-card-title{display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 15px;
+        color: #1f2937;}.kss-nb{width: 24px;
+        height: 24px;
+        background: #3b82f6;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        margin-right: 10px;
+        flex-shrink: 0;}.kss-sp{font-size: 13px;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 16px;
+        min-width: 50px;
+        text-align: center;
+        transition: all .2s;}.kss-sp.mt{background: #f3f4f6; color: #9ca3af;}.kss-sp.pos{background: #eff6ff; color: #1d4ed8;}.kss-sp.neg{background: #fef2f2; color: #b91c1c;}.kss-label{font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 8px;
+        font-weight: 500;}.kss-nprs-row{display: grid;
+        grid-template-columns: repeat(11, 1fr);
+        gap: 5px;}.kss-nprs-btn{aspect-ratio: 1;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .15s;
+        color: #4b5563;
+        font-family: inherit;
+        padding: 0;}.kss-nprs-btn:hover{border-color: #93c5fd;}.kss-nprs-btn.on{color: #fff;
+        border-color: transparent;
+        transform: scale(1.05);}.kss-nprs-btn.on.g{background: #16a34a;}.kss-nprs-btn.on.lg{background: #84cc16; color: #1f2937;}.kss-nprs-btn.on.y{background: #eab308;}.kss-nprs-btn.on.o{background: #f97316;}.kss-nprs-btn.on.r{background: #ef4444;}@media (max-width: 480px){.kss-nprs-row{gap: 3px;}.kss-nprs-btn{font-size: 12px; border-radius: 6px;}}.kss-coll{max-height: 0;
+        overflow: hidden;
+        transition: max-height .35s ease;}.kss-coll.show{max-height: 500px;}.kss-coll-inner{padding-top: 14px;
+        margin-top: 14px;
+        border-top: 1px solid #f3f4f6;}.kss-opt-list{display: flex; flex-direction: column; gap: 8px;}.kss-opt-item{display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all .15s;
+        font-size: 14px;
+        background: #fff;}.kss-opt-item:hover{border-color: #93c5fd;}.kss-opt-item.sel{border-color: #3b82f6;
+        background: #eff6ff;}.kss-opt-left{display: flex; align-items: center;}.kss-opt-dot{width: 16px;
+        height: 16px;
+        border: 2px solid #d1d5db;
+        border-radius: 50%;
+        margin-right: 10px;
+        position: relative;
+        flex-shrink: 0;}.kss-opt-item.sel .kss-opt-dot{border-color: #3b82f6;}.kss-opt-item.sel .kss-opt-dot::after{content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 8px;
+        height: 8px;
+        background: #3b82f6;
+        border-radius: 50%;}.kss-opt-pts{font-size: 13px;
+        color: #9ca3af;
+        font-weight: 600;
+        white-space: nowrap;
+        margin-left: 8px;}.kss-opt-item.sel .kss-opt-pts{color: #3b82f6;}.kss-input-row{display: flex; align-items: center; gap: 10px;}.kss-ninput{width: 110px;
+        padding: 10px 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+        outline: none;
+        font-family: inherit;
+        background: #fff;
+        transition: border-color .2s;
+        -moz-appearance: textfield;}.kss-ninput::-webkit-outer-spin-button,
+    .kss-ninput::-webkit-inner-spin-button{-webkit-appearance: none;
+        margin: 0;}.kss-ninput:focus{border-color: #3b82f6;}.kss-unit{font-size: 14px; color: #6b7280;}.kss-ticks{display: flex; flex-wrap: wrap; gap: 8px;}.kss-tick{flex: 1;
+        min-width: 70px;
+        padding: 10px 6px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all .15s;
+        font-size: 13px;
+        line-height: 1.3;
+        background: #fff;}.kss-tick:hover{border-color: #93c5fd;}.kss-tick.sel{border-color: #3b82f6;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 600;}.kss-tick small{display: block;
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 3px;
+        font-weight: 600;}.kss-tick.sel small{color: #3b82f6;}.kss-sub-title{font-size: 13px;
+        font-weight: 600;
+        color: #4b5563;
+        margin: 14px 0 8px 0;}.kss-sub-title:first-child{margin-top: 0;}.kss-align-row{display: flex; gap: 10px;}.kss-align-btn{flex: 1;
+        padding: 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all .15s;
+        text-align: center;
+        font-family: inherit;
+        color: #374151;}.kss-align-btn:hover{border-color: #93c5fd;}.kss-align-btn.sel{border-color: #3b82f6;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 600;}.kss-reset-btn{display: block;
+        margin: 20px auto 5px auto;
+        padding: 10px 24px;
+        background: #fff;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 14px;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all .15s;}.kss-reset-btn:hover{border-color: #ef4444;
+        color: #ef4444;}</style>
+
+<div class="acl-tool-wrapper">
+    <div class="acl-card">
+
+        <!-- ============ POST-OT CALCULATOR (insert right after <div class="acl-card">) ============ -->
+<div class="pot-bar">
+    <div class="pot-row">
+        <div class="pot-title">🗓️ Post-OT Calculator</div>
+        <div class="pot-modes">
+            <button type="button" class="pot-mode-btn active" data-mode="normal">Normal</button>
+            <button type="button" class="pot-mode-btn" data-mode="hand">Hand OT</button>
+        </div>
+        <input type="text" class="pot-date" id="pot-date" placeholder="dd/mm/yyyy" maxlength="10">
+        <span class="pot-chip empty" id="pot-result">Enter OT date</span>
+        <span class="pot-next" id="pot-next"></span>
+        <button type="button" class="pot-calbtn" id="pot-calbtn">📅 Calendar</button>
+    </div>
+    <div class="pot-error" id="pot-error">Invalid date.</div>
+
+    <div class="pot-cal" id="pot-cal">
+        <div class="pot-cal-head">
+            <button type="button" class="pot-cal-nav" id="pot-prev">‹</button>
+            <span class="pot-cal-title" id="pot-cal-title"></span>
+            <button type="button" class="pot-cal-nav" id="pot-next-m">›</button>
+        </div>
+        <div class="pot-cal-grid" id="pot-cal-dow"></div>
+        <div class="pot-cal-grid" id="pot-cal-body"></div>
+        <div class="pot-cal-legend">
+            <span class="pot-legend-item"><span class="pot-dot" style="background:#0f766e;"></span>OT date</span>
+            <span class="pot-legend-item"><span class="pot-dot" style="background:#fff;outline:2px solid #3b82f6;"></span>Today</span>
+            <span class="pot-legend-item"><span class="pot-dot" style="background:#14b8a6;"></span>Week start</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pot-bar{background-color:#f0fdfa;border-bottom:1px solid #ccfbf1;padding:14px 20px;}.pot-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}.pot-title{display:flex;align-items:center;gap:8px;font-weight:700;color:#134e4a;font-size:15px;white-space:nowrap;}.pot-modes{display:inline-flex;border:1px solid #99f6e4;border-radius:8px;overflow:hidden;background:#fff;}.pot-mode-btn{padding:8px 14px;border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:600;color:#0f766e;font-family:inherit;transition:background-color .15s,color .15s;}.pot-mode-btn:not(.active):hover{background-color:#ccfbf1;}.pot-mode-btn.active{background-color:#0f766e;color:#fff;}.pot-date{padding:9px 12px;border:1px solid #99f6e4;border-radius:8px;font-family:monospace;font-size:14px;background-color:#fff;width:130px;color:#134e4a;}.pot-date:focus{outline:none;border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.15);}.pot-chip{background-color:#0f766e;color:#fff;font-weight:700;padding:8px 16px;border-radius:999px;font-size:14px;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.08);}.pot-chip.empty{background-color:#e5e7eb;color:#9ca3af;box-shadow:none;}.pot-next{font-size:13px;color:#0f766e;}.pot-next strong{color:#134e4a;}.pot-calbtn{margin-left:auto;background-color:#fff;border:1px solid #99f6e4;border-radius:8px;padding:8px 12px;cursor:pointer;color:#0f766e;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:background-color .15s;}.pot-calbtn:hover{background-color:#ccfbf1;}.pot-error{color:#dc2626;font-size:12px;margin-top:8px;display:none;}.pot-cal{margin-top:14px;background-color:#fff;border:1px solid #ccfbf1;border-radius:10px;padding:14px;max-width:340px;display:none;box-shadow:0 2px 6px rgba(0,0,0,.05);}.pot-cal.show{display:block;animation:potFade .25s ease;}@keyframes potFade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}.pot-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}.pot-cal-nav{border:none;background-color:#f0fdfa;border-radius:6px;width:30px;height:30px;cursor:pointer;color:#0f766e;font-size:18px;font-weight:700;line-height:1;font-family:inherit;}.pot-cal-nav:hover{background-color:#ccfbf1;}.pot-cal-title{font-weight:700;color:#134e4a;font-size:14px;}.pot-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}.pot-cal-dow{text-align:center;font-size:11px;font-weight:700;color:#9ca3af;padding:4px 0;}.pot-cal-cell{height:36px;display:flex;align-items:center;justify-content:center;font-size:13px;border-radius:8px;color:#374151;position:relative;}.pot-cal-cell.muted{color:transparent;}.pot-cal-cell.today{outline:2px solid #3b82f6;}.pot-cal-cell.wkstart::after{content:'';position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background-color:#14b8a6;}.pot-cal-cell.ot{background-color:#0f766e;color:#fff;font-weight:700;}.pot-cal-cell.ot.wkstart::after{background-color:#fff;}.pot-cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:#6b7280;}.pot-legend-item{display:flex;align-items:center;gap:5px;}.pot-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}@media (max-width:600px){.pot-calbtn{margin-left:0;}.pot-next{flex-basis:100%;}}</style>
+
+<script data-skip-moving="true">
+(function(){function pad(n){return String(n).padStart(2,'0');}function fmt(d){return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();}var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+    var otDate=null, mode='normal', calMonth=new Date(), calOpen=false;
+    var elDate, elResult, elNext, elError, elCal, elTitle, elBody, elDow, elCalBtn;
+
+    function parse(str){var m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
+        if(!m) return null;
+        var d=+m[1], mo=+m[2]-1, y=+m[3];
+        var dt=new Date(y,mo,d);
+        if(dt.getFullYear()!==y||dt.getMonth()!==mo||dt.getDate()!==d) return null;
+        dt.setHours(0,0,0,0);
+        return dt;}function autoFormat(e){var input=e.target;
+        if(e.inputType==='deleteContentBackward') return;
+        var v=input.value.replace(/\D/g,'');
+        if(v.length>=2) v=v.slice(0,2)+'/'+v.slice(2);
+        if(v.length>=5) v=v.slice(0,5)+'/'+v.slice(5);
+        input.value=v.slice(0,10);}function compute(){if(!otDate){elResult.textContent='Enter OT date';
+            elResult.className='pot-chip empty';
+            elNext.innerHTML='';
+            return;}var today=new Date(); today.setHours(0,0,0,0);
+        var days=Math.floor((today-otDate)/86400000);
+        if(days<0){elResult.textContent='Future date';
+            elResult.className='pot-chip empty';
+            elNext.innerHTML='';
+            return;}var weeks=Math.floor(days/7);
+        var result, next;
+        if(mode==='hand'){result='Post OT W'+(weeks+1);
+            next='Post OT W'+(weeks+2);}else{result=(weeks<1)?('Post OT D'+days):('Post OT '+weeks+'/52');
+            next='Post OT '+(weeks+1)+'/52';}var nextStart=new Date(otDate);
+        nextStart.setDate(nextStart.getDate()+(weeks+1)*7);
+
+        elResult.textContent=result;
+        elResult.className='pot-chip';
+        elNext.innerHTML='Day '+days+' post-OT &nbsp;·&nbsp; Next ('+next+') starts <strong>'+fmt(nextStart)+'</strong>';}function renderCal(){if(!calMonth) calMonth=new Date();
+        var y=calMonth.getFullYear(), mo=calMonth.getMonth();
+        elTitle.textContent=MONTHS[mo]+' '+y;
+        elDow.innerHTML=DOW.map(function(d){return '<div class="pot-cal-dow">'+d+'</div>';}).join('');
+
+        var start=new Date(y,mo,1).getDay();
+        var dim=new Date(y,mo+1,0).getDate();
+        var today=new Date(); today.setHours(0,0,0,0);
+
+        var html='';
+        for(var i=0;i<start;i++) html+='<div class="pot-cal-cell muted"></div>';
+        for(var d=1;d<=dim;d++){var cell=new Date(y,mo,d); cell.setHours(0,0,0,0);
+            var cls='pot-cal-cell', title='';
+            if(otDate){var diff=Math.floor((cell-otDate)/86400000);
+                if(diff===0){cls+=' ot'; title='OT date';}if(diff>0 && diff%7===0){cls+=' wkstart';
+                    var wk=diff/7;
+                    title=(mode==='hand')?('Start of Post OT W'+(wk+1)):('Start of Post OT '+wk+'/52');}}if(cell.getTime()===today.getTime()) cls+=' today';
+            html+='<div class="'+cls+'" title="'+title+'">'+d+'</div>';}elBody.innerHTML=html;}function init(){elDate=document.getElementById('pot-date');
+        elResult=document.getElementById('pot-result');
+        elNext=document.getElementById('pot-next');
+        elError=document.getElementById('pot-error');
+        elCal=document.getElementById('pot-cal');
+        elTitle=document.getElementById('pot-cal-title');
+        elBody=document.getElementById('pot-cal-body');
+        elDow=document.getElementById('pot-cal-dow');
+        elCalBtn=document.getElementById('pot-calbtn');
+        if(!elDate) return;
+
+        elDate.addEventListener('input',function(e){autoFormat(e);
+            var dt=parse(elDate.value);
+            if(dt){otDate=dt;
+                calMonth=new Date(dt.getFullYear(),dt.getMonth(),1);
+                elError.style.display='none';
+                compute();
+                if(calOpen) renderCal();}else{otDate=null;
+                compute();
+                elError.style.display=(elDate.value.length===10)?'block':'none';}});
+
+        document.querySelectorAll('.pot-mode-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pot-mode-btn').forEach(function(x){x.classList.remove('active');});
+                b.classList.add('active');
+                mode=b.dataset.mode;
+                compute();
+                if(calOpen) renderCal();});});
+
+        elCalBtn.addEventListener('click',function(){calOpen=!calOpen;
+            elCal.classList.toggle('show',calOpen);
+            if(calOpen) renderCal();});
+        document.getElementById('pot-prev').addEventListener('click',function(){calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()-1,1); renderCal();});
+        document.getElementById('pot-next-m').addEventListener('click',function(){calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+1,1); renderCal();});
+
+        compute();}if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+    else init();})();
+</script>
+<!-- ============ END POST-OT CALCULATOR ============ -->
+
+        <!-- TABS -->
+        <div class="protocol-tabs" role="tablist">
+            <button class="protocol-tab active" data-target="panel-acl">ACL Reconstruction</button>
+            <button class="protocol-tab" data-target="panel-ta">TA Repair</button>
+            <button class="protocol-tab" data-target="panel-meniscus">Meniscus Repair</button>
+            <button class="protocol-tab" data-target="panel-kss">KSS</button>
+        </div>
+
+        <!-- ACL PANEL -->
+        <div id="panel-acl" class="protocol-panel active">
+            <div class="acl-header">
+                <h1>PWH Physio ACL Reconstruction Rehab Protocol</h1>
+                <p>Enter the operation date to generate goals, interventions, and precautions for any post-op week.</p>
+            </div>
+
+            <div class="acl-input-section">
+                <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
+                <div class="acl-controls">
+                    <input type="text" id="opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input">
+                    <button id="btnGenerate" class="acl-btn">Enter</button>
+                </div>
+                <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
+                <p id="dateError" class="acl-error">Invalid date format.</p>
+            </div>
+
+            <div id="outputContainer" class="acl-output">
+
+                <div class="week-selector-bar">
+                    <label for="weekSelector">View programme for:</label>
+                    <select id="weekSelector"></select>
+                    <span class="week-start-info">
+                        First day of this week: <strong id="weekStartDate">--</strong>
+                    </span>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2 id="weekHeader">Post-Operation - Week</h2>
+                        <p id="dayRange">Day range</p>
+                    </div>
+                    <div class="days-badge">
+                        <span id="daysPastBadge">0 Days Post-Op</span>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="info-box box-green">
+                            <h3>Goals</h3>
+                            <ul id="goalList"></ul>
+                        </div>
+                        <div class="info-box box-red">
+                            <h3>Precautions & ROM Limits</h3>
+                            <ul id="precautionList"></ul>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3>Outcome Measures / Assessment</h3>
+                            <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
+                            <ul id="outcomeList"></ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box box-indigo">
+                            <h3>Interventions</h3>
+                            <ul id="interventionList"></ul>
+                        </div>
+                        <div>
+                            <div class="copy-header">
+                                <span class="copy-label">Generated Treatment Record Text</span>
+                                <button id="btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                            </div>
+                            <textarea id="generatedText" class="generated-text" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
+            </div>
+        </div>
+
+        <!-- TA REPAIR PANEL -->
+        <div id="panel-ta" class="protocol-panel">
+            <div class="acl-header">
+                <h1>PWH Physio Tendo Achilles Repair Protocol</h1>
+                <p>Enter the operation date to generate goals, interventions, precautions, and progression criteria for any post-op week.</p>
+            </div>
+
+            <div class="acl-input-section">
+                <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
+                <div class="acl-controls">
+                    <input type="text" id="ta-opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input">
+                    <button id="ta-btnGenerate" class="acl-btn">Enter</button>
+                </div>
+                <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
+                <p id="ta-dateError" class="acl-error">Invalid date format.</p>
+            </div>
+
+            <div id="ta-outputContainer" class="acl-output">
+
+                <div class="week-selector-bar">
+                    <label for="ta-weekSelector">View programme for:</label>
+                    <select id="ta-weekSelector"></select>
+                    <span class="week-start-info">
+                        First day of this week: <strong id="ta-weekStartDate">--</strong>
+                    </span>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2 id="ta-weekHeader">Post-Operation - Week</h2>
+                        <p id="ta-dayRange">Day range</p>
+                    </div>
+                    <div class="days-badge">
+                        <span id="ta-daysPastBadge">0 Days Post-Op</span>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="info-box box-green">
+                            <h3>Goals</h3>
+                            <ul id="ta-goalList"></ul>
+                        </div>
+                        <div class="info-box box-red">
+                            <h3>Precautions & ROM Limits</h3>
+                            <ul id="ta-precautionList"></ul>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3>Outcome Measures / Assessment</h3>
+                            <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
+                            <ul id="ta-outcomeList"></ul>
+                        </div>
+                        <div id="ta-criteriaBox" class="info-box box-amber" style="display:none;">
+                            <h3>Criteria to Progress</h3>
+                            <div id="ta-criteriaContent" class="criteria-content"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box box-indigo">
+                            <h3>Interventions</h3>
+                            <ul id="ta-interventionList"></ul>
+                        </div>
+                        <div>
+                            <div class="copy-header">
+                                <span class="copy-label">Generated Treatment Record Text</span>
+                                <button id="ta-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                            </div>
+                            <textarea id="ta-generatedText" class="generated-text" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ta-emptyState" class="empty-state">
+                <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
+            </div>
+        </div>
+
+        <!-- MENISCUS REPAIR PANEL -->
+        <div id="panel-meniscus" class="protocol-panel">
+            <div class="acl-header">
+                <h1>PWH Physio Meniscus Repair Protocol (Arthroscopic)</h1>
+                <p>Enter the operation date to generate brace status, goals, interventions, precautions, and progression criteria for any post-op week.</p>
+            </div>
+
+            <div class="acl-input-section">
+                <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
+                <div class="acl-controls">
+                    <input type="text" id="men-opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input">
+                    <button id="men-btnGenerate" class="acl-btn">Enter</button>
+                </div>
+                <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
+                <p id="men-dateError" class="acl-error">Invalid date format.</p>
+            </div>
+
+            <div id="men-outputContainer" class="acl-output">
+
+                <div class="week-selector-bar">
+                    <label for="men-weekSelector">View programme for:</label>
+                    <select id="men-weekSelector"></select>
+                    <span class="week-start-info">
+                        First day of this week: <strong id="men-weekStartDate">--</strong>
+                    </span>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2 id="men-weekHeader">Post-Operation - Week</h2>
+                        <p id="men-dayRange">Day range</p>
+                    </div>
+                    <div class="days-badge">
+                        <span id="men-daysPastBadge">0 Days Post-Op</span>
+                    </div>
+                </div>
+
+                <div id="men-braceStatus" class="brace-status-banner">
+                    <span class="brace-label">Brace / WB Status</span>
+                    <span id="men-braceText">--</span>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="info-box box-green">
+                            <h3>Goals</h3>
+                            <ul id="men-goalList"></ul>
+                        </div>
+                        <div class="info-box box-red">
+                            <h3>Precautions & ROM Limits</h3>
+                            <ul id="men-precautionList"></ul>
+                        </div>
+                        <div class="info-box box-purple">
+                            <h3>Outcome Measures / Assessment</h3>
+                            <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
+                            <ul id="men-outcomeList"></ul>
+                        </div>
+                        <div id="men-criteriaBox" class="info-box box-amber" style="display:none;">
+                            <h3>Criteria to Progress</h3>
+                            <div id="men-criteriaContent" class="criteria-content"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box box-indigo">
+                            <h3>Interventions</h3>
+                            <ul id="men-interventionList"></ul>
+                        </div>
+                        <div>
+                            <div class="copy-header">
+                                <span class="copy-label">Generated Treatment Record Text</span>
+                                <button id="men-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                            </div>
+                            <textarea id="men-generatedText" class="generated-text" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="men-emptyState" class="empty-state">
+                <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
+            </div>
+        </div>
+
+        <!-- ===================== KSS PANEL ===================== -->
+        <div id="panel-kss" class="protocol-panel">
+            <div class="acl-header">
+                <h1>Knee Society Score (KSS)</h1>
+                <p>Clinical knee scoring assessment. Tap to score each domain — total auto-calculates out of 100.</p>
+            </div>
+
+            <div class="acl-output visible" style="display:block; padding: 24px;">
+
+                <!-- Total status banner at top -->
+                <div class="status-bar">
+                    <div class="status-title">
+                        <h2>KSS Total</h2>
+                        <p id="kss-bd">Complete all items</p>
+                    </div>
+                    <div class="kss-total-display">
+                        <span class="kss-total-val" id="kss-totalVal">--</span>
+                        <span class="kss-total-max">/ 100</span>
+                    </div>
+                </div>
+
+                <!-- Card 1: Pain -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">1</span>Pain</div>
+                        <span class="kss-sp mt" id="kss-s1">--</span>
+                    </div>
+                    <div class="kss-label">NPRS Score (0–10)</div>
+                    <div class="kss-nprs-row" id="kss-nprsRow"></div>
+                    <div class="kss-coll" id="kss-painCol">
+                        <div class="kss-coll-inner">
+                            <div class="kss-label" id="kss-painSubLbl">Select pain description:</div>
+                            <div class="kss-opt-list" id="kss-painOpts"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: PROM (Flexion) -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">2</span>PROM (Flexion)</div>
+                        <span class="kss-sp mt" id="kss-s2">--</span>
+                    </div>
+                    <div class="kss-label">Passive Flexion ROM</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="kss-romIn" placeholder="0" min="0" max="160">
+                        <span class="kss-unit">degrees</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Stability -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">3</span>Stability</div>
+                        <span class="kss-sp mt" id="kss-s3">--</span>
+                    </div>
+                    <div class="kss-sub-title">Anteroposterior</div>
+                    <div class="kss-ticks" id="kss-apT">
+                        <div class="kss-tick" data-grp="ap" data-val="10">< 5 mm<small>10 pts</small></div>
+                        <div class="kss-tick" data-grp="ap" data-val="5">5–10 mm<small>5 pts</small></div>
+                        <div class="kss-tick" data-grp="ap" data-val="0">> 10 mm<small>0 pts</small></div>
+                    </div>
+                    <div class="kss-sub-title">Mediolateral</div>
+                    <div class="kss-ticks" id="kss-mlT">
+                        <div class="kss-tick" data-grp="ml" data-val="15">< 5°<small>15 pts</small></div>
+                        <div class="kss-tick" data-grp="ml" data-val="10">6–9°<small>10 pts</small></div>
+                        <div class="kss-tick" data-grp="ml" data-val="5">10–14°<small>5 pts</small></div>
+                        <div class="kss-tick" data-grp="ml" data-val="0">> 14°<small>0 pts</small></div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Flexion Contracture -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">4</span>Flexion Contracture</div>
+                        <span class="kss-sp mt" id="kss-s4">--</span>
+                    </div>
+                    <div class="kss-label">Extension Lack (degrees)</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="kss-fcIn" placeholder="0" min="0" max="90">
+                        <span class="kss-unit">degrees</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: Extension Lag -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">5</span>Extension Lag</div>
+                        <span class="kss-sp mt" id="kss-s5">--</span>
+                    </div>
+                    <div class="kss-label">Extension Lag (degrees)</div>
+                    <div class="kss-input-row">
+                        <input type="number" class="kss-ninput" id="kss-elIn" placeholder="0" min="0" max="90">
+                        <span class="kss-unit">degrees</span>
+                    </div>
+                </div>
+
+                <!-- Card 6: Alignment -->
+                <div class="kss-section-card">
+                    <div class="kss-card-header">
+                        <div class="kss-card-title"><span class="kss-nb">6</span>Alignment</div>
+                        <span class="kss-sp mt" id="kss-s6">--</span>
+                    </div>
+                    <div class="kss-label">Select alignment type</div>
+                    <div class="kss-align-row">
+                        <button type="button" class="kss-align-btn" id="kss-varusBtn" data-align="varus">Genu Varus</button>
+                        <button type="button" class="kss-align-btn" id="kss-valgusBtn" data-align="valgus">Genu Valgus</button>
+                    </div>
+                    <div class="kss-coll" id="kss-valgusCol">
+                        <div class="kss-coll-inner">
+                            <div class="kss-label">Valgus Angle</div>
+                            <div class="kss-input-row">
+                                <input type="number" class="kss-ninput" id="kss-valIn" placeholder="0" min="0" max="30">
+                                <span class="kss-unit">degrees</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes / Copy -->
+                <div style="margin-top:18px;">
+                    <div class="copy-header">
+                        <span class="copy-label">📋 KSS Notes</span>
+                        <button id="kss-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                    </div>
+                    <textarea id="kss-generatedText" class="generated-text" readonly placeholder="Notes will appear here once all items are completed..."></textarea>
+                </div>
+
+                <!-- Reset -->
+                <button class="kss-reset-btn" id="kss-resetBtn" type="button">🔄 Reset KSS</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="aclToast" class="acl-toast"></div>
+</div>
+
+<script data-skip-moving="true">
+(function(){/* ============================================================
+       SHARED HELPERS
+       ============================================================ */
+    function formatDateDDMMYYYY(dateObj){var day = String(dateObj.getDate()).padStart(2, '0');
+        var month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        var year = dateObj.getFullYear();
+        return day + '/' + month + '/' + year;}function calendarMonthsBetween(fromDate, toDate){var months = (toDate.getFullYear() - fromDate.getFullYear()) * 12
+                     + (toDate.getMonth() - fromDate.getMonth());
+        if (toDate.getDate() < fromDate.getDate()) months -= 1;
+        if (months < 0) months = 0;
+        return months;}function handleDateInput(e){var input = e.target;
+        if (e.inputType === 'deleteContentBackward') return;
+        var value = input.value.replace(/\D/g, '');
+        if (value.length >= 2) value = value.slice(0, 2) + '/' + value.slice(2);
+        if (value.length >= 5) value = value.slice(0, 5) + '/' + value.slice(5);
+        input.value = value.slice(0, 10);}function showToast(message){var toast = document.getElementById('aclToast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(function(){toast.classList.remove('show');}, 2500);}function renderList(elementId, items){var list = document.getElementById(elementId);
+        if (!list) return;
+        list.innerHTML = '';
+        if (!items || items.length === 0){list.innerHTML = '<li style="color:#999; font-style:italic;">None specified</li>';
+            return;}items.forEach(function(item){var li = document.createElement('li');
+            li.innerText = item;
+            list.appendChild(li);});}function renderCriteria(containerId, boxId, items){var box = document.getElementById(boxId);
+        var container = document.getElementById(containerId);
+        if (!container || !box) return;
+        container.innerHTML = '';
+        if (!items || items.length === 0){box.style.display = 'none';
+            return;}box.style.display = '';
+        var ul = null;
+        items.forEach(function(item){if (typeof item === 'string' && item.trim().endsWith(':')){ul = null;
+                var heading = document.createElement('div');
+                heading.className = 'criteria-heading';
+                heading.innerText = item;
+                container.appendChild(heading);}else{if (!ul){ul = document.createElement('ul');
+                    container.appendChild(ul);}var li = document.createElement('li');
+                li.innerText = item;
+                ul.appendChild(li);}});}function fallbackCopy(el){try{el.select();
+            var ok = document.execCommand('copy');
+            if (ok) showToast("Copied to clipboard!");
+            else showToast("Could not copy. Please select text and press Ctrl+C.");}catch (err){showToast("Could not copy. Please select text and press Ctrl+C.");}}function copyFromTextarea(elId){var copyTarget = document.getElementById(elId);
+        copyTarget.select();
+        copyTarget.setSelectionRange(0, 99999);
+        if (navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(copyTarget.value)
+                .then(function(){showToast("Copied to clipboard!");})
+                .catch(function(){fallbackCopy(copyTarget);});}else{fallbackCopy(copyTarget);}}/* ============================================================
+       ACL TOOL
+       ============================================================ */
+    function initACLTool(){var protocolData ={0:{goals:["Protect graft fixation", "Swelling control", "Begin quadriceps recruitment", "Maintenance of hip & ankle muscle"],
+                interventions:["Partial weight bearing as tolerated with 2 crutches", "Passive patella mobilization", "Frequent ice and tubigrips", "Game Ready/PEMF+ice for knee joint swelling control", "Frequent elevation in full knee extension", "Active knee mobilization exercise (0-90°)", "Isometric quadriceps + co-contraction of hamstrings", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction"],
+                precautions:["PWB with 2 crutches", "ROM limited 0-90°"],
+                outcomes:["Check: Knee swelling", "Check: Knee ROM (Target 0-90°)", "Check: Quad recruitment"]},
+            1:{goals:["Protect graft fixation", "Swelling control", "Begin quadriceps recruitment", "Maintenance of hip & ankle muscle"],
+                interventions:["Partial weight bearing as tolerated with 2 crutches", "Game Ready/PEMF+ice for knee joint swelling control", "Passive patella mobilization", "Frequent ice and tubigrips", "Frequent elevation, foot on pillow to full extension", "Active knee mobilization exercise (0-90°)", "Isometric quadriceps + co-contraction of hamstrings", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction"],
+                precautions:["PWB with 2 crutches", "ROM limited 0-90°"],
+                outcomes:["Check: Knee swelling", "Check: Knee ROM (Target 0-90°)", "Check: Quad recruitment"]},
+            2:{goals:["Active quad set causing superior patellar glide", "Achieve passive full knee extension", "SLR should be achieved", "Regain knee range 0-90°"],
+                interventions:["Partial weight bearing as tolerated with 2 crutches", "ES to VMO static quads", "US to tender soft tissue or bruise", "Game Ready/PEMF+Ice for knee joint swelling control", "Passive patella mobilization", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction", "Inner range quads with foot on pillow", "Frequent elevation, foot on pillow to full extension", "Iliotibial band and hip flexors stretching exercise", "Isometric quadriceps with SLR", "Assisted hamstrings curls in prone (knee F<90°) for BPB"],
+                precautions:["Hamstring curls: Knee Flexion < 90° (BPB)"],
+                outcomes:["Test: Straight Leg Raise (SLR)", "Check: Passive Full Extension", "Check: Active Quad Set"]},
+            3:{goals:["Wean down to 1 crutch"],
+                interventions:["ES to VMO static quads", "US to tender soft tissue or bruise", "Game Ready/PEMF+Ice for knee joint swelling control", "Walking with 1 crutch as tolerated", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction", "Inner range quads with foot on pillow", "Frequent elevation, foot on pillow to full extension", "Iliotibial band and hip flexors stretching exercise", "Isometric quadriceps with SLR", "Assisted hamstrings curls in prone (knee F<90°) for BPB"],
+                precautions:["Monitor gait quality while weaning crutches"],
+                outcomes:["Assessment: Tolerance to 1 crutch walking"]},
+            4:{goals:["FWB walking unaided with normal gait", "Swelling should be eliminated", "Full knee extension should be achieved", "Start knee full ROM mob ex"],
+                interventions:["Off crutches for isolated ACL reconstruction", "Gait re-education +/- treadmill", "Stationary cycling in high-sitting", "Balance exercise on wobble board", "Close kinetic chain double-leg press at F 0-45°", "Game Ready/PEMF+Ice for knee joint swelling control", "ES to VMO SLR/mini-squat", "US to tender soft tissue or bruise", "1/4 partial squats with hand support (knee F <45°)", "Assisted hamstrings curls in prone (knee F<90°) for HS", "Start double leg hamstrings bridging for hamstrings strengthening for BPB", "Isometric quads at knee F 90° and 60°", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction", "Inner range quads with foot on pillow", "Isometric quadriceps with SLR", "Iliotibial band and hip flexors stretching exercise"],
+                precautions:["Squats: Knee Flexion < 45°", "Leg Press: Knee Flexion 0-45°"],
+                outcomes:["Check: Full Knee Extension", "Check: Swelling (should be eliminated)", "Observation: Normal Gait"]},
+            5:{goals:["Able to perform low single-leg squat with hand support"],
+                interventions:["Hydrotherapy when wound healed", "Whole-body vibration (35-50Hz) (high, low & single-leg squat)", "Assisted hamstrings curls in prone (knee < 90°)", "Gait re-education +/- treadmill", "Stationary cycling in high-sitting", "Balance exercise on wobble board", "Close kinetic chain double-leg press at F 0-45°", "ES to VMO SLR/mini-squat", "1/4 partial squats with hand support (knee F <45°)", "Assisted hamstrings curls in prone (knee F<90°) for HS", "Start double leg hamstrings bridging for hamstrings strengthening for BPB", "Isometric quads at knee F 90° and 60°", "Iliotibial band and hip flexors stretching exercise"],
+                precautions:["Ensure wound healed before Hydrotherapy"],
+                outcomes:["Assessment: Low squat performance", "Assessment: Single-leg squat (supported)"]},
+            6:{goals:["No extension lag on SLR", "Full AROM should be achieved", "Pain-free unaided walking", "Off soft knee brace if applied"],
+                interventions:["Close kinetic chain double-leg press at knee F 0-60°", "Stepping down exercise for eccentric control +/- ES", "Stationary cycling in progressive low-sitting & resistance", "Start hamstrings strengthening (double leg to single leg bridging) for HS", "Hydrotherapy when wound healed", "Whole-body vibration (35-50Hz) (high, low & single-leg squat)", "Balance exercise on wobble board", "ES to VMO SLR/mini-squat", "1/4 partial squats with hand support (knee F <45°)", "Assisted hamstrings curls in prone (knee F<90°) for HS", "Iliotibial band and hip flexors stretching exercise"],
+                precautions:["Leg Press: Knee Flexion 0-60°"],
+                outcomes:["Check: Extension Lag (should be none)", "Check: Full AROM", "Observation: Pain-free walking"]},
+            7:{goals:["No extension lag on SLR", "Full AROM should be achieved", "Pain-free unaided walking", "Off soft knee brace if applied"],
+                interventions:["Close kinetic chain double-leg press at knee F 0-60°", "Stepping down exercise for eccentric control +/- ES", "Stationary cycling in progressive low-sitting & resistance", "Start hamstrings strengthening (double leg to single leg bridging) for HS", "Hydrotherapy when wound healed", "Whole-body vibration (35-50Hz) (high, low & single-leg squat)", "Balance exercise on wobble board", "ES to VMO SLR/mini-squat", "1/4 partial squats with hand support (knee F <45°)", "Assisted hamstrings curls in prone (knee F<90°) for HS", "Iliotibial band and hip flexors stretching exercise"],
+                precautions:["Leg Press: Knee Flexion 0-60°"],
+                outcomes:["Check: Extension Lag (should be none)", "Check: Full AROM", "Observation: Pain-free walking"]},
+            8:{goals:["Low squat without hand support", "No ingoing knee (valgus) on bending"],
+                interventions:["Close kinetic chain leg press at knee F 0-90°", "3-dimensional postural stability training", "Single-leg proprioceptive exercise", "Double-leg squat, single-leg mini-squat, forward lunge", "Stepping down exercise for eccentric control +/- ES", "Stationary cycling in progressive low-sitting & resistance", "Hamstrings strengthening (double leg to single leg bridging)", "Hydrotherapy when wound healed", "Whole-body vibration (35-50Hz) (high, low & single-leg squat)", "Balance exercise on wobble board"],
+                precautions:["Leg Press: Knee Flexion 0-90°", "Watch for Valgus collapse"],
+                outcomes:["Assessment: Dynamic Valgus control", "Assessment: Unsupported Low Squat"]},
+            10:{goals:["Retrain cardiovascular fitness", "Able to hold 10sec single-leg mini-squat & low-squat without hold"],
+                interventions:["Stair master training", "Treadmill (brisk walking program)", "Close kinetic chain leg press at knee F 0-90°", "3-dimensional postural stability training", "Single-leg proprioceptive exercise", "Double-leg squat, single-leg mini-squat, forward lunge", "Stepping down exercise for eccentric control +/- ES", "Stationary cycling in progressive low-sitting & resistance", "Hamstrings strengthening (double leg to single leg bridging)", "Hydrotherapy when wound healed", "Whole-body vibration (35-50Hz) (high, low & single-leg squat)", "Balance exercise on wobble board"],
+                precautions:["Monitor cardiovascular response"],
+                outcomes:["Test: 10sec Single-leg mini-squat hold", "Test: 10sec Low-squat hold"]},
+            13:{goals:["Single-leg leg-press 1RM >70% of uninvolved", "Start open chain exercise", "Single-leg squat hold 10sec & consecutive 10 reps without hold"],
+                interventions:["Isokinetic strengthening to concentric quadriceps & hamstrings at 180 to 300 degree/sec", "Close chain single-leg leg-press, open chain double-leg knee ext & leg curl in full range", "Lateral lunge", "Y /STAR excursion"],
+                precautions:["Open chain exercises introduced - monitor patellofemoral pain"],
+                outcomes:["Test: Single-leg leg-press 1RM (>70% LSI)", "Test: SL Squat (10 reps)"]},
+            18:{goals:["Single-leg leg-press 1RM >80% of uninvolved before initiating running", "Start agility training", "Symmetry in landing", "Symmetrical running pattern"],
+                interventions:["Isokinetic strengthening to concentric quadriceps & hamstrings at 60 to 300 degree/sec", "Open chain single-leg knee extension & leg curl", "Two legs jumping", "Running forward, sideways, backward", "Single-leg squat with weight /Romanian dead lift", "Eccentric quadriceps & hamstrings strengthening", "Profitter skiing machine"],
+                precautions:["Running initiation requires >80% LSI strength"],
+                outcomes:["Test: Single-leg leg-press 1RM (>80% LSI)", "Observation: Landing Symmetry", "Observation: Running Pattern"]},
+            22:{goals:["LSI ≥70% for peak torques at 60°/sec", "Progress to sport-specific agility training", "Landing symmetry at 40cm-distance single-leg hop", "Jumping distance & height, vertical drop landing symmetry"],
+                interventions:["Isokinetic strengthening to eccentric quadriceps & hamstrings at 60 to 300 degree/sec if indicated", "Agility drill, e.g. agility ladder stepping, carioca, multi-directional, figure-of-8, shuttle run", "Advanced jumping, e.g. plyometric, vertical, single-leg stairs hopping, consecutive hop", "Advanced sport-specific proprioception exercise on BOSU", "Isokinetic test with Cybex", "Functional Assessment"],
+                precautions:["High impact activities - monitor joint effusion"],
+                outcomes:["Isokinetic Test (Cybex): LSI ≥70% at 60°/sec", "Functional Assessment: Single-leg hop", "Functional Assessment: Triple hop", "Functional Assessment: Vertical jump"]},
+            27:{goals:["Gradual return to sport practice then competition"],
+                interventions:["Sports-specific performance training"],
+                precautions:["Return to sport only after passing Termination Assessment"],
+                outcomes:["Termination Assessment (Cybex): LSI ≥70% at 60°/sec, H/Q ratio ≥60%", "Functional Assessment: Hop tests & Vertical Jump", "Individualized sport-specific movement assessment"]}};
+
+        var opDateGlobal = null;
+        var actualDaysPast = 0;
+
+        function getProtocolForWeek(weekNum){if (weekNum <= 7) return protocolData[weekNum];
+            if (weekNum >= 8 && weekNum <= 9) return protocolData[8];
+            if (weekNum >= 10 && weekNum <= 12) return protocolData[10];
+            if (weekNum >= 13 && weekNum <= 17) return protocolData[13];
+            if (weekNum >= 18 && weekNum <= 21) return protocolData[18];
+            if (weekNum >= 22 && weekNum <= 26) return protocolData[22];
+            if (weekNum >= 27) return protocolData[27];
+            return protocolData[0];}function formatMonthsSubtitle(weekStartDate){if (!opDateGlobal) return '';
+            var months = calendarMonthsBetween(opDateGlobal, weekStartDate);
+            if (months < 1) return '(Less than 1 month post-op)';
+            if (months === 1) return '(1 month post-op)';
+            return '(' + months + ' months post-op)';}function formatTodayBadge(today, daysPast){if (!opDateGlobal) return '';
+            var months = calendarMonthsBetween(opDateGlobal, today);
+            if (months < 3){var weeks = Math.floor(daysPast / 7);
+                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateWeekSelector(currentWeek){var sel = document.getElementById('weekSelector');
+            sel.innerHTML = '';
+            for (var i = 0; i <= 30; i++){var opt = document.createElement('option');
+                opt.value = i;
+                var label = 'Week ' + i;
+                if (opDateGlobal){var weekStart = new Date(opDateGlobal);
+                    weekStart.setDate(weekStart.getDate() + i * 7);
+                    var months = calendarMonthsBetween(opDateGlobal, weekStart);
+                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
+                opt.text = label;
+                if (i === currentWeek) opt.selected = true;
+                sel.appendChild(opt);}}function renderWeek(weekNum){if (!opDateGlobal) return;
+            var data = getProtocolForWeek(weekNum);
+
+            var weekStart = new Date(opDateGlobal);
+            weekStart.setDate(weekStart.getDate() + weekNum * 7);
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            document.getElementById('weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
+            document.getElementById('weekHeader').innerText = 'Post-Operation Week ' + weekNum;
+            document.getElementById('dayRange').innerText = formatMonthsSubtitle(weekStart);
+            document.getElementById('daysPastBadge').innerText = formatTodayBadge(today, actualDaysPast);
+
+            renderList('goalList', data.goals);
+            renderList('interventionList', data.interventions);
+            renderList('precautionList', data.precautions);
+            renderList('outcomeList', data.outcomes);
+
+            var textBlock = 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
+            textBlock += 'Precautions given and contraindications checked for EPT';
+            document.getElementById('generatedText').value = textBlock;}function generateProtocol(){var dateInputStr = document.getElementById('opDate').value;
+            var errorMsg = document.getElementById('dateError');
+            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            var match = dateInputStr.match(datePattern);
+
+            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+                errorMsg.style.display = 'block';
+                return;}errorMsg.style.display = 'none';
+
+            var day = parseInt(match[1], 10);
+            var month = parseInt(match[2], 10) - 1;
+            var year = parseInt(match[3], 10);
+            var opDate = new Date(year, month, day);
+            var today = new Date();
+
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
+                errorMsg.style.display = 'block';
+                return;}opDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            var diffTime = today - opDate;
+            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
+                errorMsg.style.display = 'block';
+                return;}opDateGlobal = opDate;
+            actualDaysPast = daysPast;
+            var currentWeek = Math.floor(daysPast / 7);
+            if (currentWeek > 30) currentWeek = 30;
+
+            document.getElementById('emptyState').style.display = 'none';
+            var outputContainer = document.getElementById('outputContainer');
+            outputContainer.classList.add('visible');
+            outputContainer.style.animation = 'none';
+            outputContainer.offsetHeight;
+            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
+
+            populateWeekSelector(currentWeek);
+            renderWeek(currentWeek);}var opDateInput = document.getElementById('opDate');
+        var btnGenerate = document.getElementById('btnGenerate');
+        var btnCopy = document.getElementById('btnCopy');
+        var weekSelector = document.getElementById('weekSelector');
+
+        if (opDateInput){opDateInput.addEventListener('input', handleDateInput);
+            opDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateProtocol();});}if (btnGenerate) btnGenerate.addEventListener('click', generateProtocol);
+        if (btnCopy) btnCopy.addEventListener('click', function(){copyFromTextarea('generatedText');});
+        if (weekSelector){weekSelector.addEventListener('change', function(){renderWeek(parseInt(weekSelector.value, 10));});}}/* ============================================================
+       TA REPAIR TOOL
+       ============================================================ */
+    function initTATool(){var taProtocolData ={0:{phase: "Phase 1: Protection",
+                goals:["Reduce edema", "Closure of incision", "Education on DVT prevention"],
+                interventions:["NWB with cast (in 20° PF)",
+                    "Cryotherapy and electrotherapy for swelling control",
+                    "Toes spreading & taps exercise",
+                    "Hip / knee mobilization exercise"],
+                precautions:["Non-weight bearing (NWB) with cast",
+                    "Cast positioned in 20° plantarflexion",
+                    "Educate patient on DVT signs (calf pain, swelling, warmth)"],
+                outcomes:["Check: Wound / incision status",
+                    "Check: Swelling / edema",
+                    "Check: DVT screen (calf pain, swelling, warmth, Homan’s sign)"],
+                criteria:[]},
+            2:{phase: "Phase 2: Early Loading",
+                goals:["Initiate early protected loading",
+                    "Begin pain-free ankle AROM within limits",
+                    "Initiate isometric ankle strengthening"],
+                interventions:["WBAT with walker boot + 2 heel wedges (in 20° PF)",
+                    "Ankle AROM exercise (pain-free) - DF/PF, Inv/Ev (full PF to -10° DF)",
+                    "Manual joint mobilization (subtalar, distal tibiofibular, midfoot & forefoot joints)",
+                    "Ankle isometric exercise",
+                    "Cryotherapy and electrotherapy for swelling control"],
+                precautions:["WBAT only with walker boot + 2 heel wedges",
+                    "DF limited to -10° (do not push beyond)",
+                    "Maintain 20° PF position in walker boot"],
+                outcomes:["Check: Ankle AROM (PF to -10° DF)",
+                    "Check: Swelling control",
+                    "Check: Wound healing / incision"],
+                criteria:[]},
+            4:{phase: "Phase 2: Early Loading (continued)",
+                goals:["Reduce wedge support to 1",
+                    "Progress ankle AROM to neutral DF",
+                    "Continue isometric strengthening and joint mobilization"],
+                interventions:["WBAT with walker boot + 1 heel wedge (in 10° PF)",
+                    "Ankle AROM exercise (pain-free) - DF/PF, Inv/Ev (full PF to neutral)",
+                    "Manual joint mobilization (subtalar, distal tibiofibular, midfoot & forefoot joints)",
+                    "Ankle isometric exercise"],
+                precautions:["WBAT with walker boot + 1 heel wedge",
+                    "DF limited to neutral (do not push beyond)",
+                    "Maintain 10° PF position in walker boot"],
+                outcomes:["Check: Ankle AROM (PF to neutral)",
+                    "Check: Swelling",
+                    "Check: Walking tolerance with walker boot + 1 wedge"],
+                criteria:[]},
+            6:{phase: "Phase 3: Progressive Stretching & Strengthening",
+                goals:["DF P&AROM to 0° with knee extended",
+                    "Pain-free ambulation without antalgic gait",
+                    "Initiate gentle strengthening, stretching, and proprioception"],
+                interventions:["FWB walking in walker boot without wedge, then progress to normal shoe",
+                    "Whole body vibration in standing (DL → SL, 13-18 Hz)",
+                    "Gentle ankle strengthening (resistive ex with theraband / heel tap)",
+                    "Gentle stretching exercise with towel",
+                    "Proprioceptive exercise (DL → SL)",
+                    "Ankle AROM exercise as tolerated"],
+                precautions:["Avoid aggressive stretching beyond 0° DF",
+                    "Wean from walker boot to normal shoe gradually",
+                    "Monitor for antalgic gait pattern"],
+                outcomes:["Check: Gait quality (no antalgic pattern)",
+                    "Check: DF P&AROM to 0° (knee extended)",
+                    "Check: Tolerance to FWB in normal shoe"],
+                criteria:["To progress to weight-bearing strengthening (Week 12):",
+                    "Normalized gait mechanics (heel-toe gait, good heel strike and push-off)",
+                    "PF strength 4/5",
+                    "Single leg heel raise within 80% of uninvolved leg"]},
+            12:{phase: "Phase 3: Weight-Bearing Strengthening",
+                goals:["Initiate weight-bearing strengthening",
+                    "Progress to aggressive calf strengthening",
+                    "Improve single-leg control and proprioception"],
+                interventions:["Whole body vibration in standing (heel raise → heel drop, stepping in place, 16-21 Hz)",
+                    "Stretching exercise in standing",
+                    "Leg press with calf raise",
+                    "Semi-squat",
+                    "Aggressive strengthening (standing heel raise DL / 2-up 1-down / SL; toe walking)",
+                    "Proprioceptive exercise (DL → SL)"],
+                precautions:["Monitor tendon for delayed onset soreness post-loading",
+                    "Progress aggressive strengthening as tolerated"],
+                outcomes:["Test: Single leg heel raise (compare reps & height to uninvolved)",
+                    "Check: PF strength (target 4/5)",
+                    "Check: Semi-squat / leg press tolerance",
+                    "Check: Ankle ROM symmetry"],
+                criteria:["To progress to return-to-function phase (Week 15):",
+                    "Ankle ROM equal to opposite side",
+                    "Bilateral jumping in place with good technique"]},
+            15:{phase: "Phase 4: Return to Function",
+                goals:["Single-leg training",
+                    "Initiate jumping and light plyometrics",
+                    "Build dynamic strength and control"],
+                interventions:["SL training (Bulgarian split squat / Romanian dead lift / stairmaster)",
+                    "Jumping exercise (mini-trampoline / ground)",
+                    "Light plyometrics (DL straight plane → diagonal plane → rotational → tuck jumps → SL)"],
+                precautions:["Progress plyometrics gradually through planes of motion",
+                    "Monitor tendon loading and recovery between sessions"],
+                outcomes:["Check: SL training tolerance and form",
+                    "Check: Bilateral jumping technique",
+                    "Check: Ankle ROM symmetry (equal to opposite side)"],
+                criteria:["To progress to running / sport-specific drills (Week 19+):",
+                    "Ankle ROM equal to opposite side",
+                    "Perform bilateral jumping in place with good technique"]},
+            19:{phase: "Phase 4: Return to Sport",
+                goals:["Normalized gait and jogging mechanics",
+                    "Reciprocal pattern with stair ascent and descent",
+                    "Return to sport-specific demands"],
+                interventions:["Begin jogging or running when hopping is performed with good technique",
+                    "Sport-specific drills"],
+                precautions:["Progress running / sport drills only when hopping mechanics are sound",
+                    "Monitor for tendon symptoms with increased loading volume"],
+                outcomes:["Check: Jogging / running mechanics",
+                    "Check: Stair ascent / descent (reciprocal pattern)",
+                    "Check: Hop test technique"],
+                criteria:["Discharge criteria — Non-athletes:",
+                    "ADL without difficulty",
+                    "Gastrocnemius-soleus strength 4+/5",
+                    "Discharge criteria — Athletes:",
+                    "Hop for distance within 85% of uninvolved leg",
+                    "Single-leg balance within 85% of uninvolved leg"]}};
+
+        var taOpDateGlobal = null;
+        var taActualDaysPast = 0;
+
+        function getTAProtocolForWeek(weekNum){if (weekNum <= 1) return taProtocolData[0];
+            if (weekNum >= 2 && weekNum <= 3) return taProtocolData[2];
+            if (weekNum >= 4 && weekNum <= 5) return taProtocolData[4];
+            if (weekNum >= 6 && weekNum <= 11) return taProtocolData[6];
+            if (weekNum >= 12 && weekNum <= 14) return taProtocolData[12];
+            if (weekNum >= 15 && weekNum <= 18) return taProtocolData[15];
+            if (weekNum >= 19) return taProtocolData[19];
+            return taProtocolData[0];}function formatTAMonthsSubtitle(weekStartDate, phaseLabel){if (!taOpDateGlobal) return '';
+            var months = calendarMonthsBetween(taOpDateGlobal, weekStartDate);
+            var monthsTxt;
+            if (months < 1) monthsTxt = 'Less than 1 month post-op';
+            else if (months === 1) monthsTxt = '1 month post-op';
+            else monthsTxt = months + ' months post-op';
+            return phaseLabel ? (phaseLabel + ' · ' + monthsTxt) : monthsTxt;}function formatTATodayBadge(today, daysPast){if (!taOpDateGlobal) return '';
+            var months = calendarMonthsBetween(taOpDateGlobal, today);
+            if (months < 3){var weeks = Math.floor(daysPast / 7);
+                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateTAWeekSelector(currentWeek){var sel = document.getElementById('ta-weekSelector');
+            sel.innerHTML = '';
+            for (var i = 0; i <= 30; i++){var opt = document.createElement('option');
+                opt.value = i;
+                var label = 'Week ' + i;
+                if (taOpDateGlobal){var weekStart = new Date(taOpDateGlobal);
+                    weekStart.setDate(weekStart.getDate() + i * 7);
+                    var months = calendarMonthsBetween(taOpDateGlobal, weekStart);
+                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
+                opt.text = label;
+                if (i === currentWeek) opt.selected = true;
+                sel.appendChild(opt);}}function renderTAWeek(weekNum){if (!taOpDateGlobal) return;
+            var data = getTAProtocolForWeek(weekNum);
+
+            var weekStart = new Date(taOpDateGlobal);
+            weekStart.setDate(weekStart.getDate() + weekNum * 7);
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            document.getElementById('ta-weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
+            document.getElementById('ta-weekHeader').innerText = 'Post-Operation Week ' + weekNum;
+            document.getElementById('ta-dayRange').innerText = formatTAMonthsSubtitle(weekStart, data.phase);
+            document.getElementById('ta-daysPastBadge').innerText = formatTATodayBadge(today, taActualDaysPast);
+
+            renderList('ta-goalList', data.goals);
+            renderList('ta-interventionList', data.interventions);
+            renderList('ta-precautionList', data.precautions);
+            renderList('ta-outcomeList', data.outcomes);
+            renderCriteria('ta-criteriaContent', 'ta-criteriaBox', data.criteria);
+
+            var textBlock = 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
+            textBlock += 'Precautions given and contraindications checked for EPT';
+            document.getElementById('ta-generatedText').value = textBlock;}function generateTAProtocol(){var dateInputStr = document.getElementById('ta-opDate').value;
+            var errorMsg = document.getElementById('ta-dateError');
+            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            var match = dateInputStr.match(datePattern);
+
+            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+                errorMsg.style.display = 'block';
+                return;}errorMsg.style.display = 'none';
+
+            var day = parseInt(match[1], 10);
+            var month = parseInt(match[2], 10) - 1;
+            var year = parseInt(match[3], 10);
+            var opDate = new Date(year, month, day);
+            var today = new Date();
+
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
+                errorMsg.style.display = 'block';
+                return;}opDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            var diffTime = today - opDate;
+            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
+                errorMsg.style.display = 'block';
+                return;}taOpDateGlobal = opDate;
+            taActualDaysPast = daysPast;
+            var currentWeek = Math.floor(daysPast / 7);
+            if (currentWeek > 30) currentWeek = 30;
+
+            document.getElementById('ta-emptyState').style.display = 'none';
+            var outputContainer = document.getElementById('ta-outputContainer');
+            outputContainer.classList.add('visible');
+            outputContainer.style.animation = 'none';
+            outputContainer.offsetHeight;
+            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
+
+            populateTAWeekSelector(currentWeek);
+            renderTAWeek(currentWeek);}var taOpDateInput = document.getElementById('ta-opDate');
+        var taBtnGenerate = document.getElementById('ta-btnGenerate');
+        var taBtnCopy = document.getElementById('ta-btnCopy');
+        var taWeekSelector = document.getElementById('ta-weekSelector');
+
+        if (taOpDateInput){taOpDateInput.addEventListener('input', handleDateInput);
+            taOpDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateTAProtocol();});}if (taBtnGenerate) taBtnGenerate.addEventListener('click', generateTAProtocol);
+        if (taBtnCopy) taBtnCopy.addEventListener('click', function(){copyFromTextarea('ta-generatedText');});
+        if (taWeekSelector){taWeekSelector.addEventListener('change', function(){renderTAWeek(parseInt(taWeekSelector.value, 10));});}}/* ============================================================
+       MENISCUS REPAIR TOOL
+       ============================================================ */
+    function initMeniscusTool(){var menProtocolData ={'wk0':{phase: "Phase 1a: Early Protected Mobilization (0-2 wk)",
+                brace: "? Brace ON at all times · PWB · PROM ≤ 90° within brace",
+                goals:["Protect the meniscal repair site",
+                    "Swelling and pain control",
+                    "Begin guided PROM within brace (≤0-90°)",
+                    "Maintain hip and ankle muscle strength"],
+                interventions:["Keep knee activities within the brace, partial weight-bearing",
+                    "Guided PROM knee range ≤90° within brace, no forceful knee extension",
+                    "Cryotherapy / pressure therapy for swelling control",
+                    "Electrotherapy for pain modulation",
+                    "Manual soft tissue release to skin restricted area ± US to popliteal tendonitis / bruising",
+                    "PF joint gliding",
+                    "Maintenance: resisted Glutei + hip sets + ankle resisted sets"],
+                precautions:["Brace ON at all times (in & out of exercise)",
+                    "Partial weight-bearing only",
+                    "PROM strictly limited to ≤90° flexion",
+                    "NO forceful knee extension",
+                    "NO open or closed chain exercises"],
+                outcomes:["Check: Wound / incision status",
+                    "Check: Knee swelling and bruising",
+                    "Check: PROM (target ≤0-90° within brace)",
+                    "Check: Quadriceps activation",
+                    "Check: Hip & ankle strength maintenance"],
+                criteria:["To progress to Week 3-4 (brace off during exercise):",
+                    "Wound healed and dry",
+                    "Swelling well-controlled",
+                    "PROM ≤90° achieved comfortably within brace",
+                    "Quadriceps activation present"]},
+            'wk3':{phase: "Phase 1b: Protected Mobilization with Brace Off in Exercise (3-4 wk)",
+                brace: "? Brace OFF during exercise only · Brace ON for ambulation · PWB · ROM ≤ 90°",
+                goals:["Smooth pain-free PROM ≤90° with brace off in exercise",
+                    "Initiate isometric quadriceps re-education",
+                    "Achieve terminal full knee extension"],
+                interventions:["Knee activities with brace OFF during exercises only (PWB)",
+                    "Guided knee passive mobilization ≤90° flexion with heel sliding out of brace",
+                    "Isometric Quad re-education ± BS in SLR if Quad is not contracting well",
+                    "For terminal full knee extension (hamstrings home stretch)",
+                    "Continue swelling and pain modulation as required"],
+                precautions:["Brace OFF during exercise only — wear during ambulation and at rest",
+                    "Partial weight-bearing only",
+                    "NO open / closed chain exercises without brace yet",
+                    "PROM still limited to ≤90° flexion"],
+                outcomes:["Check: PROM (target ≤90° smoothly with brace off)",
+                    "Check: Terminal knee extension",
+                    "Test: SLR with Quad re-education",
+                    "Check: No extension lag"],
+                criteria:["To progress to Week 5 (off brace selected cases, WBAT):",
+                    "PROM 0-90° achieved",
+                    "Quad firing well in SLR",
+                    "Terminal knee extension achieved",
+                    "Minimal swelling"]},
+            'wk5':{phase: "Phase 1c: Active ROM Phase (5 wk)",
+                brace: "? Off brace for selected cases · WBAT out of brace · Active-assisted ROM",
+                goals:["Encourage full PROM",
+                    "Initiate active and active-assisted ROM mobilization",
+                    "Normal gait without aids on treadmill"],
+                interventions:["Off brace for selected cases — WBAT out of brace (start active-assisted ROM Ex)",
+                    "Gentle free active ROM mobilization, encouraged full PROM",
+                    "Active hamstrings curl",
+                    "Soft tissue mobilization",
+                    "Gait training without aids on treadmill (≤3.5 MPH)",
+                    "Paddle exercises in neutral hip position",
+                    "Active terminal knee extension reinforcement (+ dynamic stretch with Precor™)",
+                    "Water kicking or hydrotherapy with pre & post Galileo™ assessment"],
+                precautions:["Off brace decision is case-by-case (selected cases only)",
+                    "WBAT out of brace as tolerated",
+                    "Treadmill speed ≤3.5 MPH",
+                    "Avoid aggressive open chain loading"],
+                outcomes:["Check: Active and Passive ROM (target full PROM)",
+                    "Observation: Gait pattern on treadmill (no antalgic pattern)",
+                    "Check: Hamstrings curl tolerance",
+                    "Check: Hydrotherapy tolerance (if wound healed)"],
+                criteria:["To progress to Week 6-7 (off brace for all cases, begin CKC):",
+                    "Normal gait without aids on treadmill",
+                    "Full or near-full PROM",
+                    "Sufficient quad strength to begin closed chain"]},
+            'wk6':{phase: "Phase 2a: Full Range and Kinetic Chain (6-7 wk)",
+                brace: "✅ Off brace for ALL cases · Begin closed kinetic chain",
+                goals:["Off brace for all cases",
+                    "Begin closed kinetic chain exercises",
+                    "Restore full prone knee flexion PROM",
+                    "Improve balance and proprioception"],
+                interventions:["Treadmill for gait-training",
+                    "Paddle exercise if knee ~90°; cycling in high seat if knee 100°→120°",
+                    "Free active prone knee bend (PROM full range)",
+                    "Balance training with KATS™ / wobble board",
+                    "Muscular stimulation to Quad in concentric mode (standing with 2 inches block)"],
+                precautions:["Off brace for all cases — monitor for any new symptoms",
+                    "Cycling: high seat until knee flexion 100°→120° achieved",
+                    "Begin CKC progressively"],
+                outcomes:["Check: Knee flexion (target 100°-120° for cycling)",
+                    "Check: Prone knee bend (target full PROM)",
+                    "Test: Balance with KATS / wobble board",
+                    "Check: Gait quality on treadmill"],
+                criteria:["To progress to Week 8-9 (concentric kinetic chain):",
+                    "Closed chain exercises tolerated",
+                    "Full prone knee bend PROM",
+                    "Wobble board balance achieved",
+                    "Cycling tolerated in high seat"]},
+            'wk8':{phase: "Phase 2b: Concentric Kinetic Chain (8-9 wk)",
+                brace: "?‍♂️ Walk unaided · Concentric kinetic chain training",
+                goals:["Walk unaided with normal gait",
+                    "Concentric kinetic chain strengthening",
+                    "Improve full knee flexion to symmetric range",
+                    "2D dynamic proprioceptive control"],
+                interventions:["Walk unaided, concentric mode in kinetic chain",
+                    "Progressive resisted leg press CKC in Quad / Hamstrings / Hip",
+                    "Cycling in low seat (Position 4-6)",
+                    "Stepping training (Kinetron™ → Johnson™ stepper)",
+                    "Contract-Relax technique to improve full knee flexion",
+                    "2D proprioceptive training for dynamic knee stability (balance board)"],
+                precautions:["Concentric loading only at this stage",
+                    "Cycling in low seat — monitor patellofemoral discomfort",
+                    "Progress resistance gradually"],
+                outcomes:["Observation: Walking unaided pain-free",
+                    "Test: Leg press progression (Quad / HS / Hip)",
+                    "Check: Full knee flexion progression",
+                    "Test: Balance board control (2D)"],
+                criteria:["To progress to Week 10-11 (eccentric phase):",
+                    "Walk unaided pain-free with normal gait",
+                    "Leg press tolerated and progressing",
+                    "Approaching full knee flexion symmetric to opposite side"]},
+            'wk10':{phase: "Phase 2c: Eccentric Kinetic Chain & Dynamic Lunges (10-11 wk)",
+                brace: "? FWB · Eccentric strengthening + multi-directional lunges",
+                goals:["Initiate eccentric quadriceps loading",
+                    "Diagonal pattern PNF strengthening",
+                    "Multi-directional dynamic lunges"],
+                interventions:["CKC Resisted OB pulley by diagonal patterns PNF",
+                    "Muscular stimulation to Quad in eccentric mode (standing with 6-10 inches block)",
+                    "Dynamic lunges (sideways → forward & backward)"],
+                precautions:["Eccentric loading is high stress — progress block height gradually (6→10 inches)",
+                    "Monitor for effusion or pain after eccentric sessions",
+                    "Avoid running / impact at this stage"],
+                outcomes:["Check: Eccentric Quad control (block step-down)",
+                    "Test: Dynamic lunge (multi-directional)",
+                    "Check: Knee effusion post-loading",
+                    "Check: Full ROM symmetric"],
+                criteria:["To progress to Phase 3 (≥3 months post-op):",
+                    "Full ROM achieved",
+                    "Eccentric loading well-tolerated",
+                    "Dynamic lunges with good control",
+                    "No effusion with progressive loading"]},
+            'phase3':{phase: "Phase 3: Functional Activity Training (3-6 months)",
+                brace: "? Functional training · Running / Plyometrics / Agility",
+                goals:["Restore running mechanics",
+                    "Sport-specific agility and plyometric training",
+                    "3D dynamic proprioception",
+                    "Power training and isokinetic strength"],
+                interventions:["Running program (3.5 - 6.0 MPH)",
+                    "Sport-specific training (Plyometrics / Agility)",
+                    "Full agility training (Carioca / shuttle run)",
+                    "3D dynamic proprioceptive training (Profitter™ / Trampoline)",
+                    "Power training (standing leg press)",
+                    "Isokinetic resisted program (60°×10, 300°×10, 120°×20)"],
+                precautions:["Progress running gradually 3.5 → 6.0 MPH",
+                    "Monitor effusion / pain after high-impact sessions",
+                    "Avoid contact sport until criteria met",
+                    "Avoid deep loaded squats until cleared"],
+                outcomes:["Test: Isokinetic strength at 60°/sec, 300°/sec, 120°/sec",
+                    "Test: Functional running on treadmill (3.5-6.0 MPH)",
+                    "Test: Plyometric and agility tolerance",
+                    "Check: 3D proprioception (Profitter / Trampoline)",
+                    "Check: Knee effusion / pain post-sessions"],
+                criteria:["To progress to Phase 4 (Return to Sport):",
+                    "ROM 0° → 130°",
+                    "Strength reach 80% of normal (uninvolved) knee",
+                    "Resolution of pain and joint effusion"]},
+            'phase4':{phase: "Phase 4: Return to Sport Program (6-12 months)",
+                brace: "? Return to Sport · Sport-specific independent training",
+                goals:["Return to non-contact sport, then progress to full sport",
+                    "Independent sport-specific training program",
+                    "Strength symmetry ≥80%"],
+                interventions:["Return to non-contact sport (if criteria met: ROM 0°→130°, strength ≥80%, no pain/effusion)",
+                    "Dynamic knee stability drills",
+                    "Combined muscular strength + endurance in sport-specific exercises",
+                    "Avoiding a 'heel-locked' position",
+                    "Develop independent training program, warm-up / cool-down program"],
+                precautions:["Non-contact sport before contact sport",
+                    "Avoid 'heel-locked' positions (deep squat with heel locked)",
+                    "Maintain warm-up and cool-down discipline",
+                    "Monitor for tendinopathy or recurrent effusion"],
+                outcomes:["Test: ROM 0° → 130° symmetric",
+                    "Test: Strength ≥80% of uninvolved",
+                    "Check: No pain or joint effusion with sport drills",
+                    "Sport-specific functional assessment"],
+                criteria:["Discharge / Return to full sport criteria:",
+                    "Full symmetric ROM",
+                    "Strength symmetry ≥80% (preferably ≥90% for full return)",
+                    "Pass sport-specific functional drills",
+                    "No pain or effusion with full sport demands"]}};
+
+        var menOpDateGlobal = null;
+        var menActualDaysPast = 0;
+
+        function getMenProtocolForWeek(weekNum, weekStart){var months = calendarMonthsBetween(menOpDateGlobal, weekStart);
+            if (months >= 6) return menProtocolData['phase4'];
+            if (months >= 3) return menProtocolData['phase3'];
+            if (weekNum <= 2) return menProtocolData['wk0'];
+            if (weekNum <= 4) return menProtocolData['wk3'];
+            if (weekNum === 5) return menProtocolData['wk5'];
+            if (weekNum <= 7) return menProtocolData['wk6'];
+            if (weekNum <= 9) return menProtocolData['wk8'];
+            return menProtocolData['wk10'];}function formatMenSubtitle(weekStartDate, phaseLabel){if (!menOpDateGlobal) return '';
+            var months = calendarMonthsBetween(menOpDateGlobal, weekStartDate);
+            var monthsTxt;
+            if (months < 1) monthsTxt = 'Less than 1 month post-op';
+            else if (months === 1) monthsTxt = '1 month post-op';
+            else monthsTxt = months + ' months post-op';
+            return phaseLabel ? (phaseLabel + ' · ' + monthsTxt) : monthsTxt;}function formatMenTodayBadge(today, daysPast){if (!menOpDateGlobal) return '';
+            var months = calendarMonthsBetween(menOpDateGlobal, today);
+            if (months < 3){var weeks = Math.floor(daysPast / 7);
+                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateMenWeekSelector(currentWeek){var sel = document.getElementById('men-weekSelector');
+            sel.innerHTML = '';
+            for (var i = 0; i <= 52; i++){var opt = document.createElement('option');
+                opt.value = i;
+                var label = 'Week ' + i;
+                if (menOpDateGlobal){var weekStart = new Date(menOpDateGlobal);
+                    weekStart.setDate(weekStart.getDate() + i * 7);
+                    var months = calendarMonthsBetween(menOpDateGlobal, weekStart);
+                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
+                opt.text = label;
+                if (i === currentWeek) opt.selected = true;
+                sel.appendChild(opt);}}function renderMenWeek(weekNum){if (!menOpDateGlobal) return;
+
+            var weekStart = new Date(menOpDateGlobal);
+            weekStart.setDate(weekStart.getDate() + weekNum * 7);
+
+            var data = getMenProtocolForWeek(weekNum, weekStart);
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            document.getElementById('men-weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
+            document.getElementById('men-weekHeader').innerText = 'Post-Operation Week ' + weekNum;
+            document.getElementById('men-dayRange').innerText = formatMenSubtitle(weekStart, data.phase);
+            document.getElementById('men-daysPastBadge').innerText = formatMenTodayBadge(today, menActualDaysPast);
+
+            document.getElementById('men-braceText').innerText = data.brace || '';
+
+            renderList('men-goalList', data.goals);
+            renderList('men-interventionList', data.interventions);
+            renderList('men-precautionList', data.precautions);
+            renderList('men-outcomeList', data.outcomes);
+            renderCriteria('men-criteriaContent', 'men-criteriaBox', data.criteria);
+
+            var textBlock = 'BRACE / WB STATUS: ' + (data.brace || '') + '\n\n';
+            textBlock += 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
+            textBlock += 'Precautions given and contraindications checked for EPT';
+            document.getElementById('men-generatedText').value = textBlock;}function generateMenProtocol(){var dateInputStr = document.getElementById('men-opDate').value;
+            var errorMsg = document.getElementById('men-dateError');
+            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            var match = dateInputStr.match(datePattern);
+
+            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+                errorMsg.style.display = 'block';
+                return;}errorMsg.style.display = 'none';
+
+            var day = parseInt(match[1], 10);
+            var month = parseInt(match[2], 10) - 1;
+            var year = parseInt(match[3], 10);
+            var opDate = new Date(year, month, day);
+            var today = new Date();
+
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
+                errorMsg.style.display = 'block';
+                return;}opDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            var diffTime = today - opDate;
+            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
+                errorMsg.style.display = 'block';
+                return;}menOpDateGlobal = opDate;
+            menActualDaysPast = daysPast;
+            var currentWeek = Math.floor(daysPast / 7);
+            if (currentWeek > 52) currentWeek = 52;
+
+            document.getElementById('men-emptyState').style.display = 'none';
+            var outputContainer = document.getElementById('men-outputContainer');
+            outputContainer.classList.add('visible');
+            outputContainer.style.animation = 'none';
+            outputContainer.offsetHeight;
+            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
+
+            populateMenWeekSelector(currentWeek);
+            renderMenWeek(currentWeek);}var menOpDateInput = document.getElementById('men-opDate');
+        var menBtnGenerate = document.getElementById('men-btnGenerate');
+        var menBtnCopy = document.getElementById('men-btnCopy');
+        var menWeekSelector = document.getElementById('men-weekSelector');
+
+        if (menOpDateInput){menOpDateInput.addEventListener('input', handleDateInput);
+            menOpDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateMenProtocol();});}if (menBtnGenerate) menBtnGenerate.addEventListener('click', generateMenProtocol);
+        if (menBtnCopy) menBtnCopy.addEventListener('click', function(){copyFromTextarea('men-generatedText');});
+        if (menWeekSelector){menWeekSelector.addEventListener('change', function(){renderMenWeek(parseInt(menWeekSelector.value, 10));});}}/* ============================================================
+       KSS TOOL  (Knee Society Score)
+       ============================================================ */
+    function initKSSTool(){var SK ={nprs: null, painSub: null, pain: null,
+            rom: null, romDeg: null,
+            ap: null, ml: null, stab: null,
+            fc: null, el: null,
+            alignType: null, align: null};
+
+        function updBadge(id, val){var el = document.getElementById(id);
+            if (!el) return;
+            if (val === null || val === undefined){el.textContent = '--';
+                el.className = 'kss-sp mt';}else{el.textContent = (typeof val === 'number') ? Math.round(val * 10) / 10 : val;
+                el.className = val < 0 ? 'kss-sp neg' : 'kss-sp pos';}}/* ----- NPRS / Pain ----- */
+        var nprsRow = document.getElementById('kss-nprsRow');
+        for (var i = 0; i <= 10; i++){(function(v){var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'kss-nprs-btn';
+                b.textContent = v;
+                var c = v === 0 ? 'g' : v <= 3 ? 'lg' : v <= 6 ? 'y' : v <= 8 ? 'o' : 'r';
+                b.dataset.c = c;
+                b.addEventListener('click', function(){pickNPRS(v, b);});
+                nprsRow.appendChild(b);})(i);}function pickNPRS(v, btn){nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r');});
+            btn.classList.add('on', btn.dataset.c);
+            SK.nprs = v;
+            SK.painSub = null;
+            var col = document.getElementById('kss-painCol');
+            var opts = document.getElementById('kss-painOpts');
+            var lbl = document.getElementById('kss-painSubLbl');
+            if (v === 0){col.classList.remove('show');
+                SK.pain = 50;}else if (v >= 1 && v <= 4){opts.innerHTML = '';
+                lbl.textContent = 'Pain description (NPRS ' + v + '):';[{l:'Occasional', s:45},{l:'Stairs only', s:40},{l:'Walking & Stairs', s:30}].forEach(function(o){opts.appendChild(makePainOpt(o.l, o.s));});
+                col.classList.add('show');
+                SK.pain = null;}else if (v >= 5 && v <= 7){opts.innerHTML = '';
+                lbl.textContent = 'Pain description (NPRS ' + v + '):';[{l:'Occasional', s:20},{l:'Continual', s:10}].forEach(function(o){opts.appendChild(makePainOpt(o.l, o.s));});
+                col.classList.add('show');
+                SK.pain = null;}else{col.classList.remove('show');
+                SK.pain = 0;}updBadge('kss-s1', SK.pain);
+            calcKSS();}function makePainOpt(label, score){var d = document.createElement('div');
+            d.className = 'kss-opt-item';
+            d.innerHTML = '<div class="kss-opt-left"><span class="kss-opt-dot"></span><span>'
+                          + label + '</span></div><span class="kss-opt-pts">' + score + ' pts</span>';
+            d.addEventListener('click', function(){document.querySelectorAll('#kss-painOpts .kss-opt-item').forEach(function(x){x.classList.remove('sel');});
+                d.classList.add('sel');
+                SK.painSub = score;
+                SK.pain = score;
+                updBadge('kss-s1', SK.pain);
+                calcKSS();});
+            return d;}/* ----- ROM ----- */
+        document.getElementById('kss-romIn').addEventListener('input', function(){var v = parseFloat(this.value);
+            if (isNaN(v) || this.value === ''){SK.rom = null; SK.romDeg = null;}else{SK.romDeg = v; SK.rom = Math.min(25, Math.floor(v / 5));}updBadge('kss-s2', SK.rom);
+            calcKSS();});
+
+        /* ----- Stability ticks (AP & ML) ----- */
+        document.querySelectorAll('#kss-apT .kss-tick, #kss-mlT .kss-tick').forEach(function(tick){tick.addEventListener('click', function(){var grp = tick.dataset.grp;
+                var val = parseInt(tick.dataset.val, 10);
+                tick.parentElement.querySelectorAll('.kss-tick').forEach(function(t){t.classList.remove('sel');});
+                tick.classList.add('sel');
+                SK[grp]= val;
+                SK.stab = (SK.ap !== null && SK.ml !== null) ? SK.ap + SK.ml : null;
+                updBadge('kss-s3', SK.stab);
+                calcKSS();});});
+
+        /* ----- Flexion contracture ----- */
+        document.getElementById('kss-fcIn').addEventListener('input', function(){var v = parseFloat(this.value);
+            if (isNaN(v) || this.value === '') SK.fc = null;
+            else if (v < 5) SK.fc = 0;
+            else if (v <= 10) SK.fc = -2;
+            else if (v <= 15) SK.fc = -5;
+            else if (v <= 20) SK.fc = -10;
+            else SK.fc = -15;
+            updBadge('kss-s4', SK.fc);
+            calcKSS();});
+
+        /* ----- Extension lag ----- */
+        document.getElementById('kss-elIn').addEventListener('input', function(){var v = parseFloat(this.value);
+            if (isNaN(v) || this.value === '') SK.el = null;
+            else if (v === 0) SK.el = 0;
+            else if (v < 10) SK.el = -5;
+            else if (v <= 20) SK.el = -10;
+            else SK.el = -15;
+            updBadge('kss-s5', SK.el);
+            calcKSS();});
+
+        /* ----- Alignment ----- */
+        function pickAlign(type){SK.alignType = type;
+            document.getElementById('kss-varusBtn').classList.toggle('sel', type === 'varus');
+            document.getElementById('kss-valgusBtn').classList.toggle('sel', type === 'valgus');
+            var col = document.getElementById('kss-valgusCol');
+            if (type === 'varus'){col.classList.remove('show');
+                SK.align = -20;}else{col.classList.add('show');
+                calcValgus();}updBadge('kss-s6', SK.align);
+            calcKSS();}function calcValgus(){var v = parseFloat(document.getElementById('kss-valIn').value);
+            if (isNaN(v) || document.getElementById('kss-valIn').value === ''){SK.align = null;
+                return;}if (v >= 5 && v <= 10) SK.align = 0;
+            else if (v >= 0 && v <= 4) SK.align = (5 - v) * -3;
+            else if (v >= 11 && v <= 15) SK.align = (v - 10) * -3;
+            else SK.align = -20;}document.getElementById('kss-varusBtn').addEventListener('click', function(){pickAlign('varus');});
+        document.getElementById('kss-valgusBtn').addEventListener('click', function(){pickAlign('valgus');});
+        document.getElementById('kss-valIn').addEventListener('input', function(){calcValgus();
+            updBadge('kss-s6', SK.align);
+            calcKSS();});
+
+        /* ----- Total / Notes ----- */
+        function calcKSS(){var items =[SK.pain, SK.rom, SK.stab, SK.fc, SK.el, SK.align];
+            var names =['Pain', 'ROM', 'Stability', 'Flex Contract.', 'Ext Lag', 'Alignment'];
+            var filled = items.filter(function(x){return x !== null;});
+
+            var bd = document.getElementById('kss-bd');
+            var tv = document.getElementById('kss-totalVal');
+            var ta = document.getElementById('kss-generatedText');
+
+            if (filled.length === 0){tv.textContent = '--';
+                tv.style.opacity = '1';
+                bd.textContent = 'Complete all items';
+                ta.value = '';
+                return;}var sum = 0;
+            var parts =[];
+            items.forEach(function(v, i){if (v !== null){sum += v;
+                    parts.push(names[i]+ ': ' + (v >= 0 ? '+' : '') + v);}});
+            var clamped = Math.max(0, Math.min(100, sum));
+            tv.textContent = clamped;
+
+            if (filled.length === 6){tv.style.opacity = '1';
+                bd.textContent = parts.join(' | ');
+                ta.value = buildKSSNotes();}else{tv.style.opacity = '.55';
+                bd.textContent = parts.join(' | ') + ' (incomplete)';
+                ta.value = '';}}function buildKSSNotes(){var t = Math.max(0, Math.min(100, SK.pain + SK.rom + SK.stab + SK.fc + SK.el + SK.align));
+            return 'Knee Society Score (Total 100)\n'
+                 + 'Pain: ' + SK.pain + '\n'
+                 + 'PROM (Flexion): ' + SK.rom + '\n'
+                 + 'Stability: ' + SK.stab + '\n'
+                 + 'Flexion contracture: ' + SK.fc + '\n'
+                 + 'Extension lag: ' + SK.el + '\n'
+                 + 'Alignment: ' + SK.align + '\n'
+                 + 'Total: ' + t;}/* ----- Reset ----- */
+        document.getElementById('kss-resetBtn').addEventListener('click', function(){Object.keys(SK).forEach(function(k){SK[k]= null;});
+            nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r');});
+            document.getElementById('kss-painCol').classList.remove('show');
+            document.getElementById('kss-painOpts').innerHTML = '';['kss-romIn', 'kss-fcIn', 'kss-elIn', 'kss-valIn'].forEach(function(id){document.getElementById(id).value = '';});
+            document.querySelectorAll('#panel-kss .kss-tick').forEach(function(t){t.classList.remove('sel');});
+            document.getElementById('kss-varusBtn').classList.remove('sel');
+            document.getElementById('kss-valgusBtn').classList.remove('sel');
+            document.getElementById('kss-valgusCol').classList.remove('show');['kss-s1', 'kss-s2', 'kss-s3', 'kss-s4', 'kss-s5', 'kss-s6'].forEach(function(id){updBadge(id, null);});
+            calcKSS();});
+
+        /* ----- Copy ----- */
+        document.getElementById('kss-btnCopy').addEventListener('click', function(){var ta = document.getElementById('kss-generatedText');
+            if (!ta.value){showToast('Complete all 6 items first.');
+                return;}copyFromTextarea('kss-generatedText');});
+
+        // Initial state
+        calcKSS();}/* ============================================================
+       TABS
+       ============================================================ */
+    function setupTabs(){var tabs = document.querySelectorAll('.protocol-tab');
+        tabs.forEach(function(tab){tab.addEventListener('click', function(){var target = tab.getAttribute('data-target');
+                tabs.forEach(function(t){t.classList.remove('active');});
+                tab.classList.add('active');
+                document.querySelectorAll('.protocol-panel').forEach(function(p){p.classList.remove('active');});
+                var panel = document.getElementById(target);
+                if (panel) panel.classList.add('active');});});}function init(){initACLTool();
+        initTATool();
+        initMeniscusTool();
+        initKSSTool();
+        setupTabs();}if (document.readyState === 'loading'){document.addEventListener('DOMContentLoaded', init);}else{init();}})();
+</script>
+</section>
