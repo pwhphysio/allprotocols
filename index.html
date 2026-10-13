@@ -1,63 +1,153 @@
 <section class="landing-block g-pt-0 g-pb-0 g-pl-0 g-pr-0">
 
 <style>
+    /* ============================================================
+       BASE / WRAPPER
+       ============================================================ */
     .acl-tool-wrapper{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: #333;
         line-height: 1.5;
         box-sizing: border-box;
         background-color: #faf8f4;
         padding: 20px;
-        border-radius: 12px;}.acl-tool-wrapper *{box-sizing: border-box;}.acl-card{max-width: 900px;
+        border-radius: 12px;}
+    .acl-tool-wrapper *{box-sizing: border-box;}
+    .acl-card{max-width: 960px;
         margin: 0 auto;
         background-color: #ffffff;
         border-radius: 12px;
         box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
         overflow: hidden;
-        border: 1px solid #ece9e2;}/* ---------- TABS ---------- */
-    .protocol-tabs{display: flex;
+        border: 1px solid #ece9e2;}
+
+    /* ============================================================
+       REGION SWITCHER (UPPER LIMB / LOWER LIMB)
+       ============================================================ */
+    .region-bar{display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e7e5e0;
+        flex-wrap: wrap;}
+    .region-bar-label{font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #a8a29e;
+        margin-right: 4px;
+        white-space: nowrap;}
+    .region-btn{flex: 1;
+        min-width: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 10px 14px;
+        border: 2px solid #e7e5e0;
+        border-radius: 10px;
+        background-color: #faf8f4;
+        color: #57534e;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color .15s, border-color .15s, color .15s;}
+    .region-btn small{font-size: 12px;
+        font-weight: 500;
+        color: #a8a29e;}
+    .region-btn:hover{background-color: #f5f4f0;
+        border-color: #d6d3d1;}
+    .region-btn.active[data-region="ul"]{background-color: #f5f3ff;
+        border-color: #8b5cf6;
+        color: #5b21b6;}
+    .region-btn.active[data-region="ul"] small{color: #7c3aed;}
+    .region-btn.active[data-region="ll"]{background-color: #f0fdfa;
+        border-color: #14b8a6;
+        color: #0f766e;}
+    .region-btn.active[data-region="ll"] small{color: #0d9488;}
+
+    /* ============================================================
+       PROTOCOL TABS
+       ============================================================ */
+    .protocol-tabs{display: none;
         background-color: #f5f4f0;
         border-bottom: 1px solid #e7e5e0;
         padding: 0;
         gap: 0;
-        flex-wrap: wrap;}.protocol-tab{flex: 1;
+        flex-wrap: wrap;}
+    .protocol-tabs.active{display: flex;}
+    .protocol-tab{flex: 1;
         min-width: 120px;
-        padding: 16px 12px;
+        padding: 14px 12px;
         background-color: transparent;
         color: #78716c;
         border: none;
         cursor: pointer;
         font-size: 14px;
         font-weight: 500;
+        font-family: inherit;
         transition: background-color 0.2s, color 0.2s, border-color 0.2s;
         border-bottom: 3px solid transparent;
-        letter-spacing: 0.01em;}.protocol-tab:hover{background-color: #ebe9e3;
-        color: #44403c;}.protocol-tab.active{background-color: #ffffff;
-        font-weight: 600;}.protocol-tab.active[data-target="panel-acl"]{color: #0f766e;
-        border-bottom-color: #14b8a6;}.protocol-tab.active[data-target="panel-ta"]{color: #b45309;
-        border-bottom-color: #f59e0b;}.protocol-tab.active[data-target="panel-meniscus"]{color: #4d7c0f;
-        border-bottom-color: #84cc16;}.protocol-tab.active[data-target="panel-kss"]{color: #1d4ed8;
-        border-bottom-color: #3b82f6;}.protocol-panel{display: none;}.protocol-panel.active{display: block;}/* ---------- HEADER ---------- */
+        letter-spacing: 0.01em;}
+    .protocol-tab:hover{background-color: #ebe9e3;
+        color: #44403c;}
+    .protocol-tab.active{background-color: #ffffff;
+        font-weight: 600;}
+    .protocol-tab.active[data-target="panel-acl"]{color: #0f766e;
+        border-bottom-color: #14b8a6;}
+    .protocol-tab.active[data-target="panel-ta"]{color: #b45309;
+        border-bottom-color: #f59e0b;}
+    .protocol-tab.active[data-target="panel-kss"]{color: #1d4ed8;
+        border-bottom-color: #3b82f6;}
+    .protocol-tab.active[data-target="panel-tfcc"]{color: #6d28d9;
+        border-bottom-color: #8b5cf6;}
+    .protocol-panel{display: none;}
+    .protocol-panel.active{display: block;}
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
     .acl-header{padding: 26px 24px 24px 24px;
         border-bottom: 1px solid #e5e7eb;
         border-left: 5px solid #14b8a6;
         background-color: #f0fdfa;
-        color: #134e4a;}.acl-header h1{margin: 0;
+        color: #134e4a;}
+    .acl-header h1{margin: 0;
         font-size: 22px;
         font-weight: 700;
         color: #134e4a;
-        letter-spacing: -0.01em;}.acl-header p{margin: 8px 0 0 0;
+        letter-spacing: -0.01em;}
+    .acl-header p{margin: 8px 0 0 0;
         color: #0f766e;
-        font-size: 14px;}#panel-ta .acl-header{background-color: #fffbeb;
-        border-left-color: #f59e0b;}#panel-ta .acl-header h1{color: #78350f;}#panel-ta .acl-header p{color: #b45309;}#panel-meniscus .acl-header{background-color: #f7fee7;
-        border-left-color: #84cc16;}#panel-meniscus .acl-header h1{color: #365314;}#panel-meniscus .acl-header p{color: #4d7c0f;}#panel-kss .acl-header{background-color: #eff6ff;
-        border-left-color: #3b82f6;}#panel-kss .acl-header h1{color: #1e3a8a;}#panel-kss .acl-header p{color: #1d4ed8;}/* ---------- INPUT SECTION ---------- */
+        font-size: 14px;}
+    #panel-ta .acl-header{background-color: #fffbeb;
+        border-left-color: #f59e0b;}
+    #panel-ta .acl-header h1{color: #78350f;}
+    #panel-ta .acl-header p{color: #b45309;}
+    #panel-kss .acl-header{background-color: #eff6ff;
+        border-left-color: #3b82f6;}
+    #panel-kss .acl-header h1{color: #1e3a8a;}
+    #panel-kss .acl-header p{color: #1d4ed8;}
+    #panel-tfcc .acl-header{background-color: #f5f3ff;
+        border-left-color: #8b5cf6;}
+    #panel-tfcc .acl-header h1{color: #4c1d95;}
+    #panel-tfcc .acl-header p{color: #6d28d9;}
+
+    /* ============================================================
+       INPUT SECTION
+       ============================================================ */
     .acl-input-section{padding: 24px;
         border-bottom: 1px solid #e5e7eb;
-        background-color: #ffffff;}.acl-label{display: block;
+        background-color: #ffffff;}
+    .acl-label{display: block;
         font-size: 14px;
         font-weight: 600;
         color: #374151;
-        margin-bottom: 8px;}.acl-controls{display: flex; gap: 12px; flex-wrap: wrap;}.acl-input{flex-grow: 1;
+        margin-bottom: 8px;}
+    .acl-controls{display: flex; gap: 12px; flex-wrap: wrap;}
+    .acl-input{flex-grow: 1;
         padding: 12px;
         border: 1px solid #d6d3d0;
         border-radius: 8px;
@@ -65,27 +155,45 @@
         font-family: monospace;
         min-width: 200px;
         background-color: #faf8f4;
-        transition: border-color 0.2s, box-shadow 0.2s;}.acl-input:focus{outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;}
+    .acl-input:focus{outline: none;
         border-color: #14b8a6;
         box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
-        background-color: #ffffff;}.acl-btn{background-color: #0f766e;
+        background-color: #ffffff;}
+    .acl-btn{background-color: #0f766e;
         color: white;
         font-weight: 600;
+        font-size: 15px;
+        font-family: inherit;
         padding: 12px 24px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        transition: background-color 0.2s;}.acl-btn:hover{background-color: #134e4a;}.acl-helper-text{font-size: 12px; color: #78716c; margin-top: 8px;}.acl-error{color: #dc2626; font-size: 12px; margin-top: 4px; display: none;}/* ---------- TA panel amber overrides ---------- */
+        transition: background-color 0.2s;}
+    .acl-btn:hover{background-color: #134e4a;}
+    .acl-helper-text{font-size: 12px; color: #78716c; margin-top: 8px;}
+    .acl-error{color: #dc2626; font-size: 12px; margin-top: 4px; display: none;}
+
+    /* ---------- TA panel amber overrides ---------- */
     #panel-ta .acl-input:focus{border-color: #f59e0b;
-        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);}#panel-ta .acl-btn{background-color: #b45309;}#panel-ta .acl-btn:hover{background-color: #78350f;}#panel-ta .week-selector-bar{background-color: #fef3c7;
-        border-color: #fcd34d;}#panel-ta .week-selector-bar label{color: #78350f;}#panel-ta .status-bar{background-color: #fffbeb;
-        border-color: #fde68a;}#panel-ta .status-title h2{color: #78350f;}#panel-ta .status-title p{color: #b45309;}#panel-ta .days-badge{color: #b45309;
-        border-color: #fcd34d;}#panel-ta .week-start-info strong{color: #78350f;}/* ---------- Meniscus panel lime-green overrides ---------- */
-    #panel-meniscus .acl-input:focus{border-color: #84cc16;
-        box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.15);}#panel-meniscus .acl-btn{background-color: #4d7c0f;}#panel-meniscus .acl-btn:hover{background-color: #365314;}#panel-meniscus .week-selector-bar{background-color: #ecfccb;
-        border-color: #d9f99d;}#panel-meniscus .week-selector-bar label{color: #365314;}#panel-meniscus .status-bar{background-color: #f7fee7;
-        border-color: #d9f99d;}#panel-meniscus .status-title h2{color: #365314;}#panel-meniscus .status-title p{color: #4d7c0f;}#panel-meniscus .days-badge{color: #4d7c0f;
-        border-color: #d9f99d;}#panel-meniscus .week-start-info strong{color: #365314;}.acl-output{padding: 24px; display: none;}.acl-output.visible{display: block; animation: fadeIn 0.5s ease-in-out;}/* Week selector */
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);}
+    #panel-ta .acl-btn{background-color: #b45309;}
+    #panel-ta .acl-btn:hover{background-color: #78350f;}
+    #panel-ta .week-selector-bar{background-color: #fef3c7;
+        border-color: #fcd34d;}
+    #panel-ta .week-selector-bar label{color: #78350f;}
+    #panel-ta .status-bar{background-color: #fffbeb;
+        border-color: #fde68a;}
+    #panel-ta .status-title h2{color: #78350f;}
+    #panel-ta .status-title p{color: #b45309;}
+    #panel-ta .days-badge{color: #b45309;
+        border-color: #fcd34d;}
+    #panel-ta .week-start-info strong{color: #78350f;}
+
+    .acl-output{padding: 24px; display: none;}
+    .acl-output.visible{display: block; animation: fadeIn 0.5s ease-in-out;}
+
+    /* Week selector */
     .week-selector-bar{background-color: #fefce8;
         border: 1px solid #fde68a;
         border-radius: 8px;
@@ -94,15 +202,20 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        flex-wrap: wrap;}.week-selector-bar label{font-size: 13px;
+        flex-wrap: wrap;}
+    .week-selector-bar label{font-size: 13px;
         font-weight: 600;
-        color: #78350f;}.week-selector-bar select{padding: 8px 10px;
+        color: #78350f;}
+    .week-selector-bar select{padding: 8px 10px;
         border: 1px solid #d1d5db;
         border-radius: 6px;
         font-size: 14px;
         background-color: white;
-        cursor: pointer;}.week-start-info{font-size: 13px;
-        color: #374151;}.week-start-info strong{color: #134e4a;}.status-bar{background-color: #f0fdfa;
+        cursor: pointer;}
+    .week-start-info{font-size: 13px;
+        color: #374151;}
+    .week-start-info strong{color: #134e4a;}
+    .status-bar{background-color: #f0fdfa;
         border: 1px solid #ccfbf1;
         border-radius: 8px;
         padding: 16px;
@@ -111,51 +224,66 @@
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;}.status-title h2{margin: 0; color: #134e4a; font-size: 20px;}.status-title p{margin: 4px 0 0 0; color: #0f766e; font-weight: 500;}.days-badge{background-color: white;
+        gap: 10px;}
+    .status-title h2{margin: 0; color: #134e4a; font-size: 20px;}
+    .status-title p{margin: 4px 0 0 0; color: #0f766e; font-weight: 500;}
+    .days-badge{background-color: white;
         color: #0f766e;
         padding: 6px 16px;
         border-radius: 999px;
         font-size: 14px;
         font-weight: bold;
         border: 1px solid #99f6e4;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);}/* Brace status banner (Meniscus) */
-    .brace-status-banner{background-color: #fef3c7;
-        border: 1px solid #fcd34d;
-        border-left: 4px solid #d97706;
-        border-radius: 8px;
-        padding: 12px 16px;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #78350f;}.brace-status-banner .brace-label{font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        background-color: #d97706;
-        color: white;
-        padding: 3px 8px;
-        border-radius: 4px;}.info-grid{display: grid;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
+
+    .info-grid{display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;}@media (max-width: 768px){.info-grid{grid-template-columns: 1fr;}}.info-box{padding: 20px;
+        gap: 24px;}
+    @media (max-width: 768px){.info-grid{grid-template-columns: 1fr;}}
+    .info-box{padding: 20px;
         border-radius: 8px;
         margin-bottom: 24px;
         border-left-width: 4px;
-        border-left-style: solid;}.info-box h3{margin-top: 0; margin-bottom: 12px; font-size: 16px; font-weight: bold;}.info-box ul{margin: 0; padding-left: 20px; font-size: 14px;}.info-box li{margin-bottom: 4px;}.box-green{background-color: #f0fdf4; border-left-color: #22c55e;}.box-green h3{color: #14532d;}.box-red{background-color: #fef2f2; border-left-color: #ef4444;}.box-red h3{color: #7f1d1d;}.box-purple{background-color: #faf5ff; border-left-color: #a855f7;}.box-purple h3{color: #581c87;}.box-indigo{background-color: #eef2ff; border-left-color: #6366f1;}.box-indigo h3{color: #312e81;}.box-amber{background-color: #fffbeb; border-left-color: #f59e0b;}.box-amber h3{color: #78350f;}.criteria-content{font-size: 14px;}.criteria-content .criteria-heading{font-weight: 600;
+        border-left-style: solid;}
+    .info-box h3{margin-top: 0; margin-bottom: 12px; font-size: 16px; font-weight: bold;}
+    .info-box ul{margin: 0; padding-left: 20px; font-size: 14px;}
+    .info-box li{margin-bottom: 4px;}
+    .box-green{background-color: #f0fdf4; border-left-color: #22c55e;}
+    .box-green h3{color: #14532d;}
+    .box-red{background-color: #fef2f2; border-left-color: #ef4444;}
+    .box-red h3{color: #7f1d1d;}
+    .box-purple{background-color: #faf5ff; border-left-color: #a855f7;}
+    .box-purple h3{color: #581c87;}
+    .box-indigo{background-color: #eef2ff; border-left-color: #6366f1;}
+    .box-indigo h3{color: #312e81;}
+    .box-amber{background-color: #fffbeb; border-left-color: #f59e0b;}
+    .box-amber h3{color: #78350f;}
+    .box-orange{background-color: #fff7ed; border-left-color: #f97316;}
+    .box-orange h3{color: #7c2d12;}
+    .box-teal{background-color: #f0fdfa; border-left-color: #14b8a6;}
+    .box-teal h3{color: #134e4a;}
+    .criteria-content{font-size: 14px;}
+    .criteria-content .criteria-heading{font-weight: 600;
         color: #78350f;
         margin-top: 8px;
-        margin-bottom: 4px;}.criteria-content .criteria-heading:first-child{margin-top: 0;}.criteria-content ul{margin: 0 0 8px 0;
-        padding-left: 20px;}.criteria-content ul:last-child{margin-bottom: 0;}.copy-header{display: flex;
+        margin-bottom: 4px;}
+    .criteria-content .criteria-heading:first-child{margin-top: 0;}
+    .criteria-content ul{margin: 0 0 8px 0;
+        padding-left: 20px;}
+    .criteria-content ul:last-child{margin-bottom: 0;}
+    .copy-header{display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 8px;}.copy-label{font-size: 14px; font-weight: bold; color: #374151;}.btn-copy-small{font-size: 12px;
+        margin-bottom: 8px;}
+    .copy-label{font-size: 14px; font-weight: bold; color: #374151;}
+    .btn-copy-small{font-size: 12px;
         background-color: #e5e7eb;
         border: none;
         padding: 4px 12px;
         border-radius: 4px;
-        cursor: pointer;}.btn-copy-small:hover{background-color: #d1d5db;}textarea.generated-text{width: 100%;
+        cursor: pointer;}
+    .btn-copy-small:hover{background-color: #d1d5db;}
+    textarea.generated-text{width: 100%;
         height: 200px;
         padding: 12px;
         font-family: monospace;
@@ -163,9 +291,14 @@
         border: 1px solid #d1d5db;
         border-radius: 8px;
         background-color: #f9fafb;
-        resize: vertical;}.empty-state{padding: 48px; text-align: center; color: #9ca3af;}.placeholder-state{padding: 80px 30px;
+        resize: vertical;}
+    .empty-state{padding: 48px; text-align: center; color: #9ca3af;}
+    .placeholder-state{padding: 80px 30px;
         text-align: center;
-        color: #6b7280;}.placeholder-state h2{color: #374151; margin-bottom: 10px;}@keyframes fadeIn{from{opacity: 0; transform: translateY(10px);}to{opacity: 1; transform: translateY(0);}}.acl-toast{position: fixed;
+        color: #6b7280;}
+    .placeholder-state h2{color: #374151; margin-bottom: 10px;}
+    @keyframes fadeIn{from{opacity: 0; transform: translateY(10px);}to{opacity: 1; transform: translateY(0);}}
+    .acl-toast{position: fixed;
         bottom: 30px;
         left: 50%;
         transform: translateX(-50%) translateY(80px);
@@ -178,36 +311,50 @@
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
         z-index: 9999;
-        pointer-events: none;}.acl-toast.show{opacity: 1;
-        transform: translateX(-50%) translateY(0);}/* ============================================================
+        pointer-events: none;
+        max-width: 90vw;
+        text-align: center;}
+    .acl-toast.show{opacity: 1;
+        transform: translateX(-50%) translateY(0);}
+
+    /* ============================================================
        KSS TAB STYLES (BLUE THEME)
        ============================================================ */
     #panel-kss .status-bar{background-color: #eff6ff;
         border-color: #bfdbfe;
-        padding: 18px 20px;}#panel-kss .status-title h2{color: #1e3a8a;}#panel-kss .status-title p{color: #1d4ed8;
+        padding: 18px 20px;}
+    #panel-kss .status-title h2{color: #1e3a8a;}
+    #panel-kss .status-title p{color: #1d4ed8;
         font-size: 13px;
-        font-weight: 500;}.kss-total-display{display: flex;
+        font-weight: 500;}
+    .kss-total-display{display: flex;
         align-items: baseline;
         gap: 4px;
-        flex-shrink: 0;}.kss-total-val{font-size: 36px;
+        flex-shrink: 0;}
+    .kss-total-val{font-size: 36px;
         font-weight: 700;
         line-height: 1;
         color: #1e3a8a;
-        transition: opacity .3s;}.kss-total-max{font-size: 16px;
+        transition: opacity .3s;}
+    .kss-total-max{font-size: 16px;
         color: #6b7280;
-        font-weight: 500;}.kss-section-card{background: #ffffff;
+        font-weight: 500;}
+    .kss-section-card{background: #ffffff;
         border: 1px solid #e5e7eb;
         border-radius: 10px;
         padding: 18px;
         margin-bottom: 14px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.03);}.kss-card-header{display: flex;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);}
+    .kss-card-header{display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 14px;}.kss-card-title{display: flex;
+        margin-bottom: 14px;}
+    .kss-card-title{display: flex;
         align-items: center;
         font-weight: 600;
         font-size: 15px;
-        color: #1f2937;}.kss-nb{width: 24px;
+        color: #1f2937;}
+    .kss-nb{width: 24px;
         height: 24px;
         background: #3b82f6;
         color: #fff;
@@ -218,18 +365,25 @@
         font-size: 12px;
         font-weight: 700;
         margin-right: 10px;
-        flex-shrink: 0;}.kss-sp{font-size: 13px;
+        flex-shrink: 0;}
+    .kss-sp{font-size: 13px;
         font-weight: 700;
         padding: 4px 14px;
         border-radius: 16px;
         min-width: 50px;
         text-align: center;
-        transition: all .2s;}.kss-sp.mt{background: #f3f4f6; color: #9ca3af;}.kss-sp.pos{background: #eff6ff; color: #1d4ed8;}.kss-sp.neg{background: #fef2f2; color: #b91c1c;}.kss-label{font-size: 13px;
+        transition: all .2s;}
+    .kss-sp.mt{background: #f3f4f6; color: #9ca3af;}
+    .kss-sp.pos{background: #eff6ff; color: #1d4ed8;}
+    .kss-sp.neg{background: #fef2f2; color: #b91c1c;}
+    .kss-label{font-size: 13px;
         color: #6b7280;
         margin-bottom: 8px;
-        font-weight: 500;}.kss-nprs-row{display: grid;
+        font-weight: 500;}
+    .kss-nprs-row{display: grid;
         grid-template-columns: repeat(11, 1fr);
-        gap: 5px;}.kss-nprs-btn{aspect-ratio: 1;
+        gap: 5px;}
+    .kss-nprs-btn{aspect-ratio: 1;
         border: 2px solid #e5e7eb;
         border-radius: 8px;
         background: #fff;
@@ -242,13 +396,26 @@
         transition: all .15s;
         color: #4b5563;
         font-family: inherit;
-        padding: 0;}.kss-nprs-btn:hover{border-color: #93c5fd;}.kss-nprs-btn.on{color: #fff;
+        padding: 0;}
+    .kss-nprs-btn:hover{border-color: #93c5fd;}
+    .kss-nprs-btn.on{color: #fff;
         border-color: transparent;
-        transform: scale(1.05);}.kss-nprs-btn.on.g{background: #16a34a;}.kss-nprs-btn.on.lg{background: #84cc16; color: #1f2937;}.kss-nprs-btn.on.y{background: #eab308;}.kss-nprs-btn.on.o{background: #f97316;}.kss-nprs-btn.on.r{background: #ef4444;}@media (max-width: 480px){.kss-nprs-row{gap: 3px;}.kss-nprs-btn{font-size: 12px; border-radius: 6px;}}.kss-coll{max-height: 0;
+        transform: scale(1.05);}
+    .kss-nprs-btn.on.g{background: #16a34a;}
+    .kss-nprs-btn.on.lg{background: #84cc16; color: #1f2937;}
+    .kss-nprs-btn.on.y{background: #eab308;}
+    .kss-nprs-btn.on.o{background: #f97316;}
+    .kss-nprs-btn.on.r{background: #ef4444;}
+    @media (max-width: 480px){.kss-nprs-row{gap: 3px;}.kss-nprs-btn{font-size: 12px; border-radius: 6px;}}
+    .kss-coll{max-height: 0;
         overflow: hidden;
-        transition: max-height .35s ease;}.kss-coll.show{max-height: 500px;}.kss-coll-inner{padding-top: 14px;
+        transition: max-height .35s ease;}
+    .kss-coll.show{max-height: 500px;}
+    .kss-coll-inner{padding-top: 14px;
         margin-top: 14px;
-        border-top: 1px solid #f3f4f6;}.kss-opt-list{display: flex; flex-direction: column; gap: 8px;}.kss-opt-item{display: flex;
+        border-top: 1px solid #f3f4f6;}
+    .kss-opt-list{display: flex; flex-direction: column; gap: 8px;}
+    .kss-opt-item{display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 12px 14px;
@@ -257,25 +424,35 @@
         cursor: pointer;
         transition: all .15s;
         font-size: 14px;
-        background: #fff;}.kss-opt-item:hover{border-color: #93c5fd;}.kss-opt-item.sel{border-color: #3b82f6;
-        background: #eff6ff;}.kss-opt-left{display: flex; align-items: center;}.kss-opt-dot{width: 16px;
+        background: #fff;}
+    .kss-opt-item:hover{border-color: #93c5fd;}
+    .kss-opt-item.sel{border-color: #3b82f6;
+        background: #eff6ff;}
+    .kss-opt-left{display: flex; align-items: center;}
+    .kss-opt-dot{width: 16px;
         height: 16px;
         border: 2px solid #d1d5db;
         border-radius: 50%;
         margin-right: 10px;
         position: relative;
-        flex-shrink: 0;}.kss-opt-item.sel .kss-opt-dot{border-color: #3b82f6;}.kss-opt-item.sel .kss-opt-dot::after{content: '';
+        flex-shrink: 0;}
+    .kss-opt-item.sel .kss-opt-dot{border-color: #3b82f6;}
+    .kss-opt-item.sel .kss-opt-dot::after{content: '';
         position: absolute;
         top: 2px;
         left: 2px;
         width: 8px;
         height: 8px;
         background: #3b82f6;
-        border-radius: 50%;}.kss-opt-pts{font-size: 13px;
+        border-radius: 50%;}
+    .kss-opt-pts{font-size: 13px;
         color: #9ca3af;
         font-weight: 600;
         white-space: nowrap;
-        margin-left: 8px;}.kss-opt-item.sel .kss-opt-pts{color: #3b82f6;}.kss-input-row{display: flex; align-items: center; gap: 10px;}.kss-ninput{width: 110px;
+        margin-left: 8px;}
+    .kss-opt-item.sel .kss-opt-pts{color: #3b82f6;}
+    .kss-input-row{display: flex; align-items: center; gap: 10px;}
+    .kss-ninput{width: 110px;
         padding: 10px 12px;
         border: 2px solid #e5e7eb;
         border-radius: 8px;
@@ -286,9 +463,14 @@
         font-family: inherit;
         background: #fff;
         transition: border-color .2s;
-        -moz-appearance: textfield;}.kss-ninput::-webkit-outer-spin-button,
+        -moz-appearance: textfield;}
+    .kss-ninput::-webkit-outer-spin-button,
     .kss-ninput::-webkit-inner-spin-button{-webkit-appearance: none;
-        margin: 0;}.kss-ninput:focus{border-color: #3b82f6;}.kss-unit{font-size: 14px; color: #6b7280;}.kss-ticks{display: flex; flex-wrap: wrap; gap: 8px;}.kss-tick{flex: 1;
+        margin: 0;}
+    .kss-ninput:focus{border-color: #3b82f6;}
+    .kss-unit{font-size: 14px; color: #6b7280;}
+    .kss-ticks{display: flex; flex-wrap: wrap; gap: 8px;}
+    .kss-tick{flex: 1;
         min-width: 70px;
         padding: 10px 6px;
         border: 2px solid #e5e7eb;
@@ -298,17 +480,25 @@
         transition: all .15s;
         font-size: 13px;
         line-height: 1.3;
-        background: #fff;}.kss-tick:hover{border-color: #93c5fd;}.kss-tick.sel{border-color: #3b82f6;
+        background: #fff;}
+    .kss-tick:hover{border-color: #93c5fd;}
+    .kss-tick.sel{border-color: #3b82f6;
         background: #eff6ff;
         color: #1d4ed8;
-        font-weight: 600;}.kss-tick small{display: block;
+        font-weight: 600;}
+    .kss-tick small{display: block;
         font-size: 11px;
         color: #9ca3af;
         margin-top: 3px;
-        font-weight: 600;}.kss-tick.sel small{color: #3b82f6;}.kss-sub-title{font-size: 13px;
+        font-weight: 600;}
+    .kss-tick.sel small{color: #3b82f6;}
+    .kss-sub-title{font-size: 13px;
         font-weight: 600;
         color: #4b5563;
-        margin: 14px 0 8px 0;}.kss-sub-title:first-child{margin-top: 0;}.kss-align-row{display: flex; gap: 10px;}.kss-align-btn{flex: 1;
+        margin: 14px 0 8px 0;}
+    .kss-sub-title:first-child{margin-top: 0;}
+    .kss-align-row{display: flex; gap: 10px;}
+    .kss-align-btn{flex: 1;
         padding: 12px;
         border: 2px solid #e5e7eb;
         border-radius: 8px;
@@ -319,10 +509,13 @@
         transition: all .15s;
         text-align: center;
         font-family: inherit;
-        color: #374151;}.kss-align-btn:hover{border-color: #93c5fd;}.kss-align-btn.sel{border-color: #3b82f6;
+        color: #374151;}
+    .kss-align-btn:hover{border-color: #93c5fd;}
+    .kss-align-btn.sel{border-color: #3b82f6;
         background: #eff6ff;
         color: #1d4ed8;
-        font-weight: 600;}.kss-reset-btn{display: block;
+        font-weight: 600;}
+    .kss-reset-btn{display: block;
         margin: 20px auto 5px auto;
         padding: 10px 24px;
         background: #fff;
@@ -332,13 +525,240 @@
         font-size: 14px;
         color: #6b7280;
         cursor: pointer;
-        transition: all .15s;}.kss-reset-btn:hover{border-color: #ef4444;
-        color: #ef4444;}</style>
+        transition: all .15s;}
+    .kss-reset-btn:hover{border-color: #ef4444;
+        color: #ef4444;}
+
+    /* ============================================================
+       TFCC TAB STYLES (VIOLET THEME)
+       ============================================================ */
+    .tfcc-reminder{background: #fffbeb;
+        border-bottom: 1px solid #fde68a;
+        border-left: 5px solid #f59e0b;
+        padding: 14px 24px;
+        font-size: 14px;
+        color: #78350f;}
+    .tfcc-reminder-title{font-weight: 700; margin-bottom: 4px;}
+    .tfcc-reminder ul{margin: 0; padding-left: 20px;}
+    .tfcc-reminder li{margin: 2px 0;}
+    .tfcc-load-error{background: #fef2f2;
+        border-bottom: 1px solid #fecaca;
+        color: #991b1b;
+        padding: 10px 24px;
+        font-size: 13px;
+        font-weight: 600;}
+
+    .tfcc-row{display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;}
+    .tfcc-field{display: flex; flex-direction: column; flex: 1; min-width: 200px;}
+    .tfcc-field .acl-label{margin-bottom: 8px;}
+    .tfcc-select{padding: 12px;
+        border: 1px solid #d6d3d0;
+        border-radius: 8px;
+        font-size: 15px;
+        font-family: inherit;
+        background-color: #faf8f4;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s;}
+    #panel-tfcc .acl-input:focus,
+    #panel-tfcc .tfcc-select:focus{outline: none;
+        border-color: #8b5cf6;
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        background-color: #ffffff;}
+    #panel-tfcc .acl-btn{background-color: #6d28d9;}
+    #panel-tfcc .acl-btn:hover{background-color: #4c1d95;}
+    #panel-tfcc .status-bar{background-color: #f5f3ff;
+        border-color: #ddd6fe;}
+    #panel-tfcc .status-title h2{color: #4c1d95;}
+    #panel-tfcc .status-title p{color: #6d28d9;}
+    #panel-tfcc .days-badge{color: #6d28d9;
+        border-color: #c4b5fd;}
+
+    .tfcc-output{padding: 24px; display: none;}
+    .tfcc-output.tfcc-visible{display: block; animation: fadeIn 0.5s ease-in-out;}
+    .tfcc-phase-pill{display: inline-block;
+        margin-top: 8px;
+        background: #6d28d9;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 3px 12px;
+        border-radius: 999px;}
+    .tfcc-notes{background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 4px solid #f59e0b;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #78350f;
+        display: none;}
+    .tfcc-notes ul{margin: 0; padding-left: 20px;}
+    .tfcc-tag{font-size: 11px; font-weight: 600; opacity: 0.75;}
+    .tfcc-subhead{font-size: 13px; font-weight: 700; color: #3730a3; margin: 10px 0 4px 0;}
+    .tfcc-subhead:first-child{margin-top: 0;}
+    .tfcc-subhead em{font-weight: 400; color: #6b7280;}
+    .box-purple .tfcc-subhead{color: #6b21a8;}
+
+    .tfcc-btn{background: #6d28d9;
+        color: #fff;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: inherit;
+        transition: background-color 0.2s;}
+    .tfcc-btn:hover{background: #4c1d95;}
+    .tfcc-btn:disabled{background: #9ca3af; cursor: not-allowed;}
+    .tfcc-btn-red{background: #ef4444;}
+    .tfcc-btn-red:hover{background: #dc2626;}
+    .tfcc-btn-purple{background: #8e44ad;}
+    .tfcc-btn-purple:hover{background: #7d3c98;}
+    .tfcc-btn-blue{background: #2563eb;}
+    .tfcc-btn-blue:hover{background: #1d4ed8;}
+    .tfcc-helper{font-size: 12px; color: #78716c; margin-top: 8px;}
+    .tfcc-error{color: #dc2626; font-size: 13px; margin-top: 6px; display: none;}
+
+    .tfcc-ex-section{padding: 24px; border-top: 1px solid #e5e7eb; display: none;}
+    .tfcc-ex-section > h2{margin: 0 0 4px 0; font-size: 20px; color: #4c1d95;}
+    .tfcc-ex-section > p{margin: 0 0 16px 0; font-size: 13px; color: #6b7280;}
+    .tfcc-ex-phase{border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 10px; overflow: hidden;}
+    .tfcc-ex-phase.tfcc-current{border: 2px solid #8b5cf6;}
+    .tfcc-ex-phase-header{display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: #44403c;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        font-weight: 600;
+        font-size: 14px;}
+    .tfcc-current .tfcc-ex-phase-header{background: #6d28d9;}
+    .tfcc-ex-phase-label{flex: 1;}
+    .tfcc-ex-phase-label small{font-weight: 400; opacity: 0.85;}
+    .tfcc-chevron{display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid #fff;
+        transition: transform 0.25s ease;
+        flex-shrink: 0;}
+    .tfcc-chevron.tfcc-collapsed{transform: rotate(-90deg);}
+    .tfcc-cur-badge{background: #fbbf24;
+        color: #78350f;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-weight: 700;
+        flex-shrink: 0;}
+    .tfcc-selall{font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        flex-shrink: 0;}
+    .tfcc-selall:hover{background: rgba(255,255,255,0.4);}
+    .tfcc-ex-list.tfcc-hidden{display: none;}
+    .tfcc-ex-item{display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-top: 1px solid #eee;}
+    .tfcc-ex-item:hover{background: #faf8f4;}
+    .tfcc-ex-item input[type="checkbox"]{transform: scale(1.3); cursor: pointer; flex-shrink: 0; accent-color: #6d28d9;}
+    .tfcc-ex-item label{flex: 1; cursor: pointer; font-size: 14px;}
+    .tfcc-code{color: #9ca3af; font-family: monospace; font-size: 12px; flex-shrink: 0;}
+    .tfcc-unit-min{font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 10px;
+        font-weight: 600;
+        background: #f4ecf7;
+        color: #7d3c98;
+        margin-left: 6px;
+        white-space: nowrap;}
+    .tfcc-later{font-size: 10px;
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 2px 7px;
+        border-radius: 10px;
+        font-weight: 600;
+        flex-shrink: 0;}
+    .tfcc-sel-card{border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin: 20px 0;}
+    .tfcc-sel-card h3{margin: 0 0 10px 0; font-size: 16px; color: #374151;}
+    .tfcc-sel-ex{display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        flex-wrap: wrap;
+        font-size: 13px;}
+    .tfcc-sel-ex:last-child{border-bottom: none;}
+    .tfcc-sel-name{flex: 1; min-width: 200px; font-weight: 600; font-size: 14px;}
+    .tfcc-sel-ex label{color: #555;}
+    .tfcc-sel-ex input[type="number"]{width: 58px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;}
+    .tfcc-sel-ex select{padding: 5px; border: 1px solid #ccc; border-radius: 4px;}
+    .tfcc-ptag{font-size: 10px;
+        background: #ede9fe;
+        color: #5b21b6;
+        padding: 1px 6px;
+        border-radius: 8px;
+        margin-left: 4px;
+        font-weight: 600;}
+    .tfcc-remove{background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;}
+    .tfcc-empty-msg{color: #999; font-style: italic; padding: 12px; text-align: center;}
+    .tfcc-btn-row{display: flex; gap: 10px; flex-wrap: wrap;}
+    .tfcc-btn-gen{flex: 1; font-size: 18px; padding: 15px;}
+
+    .tfcc-qr-output{display: none; text-align: center; margin-top: 20px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;}
+    .tfcc-qr-output h3{margin: 0 0 6px 0; color: #4c1d95;}
+    #tfccQrcode{display: inline-block; margin: 16px auto;}
+    #tfccQrcode img, #tfccQrcode canvas, #tfccQrcode svg{display: block; margin: 0 auto;}
+    .tfcc-url-box{background: #f8f9fa;
+        padding: 12px;
+        border-radius: 6px;
+        word-break: break-all;
+        font-family: monospace;
+        font-size: 13px;
+        margin: 12px 0;
+        text-align: left;}
+    .tfcc-qr-output .tfcc-btn{margin: 4px; font-size: 15px; padding: 10px 22px;}
+    .tfcc-until-box{max-width: 360px;
+        margin: 8px auto 14px auto;
+        text-align: left;
+        background: #f5f3ff;
+        border: 1px solid #ddd6fe;
+        border-radius: 8px;
+        padding: 14px 16px;}
+    .tfcc-until-box .acl-label{margin-bottom: 6px;}
+    .tfcc-until-box .acl-input{width: 100%; min-width: 0; padding: 10px;}
+    .tfcc-until-box .tfcc-helper{margin: 6px 0 0 0;}
+
+    /* ===== TFCC PRINT SHEET (QR + phase + until date, Traditional Chinese) ===== */
+    @media screen{#tfccPrintSheet{display: none !important;}}
+    @media print{
+        @page{margin: 15mm;}
+        body.tfcc-printing > *:not(#tfccPrintSheet){display: none !important;}
+        body.tfcc-printing{background: #fff !important; margin: 0 !important; padding: 0 !important;}
+        #tfccPrintSheet{display: block;
+            font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", "Heiti TC", Arial, sans-serif;
+            color: #000; text-align: center; padding-top: 10mm;}
+        #tfccPrintSheet .ps-phase{font-size: 22px; font-weight: bold; margin: 0 0 4px 0;}
+        #tfccPrintSheet .ps-phase-en{font-size: 14px; margin: 0 0 16px 0;}
+        #tfccPrintSheet .ps-qr img{width: 260px; height: 260px; display: block; margin: 0 auto;}
+        #tfccPrintSheet .ps-qr-caption{font-size: 16px; margin-top: 10px;}
+        #tfccPrintSheet .ps-until{font-size: 18px; margin-top: 28px;}
+        #tfccPrintSheet .ps-until strong{font-size: 20px;}
+        #tfccPrintSheet .ps-line{display: inline-block; border-bottom: 1px solid #000; width: 44px; margin: 0 4px;}
+        #tfccPrintSheet .ps-line.ps-year{width: 70px;}
+    }
+</style>
 
 <div class="acl-tool-wrapper">
     <div class="acl-card">
 
-        <!-- ============ POST-OT CALCULATOR (insert right after <div class="acl-card">) ============ -->
+        <!-- ============ POST-OT CALCULATOR ============ -->
 <div class="pot-bar">
     <div class="pot-row">
         <div class="pot-title">🗓️ Post-OT Calculator</div>
@@ -462,15 +882,35 @@
 </script>
 <!-- ============ END POST-OT CALCULATOR ============ -->
 
-        <!-- TABS -->
-        <div class="protocol-tabs" role="tablist">
-            <button class="protocol-tab active" data-target="panel-acl">ACL Reconstruction</button>
-            <button class="protocol-tab" data-target="panel-ta">TA Repair</button>
-            <button class="protocol-tab" data-target="panel-meniscus">Meniscus Repair</button>
-            <button class="protocol-tab" data-target="panel-kss">KSS</button>
+        <!-- ============ REGION SWITCHER ============
+             To make Upper Limb the default on page load, move the "active" class
+             from the LL region button + LL tab bar onto the UL ones (and move
+             "active" from #panel-acl to #panel-tfcc). -->
+        <div class="region-bar" role="tablist">
+            <span class="region-bar-label">Body Region</span>
+            <button type="button" class="region-btn" data-region="ul">
+                💪 Upper Limb
+                <small>TFCC</small>
+            </button>
+            <button type="button" class="region-btn active" data-region="ll">
+                🦵 Lower Limb
+                <small>ACL · TA · KSS</small>
+            </button>
         </div>
 
-        <!-- ACL PANEL -->
+        <!-- UPPER LIMB TABS -->
+        <div class="protocol-tabs" data-region="ul" role="tablist">
+            <button type="button" class="protocol-tab active" data-target="panel-tfcc">TFCC (Conservative)</button>
+        </div>
+
+        <!-- LOWER LIMB TABS -->
+        <div class="protocol-tabs active" data-region="ll" role="tablist">
+            <button type="button" class="protocol-tab active" data-target="panel-acl">ACL Reconstruction</button>
+            <button type="button" class="protocol-tab" data-target="panel-ta">TA Repair</button>
+            <button type="button" class="protocol-tab" data-target="panel-kss">KSS</button>
+        </div>
+
+        <!-- ===================== ACL PANEL (LL) ===================== -->
         <div id="panel-acl" class="protocol-panel active">
             <div class="acl-header">
                 <h1>PWH Physio ACL Reconstruction Rehab Protocol</h1>
@@ -488,7 +928,6 @@
             </div>
 
             <div id="outputContainer" class="acl-output">
-
                 <div class="week-selector-bar">
                     <label for="weekSelector">View programme for:</label>
                     <select id="weekSelector"></select>
@@ -544,7 +983,7 @@
             </div>
         </div>
 
-        <!-- TA REPAIR PANEL -->
+        <!-- ===================== TA REPAIR PANEL (LL) ===================== -->
         <div id="panel-ta" class="protocol-panel">
             <div class="acl-header">
                 <h1>PWH Physio Tendo Achilles Repair Protocol</h1>
@@ -562,7 +1001,6 @@
             </div>
 
             <div id="ta-outputContainer" class="acl-output">
-
                 <div class="week-selector-bar">
                     <label for="ta-weekSelector">View programme for:</label>
                     <select id="ta-weekSelector"></select>
@@ -622,90 +1060,7 @@
             </div>
         </div>
 
-        <!-- MENISCUS REPAIR PANEL -->
-        <div id="panel-meniscus" class="protocol-panel">
-            <div class="acl-header">
-                <h1>PWH Physio Meniscus Repair Protocol (Arthroscopic)</h1>
-                <p>Enter the operation date to generate brace status, goals, interventions, precautions, and progression criteria for any post-op week.</p>
-            </div>
-
-            <div class="acl-input-section">
-                <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
-                <div class="acl-controls">
-                    <input type="text" id="men-opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input">
-                    <button id="men-btnGenerate" class="acl-btn">Enter</button>
-                </div>
-                <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
-                <p id="men-dateError" class="acl-error">Invalid date format.</p>
-            </div>
-
-            <div id="men-outputContainer" class="acl-output">
-
-                <div class="week-selector-bar">
-                    <label for="men-weekSelector">View programme for:</label>
-                    <select id="men-weekSelector"></select>
-                    <span class="week-start-info">
-                        First day of this week: <strong id="men-weekStartDate">--</strong>
-                    </span>
-                </div>
-
-                <div class="status-bar">
-                    <div class="status-title">
-                        <h2 id="men-weekHeader">Post-Operation - Week</h2>
-                        <p id="men-dayRange">Day range</p>
-                    </div>
-                    <div class="days-badge">
-                        <span id="men-daysPastBadge">0 Days Post-Op</span>
-                    </div>
-                </div>
-
-                <div id="men-braceStatus" class="brace-status-banner">
-                    <span class="brace-label">Brace / WB Status</span>
-                    <span id="men-braceText">--</span>
-                </div>
-
-                <div class="info-grid">
-                    <div>
-                        <div class="info-box box-green">
-                            <h3>Goals</h3>
-                            <ul id="men-goalList"></ul>
-                        </div>
-                        <div class="info-box box-red">
-                            <h3>Precautions & ROM Limits</h3>
-                            <ul id="men-precautionList"></ul>
-                        </div>
-                        <div class="info-box box-purple">
-                            <h3>Outcome Measures / Assessment</h3>
-                            <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
-                            <ul id="men-outcomeList"></ul>
-                        </div>
-                        <div id="men-criteriaBox" class="info-box box-amber" style="display:none;">
-                            <h3>Criteria to Progress</h3>
-                            <div id="men-criteriaContent" class="criteria-content"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="info-box box-indigo">
-                            <h3>Interventions</h3>
-                            <ul id="men-interventionList"></ul>
-                        </div>
-                        <div>
-                            <div class="copy-header">
-                                <span class="copy-label">Generated Treatment Record Text</span>
-                                <button id="men-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
-                            </div>
-                            <textarea id="men-generatedText" class="generated-text" readonly></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="men-emptyState" class="empty-state">
-                <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
-            </div>
-        </div>
-
-        <!-- ===================== KSS PANEL ===================== -->
+        <!-- ===================== KSS PANEL (LL) ===================== -->
         <div id="panel-kss" class="protocol-panel">
             <div class="acl-header">
                 <h1>Knee Society Score (KSS)</h1>
@@ -714,7 +1069,6 @@
 
             <div class="acl-output visible" style="display:block; padding: 24px;">
 
-                <!-- Total status banner at top -->
                 <div class="status-bar">
                     <div class="status-title">
                         <h2>KSS Total</h2>
@@ -763,16 +1117,16 @@
                     </div>
                     <div class="kss-sub-title">Anteroposterior</div>
                     <div class="kss-ticks" id="kss-apT">
-                        <div class="kss-tick" data-grp="ap" data-val="10">< 5 mm<small>10 pts</small></div>
+                        <div class="kss-tick" data-grp="ap" data-val="10">&lt; 5 mm<small>10 pts</small></div>
                         <div class="kss-tick" data-grp="ap" data-val="5">5–10 mm<small>5 pts</small></div>
-                        <div class="kss-tick" data-grp="ap" data-val="0">> 10 mm<small>0 pts</small></div>
+                        <div class="kss-tick" data-grp="ap" data-val="0">&gt; 10 mm<small>0 pts</small></div>
                     </div>
                     <div class="kss-sub-title">Mediolateral</div>
                     <div class="kss-ticks" id="kss-mlT">
-                        <div class="kss-tick" data-grp="ml" data-val="15">< 5°<small>15 pts</small></div>
+                        <div class="kss-tick" data-grp="ml" data-val="15">&lt; 5°<small>15 pts</small></div>
                         <div class="kss-tick" data-grp="ml" data-val="10">6–9°<small>10 pts</small></div>
                         <div class="kss-tick" data-grp="ml" data-val="5">10–14°<small>5 pts</small></div>
-                        <div class="kss-tick" data-grp="ml" data-val="0">> 14°<small>0 pts</small></div>
+                        <div class="kss-tick" data-grp="ml" data-val="0">&gt; 14°<small>0 pts</small></div>
                     </div>
                 </div>
 
@@ -824,7 +1178,6 @@
                     </div>
                 </div>
 
-                <!-- Notes / Copy -->
                 <div style="margin-top:18px;">
                     <div class="copy-header">
                         <span class="copy-label">📋 KSS Notes</span>
@@ -833,8 +1186,142 @@
                     <textarea id="kss-generatedText" class="generated-text" readonly placeholder="Notes will appear here once all items are completed..."></textarea>
                 </div>
 
-                <!-- Reset -->
                 <button class="kss-reset-btn" id="kss-resetBtn" type="button">🔄 Reset KSS</button>
+            </div>
+        </div>
+
+        <!-- ===================== TFCC PANEL (UL) ===================== -->
+        <div id="panel-tfcc" class="protocol-panel">
+            <div id="tfccTool">
+                <div class="acl-header">
+                    <h1>PWH Physio TFCC Conservative Rehab Protocol</h1>
+                    <p>Enter the date of injury to generate phase-specific goals, splinting, interventions, precautions and a home exercise QR code.</p>
+                </div>
+
+                <div class="tfcc-reminder">
+                    <div class="tfcc-reminder-title">&#9888;&#65039; Reminder &ndash; This protocol is only applicable to:</div>
+                    <ul>
+                        <li>Patients referred by the Department of Orthopaedics and Traumatology, Prince of Wales Hospital</li>
+                        <li>Patients within three months post injury with clinically stable DRUJ</li>
+                    </ul>
+                </div>
+
+                <!-- Visible until the TFCC script starts. If it stays visible, the TFCC script did not run. -->
+                <div id="tfccLoadError" class="tfcc-load-error">
+                    Loading tool&hellip; If this message does not disappear, the TFCC script has not run. Please check that the full code was pasted.
+                </div>
+
+                <div class="acl-input-section">
+                    <div class="tfcc-row">
+                        <div class="tfcc-field">
+                            <label class="acl-label" for="tfccInjuryDate">Date of Injury (dd/mm/yyyy)</label>
+                            <input type="text" id="tfccInjuryDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input" inputmode="numeric" autocomplete="off">
+                        </div>
+                        <div class="tfcc-field">
+                            <label class="acl-label" for="tfccPhaseOverride">Phase</label>
+                            <select id="tfccPhaseOverride" class="tfcc-select">
+                                <option value="auto">Auto (by timeline)</option>
+                                <option value="1">Phase 1 &ndash; Acute Protection (Wk 0&ndash;3)</option>
+                                <option value="2">Phase 2 &ndash; Protected Mobilization (Wk 4&ndash;6)</option>
+                                <option value="3">Phase 3 &ndash; Controlled Mobilization (Wk 7&ndash;9)</option>
+                                <option value="4">Phase 4 &ndash; Strengthening (Wk 10&ndash;12)</option>
+                                <option value="5">Phase 5 &ndash; Return to Function (Wk 13&ndash;16)</option>
+                            </select>
+                        </div>
+                        <button type="button" id="tfccBtnGenerate" class="acl-btn">Enter</button>
+                    </div>
+                    <p class="acl-helper-text">Format: Day/Month/Year (e.g., 25/01/2025). Progression is criteria-based &ndash; override the phase manually if needed.</p>
+                    <p id="tfccDateError" class="tfcc-error"></p>
+                </div>
+
+                <div id="tfccOutput" class="tfcc-output">
+                    <div class="status-bar">
+                        <div class="status-title">
+                            <h2 id="tfccWeekHeader">Week</h2>
+                            <p id="tfccDayRange"></p>
+                            <span class="tfcc-phase-pill" id="tfccPhasePill">Phase</span>
+                        </div>
+                        <div class="days-badge"><span id="tfccDaysBadge">0 Days Post-Injury</span></div>
+                    </div>
+
+                    <div class="tfcc-notes" id="tfccNotes"><ul id="tfccNotesList"></ul></div>
+
+                    <div class="info-grid">
+                        <div>
+                            <div class="info-box box-green">
+                                <h3>Goals</h3>
+                                <ul id="tfccGoalList"></ul>
+                            </div>
+                            <div class="info-box box-orange">
+                                <h3>Splint <span class="tfcc-tag">[Occu]</span></h3>
+                                <ul id="tfccSplintList"></ul>
+                            </div>
+                            <div class="info-box box-red">
+                                <h3>Precautions &ndash; Avoid</h3>
+                                <ul id="tfccAvoidList"></ul>
+                            </div>
+                            <div class="info-box box-purple">
+                                <h3 id="tfccProgTitle">Progression Criteria</h3>
+                                <div id="tfccProgList"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="info-box box-indigo">
+                                <h3>Modalities &amp; Exercise <span class="tfcc-tag">[Physio]</span></h3>
+                                <div id="tfccModList"></div>
+                            </div>
+                            <div class="info-box box-teal">
+                                <h3>Therapeutic Intervention</h3>
+                                <ul id="tfccTherList"></ul>
+                            </div>
+                            <div>
+                                <div class="copy-header">
+                                    <span class="copy-label">Generated Treatment Record Text</span>
+                                    <button type="button" id="tfccBtnCopyText" class="btn-copy-small">Copy to Clipboard</button>
+                                </div>
+                                <textarea id="tfccGeneratedText" class="generated-text" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tfccExSection" class="tfcc-ex-section">
+                    <h2>Home Exercise Prescription</h2>
+                    <p>The current phase is expanded. Tap a phase header to expand/collapse. Exercises from later phases are flagged.</p>
+
+                    <div id="tfccExPanel"></div>
+
+                    <div class="tfcc-sel-card">
+                        <h3>Selected Exercises (<span id="tfccCount">0</span>)</h3>
+                        <div id="tfccSelectedList"><div class="tfcc-empty-msg">No exercises selected yet.</div></div>
+                    </div>
+
+                    <div class="tfcc-btn-row">
+                        <button type="button" id="tfccBtnQR" class="tfcc-btn tfcc-btn-gen" disabled>Generate QR Code</button>
+                        <button type="button" id="tfccBtnClear" class="tfcc-btn tfcc-btn-red">Clear Exercises</button>
+                    </div>
+
+                    <div id="tfccQrOutput" class="tfcc-qr-output">
+                        <h3>Patient Exercise Plan</h3>
+                        <p style="margin:0;font-size:14px;color:#555;">Scan this QR code to view exercises:</p>
+                        <div id="tfccQrcode"></div>
+                        <div class="tfcc-url-box" id="tfccUrlBox"></div>
+
+                        <div class="tfcc-until-box">
+                            <label class="acl-label" for="tfccUntilDate">Continue exercises until (dd/mm/yyyy)</label>
+                            <input type="text" id="tfccUntilDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input" inputmode="numeric" autocomplete="off">
+                            <p class="tfcc-helper">Optional &ndash; leave blank to write the date by hand on the printout.</p>
+                            <p id="tfccUntilError" class="tfcc-error"></p>
+                        </div>
+
+                        <button type="button" id="tfccBtnCopyLink" class="tfcc-btn tfcc-btn-purple">Copy Link</button>
+                        <button type="button" id="tfccBtnPrint" class="tfcc-btn tfcc-btn-blue">Print</button>
+                    </div>
+                </div>
+
+                <div id="tfccEmptyState" class="empty-state">
+                    <p>Please enter the date of injury (dd/mm/yyyy) or select a phase, then click Enter to begin.</p>
+                </div>
             </div>
         </div>
 
@@ -843,58 +1330,113 @@
     <div id="aclToast" class="acl-toast"></div>
 </div>
 
+<!-- ===================== MAIN SCRIPT: ACL / TA / KSS / TABS ===================== -->
 <script data-skip-moving="true">
-(function(){/* ============================================================
+(function(){
+    /* ============================================================
        SHARED HELPERS
        ============================================================ */
-    function formatDateDDMMYYYY(dateObj){var day = String(dateObj.getDate()).padStart(2, '0');
+    function formatDateDDMMYYYY(dateObj){
+        var day = String(dateObj.getDate()).padStart(2, '0');
         var month = String(dateObj.getMonth() + 1).padStart(2, '0');
         var year = dateObj.getFullYear();
-        return day + '/' + month + '/' + year;}function calendarMonthsBetween(fromDate, toDate){var months = (toDate.getFullYear() - fromDate.getFullYear()) * 12
-                     + (toDate.getMonth() - fromDate.getMonth());
+        return day + '/' + month + '/' + year;
+    }
+
+    function calendarMonthsBetween(fromDate, toDate){
+        var months = (toDate.getFullYear() - fromDate.getFullYear()) * 12
+                   + (toDate.getMonth() - fromDate.getMonth());
         if (toDate.getDate() < fromDate.getDate()) months -= 1;
         if (months < 0) months = 0;
-        return months;}function handleDateInput(e){var input = e.target;
+        return months;
+    }
+
+    function handleDateInput(e){
+        var input = e.target;
         if (e.inputType === 'deleteContentBackward') return;
         var value = input.value.replace(/\D/g, '');
         if (value.length >= 2) value = value.slice(0, 2) + '/' + value.slice(2);
         if (value.length >= 5) value = value.slice(0, 5) + '/' + value.slice(5);
-        input.value = value.slice(0, 10);}function showToast(message){var toast = document.getElementById('aclToast');
+        input.value = value.slice(0, 10);
+    }
+
+    function showToast(message){
+        var toast = document.getElementById('aclToast');
         if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
-        setTimeout(function(){toast.classList.remove('show');}, 2500);}function renderList(elementId, items){var list = document.getElementById(elementId);
+        setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+    }
+
+    function renderList(elementId, items){
+        var list = document.getElementById(elementId);
         if (!list) return;
         list.innerHTML = '';
-        if (!items || items.length === 0){list.innerHTML = '<li style="color:#999; font-style:italic;">None specified</li>';
-            return;}items.forEach(function(item){var li = document.createElement('li');
+        if (!items || items.length === 0){
+            list.innerHTML = '<li style="color:#999; font-style:italic;">None specified</li>';
+            return;
+        }
+        items.forEach(function(item){
+            var li = document.createElement('li');
             li.innerText = item;
-            list.appendChild(li);});}function renderCriteria(containerId, boxId, items){var box = document.getElementById(boxId);
+            list.appendChild(li);
+        });
+    }
+
+    function renderCriteria(containerId, boxId, items){
+        var box = document.getElementById(boxId);
         var container = document.getElementById(containerId);
         if (!container || !box) return;
         container.innerHTML = '';
-        if (!items || items.length === 0){box.style.display = 'none';
-            return;}box.style.display = '';
+        if (!items || items.length === 0){ box.style.display = 'none'; return; }
+        box.style.display = '';
         var ul = null;
-        items.forEach(function(item){if (typeof item === 'string' && item.trim().endsWith(':')){ul = null;
+        items.forEach(function(item){
+            if (typeof item === 'string' && item.trim().endsWith(':')){
+                ul = null;
                 var heading = document.createElement('div');
                 heading.className = 'criteria-heading';
                 heading.innerText = item;
-                container.appendChild(heading);}else{if (!ul){ul = document.createElement('ul');
-                    container.appendChild(ul);}var li = document.createElement('li');
+                container.appendChild(heading);
+            } else {
+                if (!ul){ ul = document.createElement('ul'); container.appendChild(ul); }
+                var li = document.createElement('li');
                 li.innerText = item;
-                ul.appendChild(li);}});}function fallbackCopy(el){try{el.select();
+                ul.appendChild(li);
+            }
+        });
+    }
+
+    function fallbackCopy(el){
+        try {
+            el.select();
             var ok = document.execCommand('copy');
             if (ok) showToast("Copied to clipboard!");
-            else showToast("Could not copy. Please select text and press Ctrl+C.");}catch (err){showToast("Could not copy. Please select text and press Ctrl+C.");}}function copyFromTextarea(elId){var copyTarget = document.getElementById(elId);
+            else showToast("Could not copy. Please select text and press Ctrl+C.");
+        } catch (err){
+            showToast("Could not copy. Please select text and press Ctrl+C.");
+        }
+    }
+
+    function copyFromTextarea(elId){
+        var copyTarget = document.getElementById(elId);
         copyTarget.select();
         copyTarget.setSelectionRange(0, 99999);
-        if (navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(copyTarget.value)
-                .then(function(){showToast("Copied to clipboard!");})
-                .catch(function(){fallbackCopy(copyTarget);});}else{fallbackCopy(copyTarget);}}/* ============================================================
+        if (navigator.clipboard && window.isSecureContext){
+            navigator.clipboard.writeText(copyTarget.value)
+                .then(function(){ showToast("Copied to clipboard!"); })
+                .catch(function(){ fallbackCopy(copyTarget); });
+        } else {
+            fallbackCopy(copyTarget);
+        }
+    }
+
+    /* ============================================================
        ACL TOOL
        ============================================================ */
-    function initACLTool(){var protocolData ={0:{goals:["Protect graft fixation", "Swelling control", "Begin quadriceps recruitment", "Maintenance of hip & ankle muscle"],
+    function initACLTool(){
+        var protocolData = {
+            0:{goals:["Protect graft fixation", "Swelling control", "Begin quadriceps recruitment", "Maintenance of hip & ankle muscle"],
                 interventions:["Partial weight bearing as tolerated with 2 crutches", "Passive patella mobilization", "Frequent ice and tubigrips", "Game Ready/PEMF+ice for knee joint swelling control", "Frequent elevation in full knee extension", "Active knee mobilization exercise (0-90°)", "Isometric quadriceps + co-contraction of hamstrings", "Ankle mobilization exercise and calf stretching", "Active hip extension / abduction / adduction"],
                 precautions:["PWB with 2 crutches", "ROM limited 0-90°"],
                 outcomes:["Check: Knee swelling", "Check: Knee ROM (Target 0-90°)", "Check: Quad recruitment"]},
@@ -949,37 +1491,63 @@
             27:{goals:["Gradual return to sport practice then competition"],
                 interventions:["Sports-specific performance training"],
                 precautions:["Return to sport only after passing Termination Assessment"],
-                outcomes:["Termination Assessment (Cybex): LSI ≥70% at 60°/sec, H/Q ratio ≥60%", "Functional Assessment: Hop tests & Vertical Jump", "Individualized sport-specific movement assessment"]}};
+                outcomes:["Termination Assessment (Cybex): LSI ≥70% at 60°/sec, H/Q ratio ≥60%", "Functional Assessment: Hop tests & Vertical Jump", "Individualized sport-specific movement assessment"]}
+        };
 
         var opDateGlobal = null;
         var actualDaysPast = 0;
 
-        function getProtocolForWeek(weekNum){if (weekNum <= 7) return protocolData[weekNum];
+        function getProtocolForWeek(weekNum){
+            if (weekNum <= 7) return protocolData[weekNum];
             if (weekNum >= 8 && weekNum <= 9) return protocolData[8];
             if (weekNum >= 10 && weekNum <= 12) return protocolData[10];
             if (weekNum >= 13 && weekNum <= 17) return protocolData[13];
             if (weekNum >= 18 && weekNum <= 21) return protocolData[18];
             if (weekNum >= 22 && weekNum <= 26) return protocolData[22];
             if (weekNum >= 27) return protocolData[27];
-            return protocolData[0];}function formatMonthsSubtitle(weekStartDate){if (!opDateGlobal) return '';
+            return protocolData[0];
+        }
+
+        function formatMonthsSubtitle(weekStartDate){
+            if (!opDateGlobal) return '';
             var months = calendarMonthsBetween(opDateGlobal, weekStartDate);
             if (months < 1) return '(Less than 1 month post-op)';
             if (months === 1) return '(1 month post-op)';
-            return '(' + months + ' months post-op)';}function formatTodayBadge(today, daysPast){if (!opDateGlobal) return '';
+            return '(' + months + ' months post-op)';
+        }
+
+        function formatTodayBadge(today, daysPast){
+            if (!opDateGlobal) return '';
             var months = calendarMonthsBetween(opDateGlobal, today);
-            if (months < 3){var weeks = Math.floor(daysPast / 7);
-                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateWeekSelector(currentWeek){var sel = document.getElementById('weekSelector');
+            if (months < 3){
+                var weeks = Math.floor(daysPast / 7);
+                return 'Week ' + weeks + ' Post-Op (today)';
+            }
+            return 'Month ' + months + ' Post-Op (today)';
+        }
+
+        function populateWeekSelector(currentWeek){
+            var sel = document.getElementById('weekSelector');
             sel.innerHTML = '';
-            for (var i = 0; i <= 30; i++){var opt = document.createElement('option');
+            for (var i = 0; i <= 30; i++){
+                var opt = document.createElement('option');
                 opt.value = i;
                 var label = 'Week ' + i;
-                if (opDateGlobal){var weekStart = new Date(opDateGlobal);
+                if (opDateGlobal){
+                    var weekStart = new Date(opDateGlobal);
                     weekStart.setDate(weekStart.getDate() + i * 7);
                     var months = calendarMonthsBetween(opDateGlobal, weekStart);
-                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
+                    if (months >= 3) label += ' / Month ' + months;
+                }
+                if (i === currentWeek) label += '  (current)';
                 opt.text = label;
                 if (i === currentWeek) opt.selected = true;
-                sel.appendChild(opt);}}function renderWeek(weekNum){if (!opDateGlobal) return;
+                sel.appendChild(opt);
+            }
+        }
+
+        function renderWeek(weekNum){
+            if (!opDateGlobal) return;
             var data = getProtocolForWeek(weekNum);
 
             var weekStart = new Date(opDateGlobal);
@@ -1000,14 +1568,20 @@
 
             var textBlock = 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
             textBlock += 'Precautions given and contraindications checked for EPT';
-            document.getElementById('generatedText').value = textBlock;}function generateProtocol(){var dateInputStr = document.getElementById('opDate').value;
-            var errorMsg = document.getElementById('dateError');
-            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-            var match = dateInputStr.match(datePattern);
+            document.getElementById('generatedText').value = textBlock;
+        }
 
-            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+        function generateProtocol(){
+            var dateInputStr = document.getElementById('opDate').value;
+            var errorMsg = document.getElementById('dateError');
+            var match = dateInputStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+            if (!match){
+                errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
                 errorMsg.style.display = 'block';
-                return;}errorMsg.style.display = 'none';
+                return;
+            }
+            errorMsg.style.display = 'none';
 
             var day = parseInt(match[1], 10);
             var month = parseInt(match[2], 10) - 1;
@@ -1015,16 +1589,21 @@
             var opDate = new Date(year, month, day);
             var today = new Date();
 
-            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){
+                errorMsg.innerText = "Invalid calendar date.";
                 errorMsg.style.display = 'block';
-                return;}opDate.setHours(0, 0, 0, 0);
+                return;
+            }
+            opDate.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
-            var diffTime = today - opDate;
-            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            var daysPast = Math.floor((today - opDate) / (1000 * 60 * 60 * 24));
 
-            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
+            if (daysPast < 0){
+                errorMsg.innerText = "Operation date cannot be in the future.";
                 errorMsg.style.display = 'block';
-                return;}opDateGlobal = opDate;
+                return;
+            }
+            opDateGlobal = opDate;
             actualDaysPast = daysPast;
             var currentWeek = Math.floor(daysPast / 7);
             if (currentWeek > 30) currentWeek = 30;
@@ -1037,18 +1616,31 @@
             outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
 
             populateWeekSelector(currentWeek);
-            renderWeek(currentWeek);}var opDateInput = document.getElementById('opDate');
+            renderWeek(currentWeek);
+        }
+
+        var opDateInput = document.getElementById('opDate');
         var btnGenerate = document.getElementById('btnGenerate');
         var btnCopy = document.getElementById('btnCopy');
         var weekSelector = document.getElementById('weekSelector');
 
-        if (opDateInput){opDateInput.addEventListener('input', handleDateInput);
-            opDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateProtocol();});}if (btnGenerate) btnGenerate.addEventListener('click', generateProtocol);
-        if (btnCopy) btnCopy.addEventListener('click', function(){copyFromTextarea('generatedText');});
-        if (weekSelector){weekSelector.addEventListener('change', function(){renderWeek(parseInt(weekSelector.value, 10));});}}/* ============================================================
+        if (opDateInput){
+            opDateInput.addEventListener('input', handleDateInput);
+            opDateInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') generateProtocol(); });
+        }
+        if (btnGenerate) btnGenerate.addEventListener('click', generateProtocol);
+        if (btnCopy) btnCopy.addEventListener('click', function(){ copyFromTextarea('generatedText'); });
+        if (weekSelector){
+            weekSelector.addEventListener('change', function(){ renderWeek(parseInt(weekSelector.value, 10)); });
+        }
+    }
+
+    /* ============================================================
        TA REPAIR TOOL
        ============================================================ */
-    function initTATool(){var taProtocolData ={0:{phase: "Phase 1: Protection",
+    function initTATool(){
+        var taProtocolData = {
+            0:{phase: "Phase 1: Protection",
                 goals:["Reduce edema", "Closure of incision", "Education on DVT prevention"],
                 interventions:["NWB with cast (in 20° PF)",
                     "Cryotherapy and electrotherapy for swelling control",
@@ -1162,39 +1754,65 @@
                     "Gastrocnemius-soleus strength 4+/5",
                     "Discharge criteria — Athletes:",
                     "Hop for distance within 85% of uninvolved leg",
-                    "Single-leg balance within 85% of uninvolved leg"]}};
+                    "Single-leg balance within 85% of uninvolved leg"]}
+        };
 
         var taOpDateGlobal = null;
         var taActualDaysPast = 0;
 
-        function getTAProtocolForWeek(weekNum){if (weekNum <= 1) return taProtocolData[0];
+        function getTAProtocolForWeek(weekNum){
+            if (weekNum <= 1) return taProtocolData[0];
             if (weekNum >= 2 && weekNum <= 3) return taProtocolData[2];
             if (weekNum >= 4 && weekNum <= 5) return taProtocolData[4];
             if (weekNum >= 6 && weekNum <= 11) return taProtocolData[6];
             if (weekNum >= 12 && weekNum <= 14) return taProtocolData[12];
             if (weekNum >= 15 && weekNum <= 18) return taProtocolData[15];
             if (weekNum >= 19) return taProtocolData[19];
-            return taProtocolData[0];}function formatTAMonthsSubtitle(weekStartDate, phaseLabel){if (!taOpDateGlobal) return '';
+            return taProtocolData[0];
+        }
+
+        function formatTAMonthsSubtitle(weekStartDate, phaseLabel){
+            if (!taOpDateGlobal) return '';
             var months = calendarMonthsBetween(taOpDateGlobal, weekStartDate);
             var monthsTxt;
             if (months < 1) monthsTxt = 'Less than 1 month post-op';
             else if (months === 1) monthsTxt = '1 month post-op';
             else monthsTxt = months + ' months post-op';
-            return phaseLabel ? (phaseLabel + ' · ' + monthsTxt) : monthsTxt;}function formatTATodayBadge(today, daysPast){if (!taOpDateGlobal) return '';
+            return phaseLabel ? (phaseLabel + ' · ' + monthsTxt) : monthsTxt;
+        }
+
+        function formatTATodayBadge(today, daysPast){
+            if (!taOpDateGlobal) return '';
             var months = calendarMonthsBetween(taOpDateGlobal, today);
-            if (months < 3){var weeks = Math.floor(daysPast / 7);
-                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateTAWeekSelector(currentWeek){var sel = document.getElementById('ta-weekSelector');
+            if (months < 3){
+                var weeks = Math.floor(daysPast / 7);
+                return 'Week ' + weeks + ' Post-Op (today)';
+            }
+            return 'Month ' + months + ' Post-Op (today)';
+        }
+
+        function populateTAWeekSelector(currentWeek){
+            var sel = document.getElementById('ta-weekSelector');
             sel.innerHTML = '';
-            for (var i = 0; i <= 30; i++){var opt = document.createElement('option');
+            for (var i = 0; i <= 30; i++){
+                var opt = document.createElement('option');
                 opt.value = i;
                 var label = 'Week ' + i;
-                if (taOpDateGlobal){var weekStart = new Date(taOpDateGlobal);
+                if (taOpDateGlobal){
+                    var weekStart = new Date(taOpDateGlobal);
                     weekStart.setDate(weekStart.getDate() + i * 7);
                     var months = calendarMonthsBetween(taOpDateGlobal, weekStart);
-                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
+                    if (months >= 3) label += ' / Month ' + months;
+                }
+                if (i === currentWeek) label += '  (current)';
                 opt.text = label;
                 if (i === currentWeek) opt.selected = true;
-                sel.appendChild(opt);}}function renderTAWeek(weekNum){if (!taOpDateGlobal) return;
+                sel.appendChild(opt);
+            }
+        }
+
+        function renderTAWeek(weekNum){
+            if (!taOpDateGlobal) return;
             var data = getTAProtocolForWeek(weekNum);
 
             var weekStart = new Date(taOpDateGlobal);
@@ -1216,14 +1834,20 @@
 
             var textBlock = 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
             textBlock += 'Precautions given and contraindications checked for EPT';
-            document.getElementById('ta-generatedText').value = textBlock;}function generateTAProtocol(){var dateInputStr = document.getElementById('ta-opDate').value;
-            var errorMsg = document.getElementById('ta-dateError');
-            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-            var match = dateInputStr.match(datePattern);
+            document.getElementById('ta-generatedText').value = textBlock;
+        }
 
-            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+        function generateTAProtocol(){
+            var dateInputStr = document.getElementById('ta-opDate').value;
+            var errorMsg = document.getElementById('ta-dateError');
+            var match = dateInputStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+            if (!match){
+                errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
                 errorMsg.style.display = 'block';
-                return;}errorMsg.style.display = 'none';
+                return;
+            }
+            errorMsg.style.display = 'none';
 
             var day = parseInt(match[1], 10);
             var month = parseInt(match[2], 10) - 1;
@@ -1231,16 +1855,21 @@
             var opDate = new Date(year, month, day);
             var today = new Date();
 
-            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){
+                errorMsg.innerText = "Invalid calendar date.";
                 errorMsg.style.display = 'block';
-                return;}opDate.setHours(0, 0, 0, 0);
+                return;
+            }
+            opDate.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
-            var diffTime = today - opDate;
-            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            var daysPast = Math.floor((today - opDate) / (1000 * 60 * 60 * 24));
 
-            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
+            if (daysPast < 0){
+                errorMsg.innerText = "Operation date cannot be in the future.";
                 errorMsg.style.display = 'block';
-                return;}taOpDateGlobal = opDate;
+                return;
+            }
+            taOpDateGlobal = opDate;
             taActualDaysPast = daysPast;
             var currentWeek = Math.floor(daysPast / 7);
             if (currentWeek > 30) currentWeek = 30;
@@ -1253,375 +1882,135 @@
             outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
 
             populateTAWeekSelector(currentWeek);
-            renderTAWeek(currentWeek);}var taOpDateInput = document.getElementById('ta-opDate');
+            renderTAWeek(currentWeek);
+        }
+
+        var taOpDateInput = document.getElementById('ta-opDate');
         var taBtnGenerate = document.getElementById('ta-btnGenerate');
         var taBtnCopy = document.getElementById('ta-btnCopy');
         var taWeekSelector = document.getElementById('ta-weekSelector');
 
-        if (taOpDateInput){taOpDateInput.addEventListener('input', handleDateInput);
-            taOpDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateTAProtocol();});}if (taBtnGenerate) taBtnGenerate.addEventListener('click', generateTAProtocol);
-        if (taBtnCopy) taBtnCopy.addEventListener('click', function(){copyFromTextarea('ta-generatedText');});
-        if (taWeekSelector){taWeekSelector.addEventListener('change', function(){renderTAWeek(parseInt(taWeekSelector.value, 10));});}}/* ============================================================
-       MENISCUS REPAIR TOOL
-       ============================================================ */
-    function initMeniscusTool(){var menProtocolData ={'wk0':{phase: "Phase 1a: Early Protected Mobilization (0-2 wk)",
-                brace: "? Brace ON at all times · PWB · PROM ≤ 90° within brace",
-                goals:["Protect the meniscal repair site",
-                    "Swelling and pain control",
-                    "Begin guided PROM within brace (≤0-90°)",
-                    "Maintain hip and ankle muscle strength"],
-                interventions:["Keep knee activities within the brace, partial weight-bearing",
-                    "Guided PROM knee range ≤90° within brace, no forceful knee extension",
-                    "Cryotherapy / pressure therapy for swelling control",
-                    "Electrotherapy for pain modulation",
-                    "Manual soft tissue release to skin restricted area ± US to popliteal tendonitis / bruising",
-                    "PF joint gliding",
-                    "Maintenance: resisted Glutei + hip sets + ankle resisted sets"],
-                precautions:["Brace ON at all times (in & out of exercise)",
-                    "Partial weight-bearing only",
-                    "PROM strictly limited to ≤90° flexion",
-                    "NO forceful knee extension",
-                    "NO open or closed chain exercises"],
-                outcomes:["Check: Wound / incision status",
-                    "Check: Knee swelling and bruising",
-                    "Check: PROM (target ≤0-90° within brace)",
-                    "Check: Quadriceps activation",
-                    "Check: Hip & ankle strength maintenance"],
-                criteria:["To progress to Week 3-4 (brace off during exercise):",
-                    "Wound healed and dry",
-                    "Swelling well-controlled",
-                    "PROM ≤90° achieved comfortably within brace",
-                    "Quadriceps activation present"]},
-            'wk3':{phase: "Phase 1b: Protected Mobilization with Brace Off in Exercise (3-4 wk)",
-                brace: "? Brace OFF during exercise only · Brace ON for ambulation · PWB · ROM ≤ 90°",
-                goals:["Smooth pain-free PROM ≤90° with brace off in exercise",
-                    "Initiate isometric quadriceps re-education",
-                    "Achieve terminal full knee extension"],
-                interventions:["Knee activities with brace OFF during exercises only (PWB)",
-                    "Guided knee passive mobilization ≤90° flexion with heel sliding out of brace",
-                    "Isometric Quad re-education ± BS in SLR if Quad is not contracting well",
-                    "For terminal full knee extension (hamstrings home stretch)",
-                    "Continue swelling and pain modulation as required"],
-                precautions:["Brace OFF during exercise only — wear during ambulation and at rest",
-                    "Partial weight-bearing only",
-                    "NO open / closed chain exercises without brace yet",
-                    "PROM still limited to ≤90° flexion"],
-                outcomes:["Check: PROM (target ≤90° smoothly with brace off)",
-                    "Check: Terminal knee extension",
-                    "Test: SLR with Quad re-education",
-                    "Check: No extension lag"],
-                criteria:["To progress to Week 5 (off brace selected cases, WBAT):",
-                    "PROM 0-90° achieved",
-                    "Quad firing well in SLR",
-                    "Terminal knee extension achieved",
-                    "Minimal swelling"]},
-            'wk5':{phase: "Phase 1c: Active ROM Phase (5 wk)",
-                brace: "? Off brace for selected cases · WBAT out of brace · Active-assisted ROM",
-                goals:["Encourage full PROM",
-                    "Initiate active and active-assisted ROM mobilization",
-                    "Normal gait without aids on treadmill"],
-                interventions:["Off brace for selected cases — WBAT out of brace (start active-assisted ROM Ex)",
-                    "Gentle free active ROM mobilization, encouraged full PROM",
-                    "Active hamstrings curl",
-                    "Soft tissue mobilization",
-                    "Gait training without aids on treadmill (≤3.5 MPH)",
-                    "Paddle exercises in neutral hip position",
-                    "Active terminal knee extension reinforcement (+ dynamic stretch with Precor™)",
-                    "Water kicking or hydrotherapy with pre & post Galileo™ assessment"],
-                precautions:["Off brace decision is case-by-case (selected cases only)",
-                    "WBAT out of brace as tolerated",
-                    "Treadmill speed ≤3.5 MPH",
-                    "Avoid aggressive open chain loading"],
-                outcomes:["Check: Active and Passive ROM (target full PROM)",
-                    "Observation: Gait pattern on treadmill (no antalgic pattern)",
-                    "Check: Hamstrings curl tolerance",
-                    "Check: Hydrotherapy tolerance (if wound healed)"],
-                criteria:["To progress to Week 6-7 (off brace for all cases, begin CKC):",
-                    "Normal gait without aids on treadmill",
-                    "Full or near-full PROM",
-                    "Sufficient quad strength to begin closed chain"]},
-            'wk6':{phase: "Phase 2a: Full Range and Kinetic Chain (6-7 wk)",
-                brace: "✅ Off brace for ALL cases · Begin closed kinetic chain",
-                goals:["Off brace for all cases",
-                    "Begin closed kinetic chain exercises",
-                    "Restore full prone knee flexion PROM",
-                    "Improve balance and proprioception"],
-                interventions:["Treadmill for gait-training",
-                    "Paddle exercise if knee ~90°; cycling in high seat if knee 100°→120°",
-                    "Free active prone knee bend (PROM full range)",
-                    "Balance training with KATS™ / wobble board",
-                    "Muscular stimulation to Quad in concentric mode (standing with 2 inches block)"],
-                precautions:["Off brace for all cases — monitor for any new symptoms",
-                    "Cycling: high seat until knee flexion 100°→120° achieved",
-                    "Begin CKC progressively"],
-                outcomes:["Check: Knee flexion (target 100°-120° for cycling)",
-                    "Check: Prone knee bend (target full PROM)",
-                    "Test: Balance with KATS / wobble board",
-                    "Check: Gait quality on treadmill"],
-                criteria:["To progress to Week 8-9 (concentric kinetic chain):",
-                    "Closed chain exercises tolerated",
-                    "Full prone knee bend PROM",
-                    "Wobble board balance achieved",
-                    "Cycling tolerated in high seat"]},
-            'wk8':{phase: "Phase 2b: Concentric Kinetic Chain (8-9 wk)",
-                brace: "?‍♂️ Walk unaided · Concentric kinetic chain training",
-                goals:["Walk unaided with normal gait",
-                    "Concentric kinetic chain strengthening",
-                    "Improve full knee flexion to symmetric range",
-                    "2D dynamic proprioceptive control"],
-                interventions:["Walk unaided, concentric mode in kinetic chain",
-                    "Progressive resisted leg press CKC in Quad / Hamstrings / Hip",
-                    "Cycling in low seat (Position 4-6)",
-                    "Stepping training (Kinetron™ → Johnson™ stepper)",
-                    "Contract-Relax technique to improve full knee flexion",
-                    "2D proprioceptive training for dynamic knee stability (balance board)"],
-                precautions:["Concentric loading only at this stage",
-                    "Cycling in low seat — monitor patellofemoral discomfort",
-                    "Progress resistance gradually"],
-                outcomes:["Observation: Walking unaided pain-free",
-                    "Test: Leg press progression (Quad / HS / Hip)",
-                    "Check: Full knee flexion progression",
-                    "Test: Balance board control (2D)"],
-                criteria:["To progress to Week 10-11 (eccentric phase):",
-                    "Walk unaided pain-free with normal gait",
-                    "Leg press tolerated and progressing",
-                    "Approaching full knee flexion symmetric to opposite side"]},
-            'wk10':{phase: "Phase 2c: Eccentric Kinetic Chain & Dynamic Lunges (10-11 wk)",
-                brace: "? FWB · Eccentric strengthening + multi-directional lunges",
-                goals:["Initiate eccentric quadriceps loading",
-                    "Diagonal pattern PNF strengthening",
-                    "Multi-directional dynamic lunges"],
-                interventions:["CKC Resisted OB pulley by diagonal patterns PNF",
-                    "Muscular stimulation to Quad in eccentric mode (standing with 6-10 inches block)",
-                    "Dynamic lunges (sideways → forward & backward)"],
-                precautions:["Eccentric loading is high stress — progress block height gradually (6→10 inches)",
-                    "Monitor for effusion or pain after eccentric sessions",
-                    "Avoid running / impact at this stage"],
-                outcomes:["Check: Eccentric Quad control (block step-down)",
-                    "Test: Dynamic lunge (multi-directional)",
-                    "Check: Knee effusion post-loading",
-                    "Check: Full ROM symmetric"],
-                criteria:["To progress to Phase 3 (≥3 months post-op):",
-                    "Full ROM achieved",
-                    "Eccentric loading well-tolerated",
-                    "Dynamic lunges with good control",
-                    "No effusion with progressive loading"]},
-            'phase3':{phase: "Phase 3: Functional Activity Training (3-6 months)",
-                brace: "? Functional training · Running / Plyometrics / Agility",
-                goals:["Restore running mechanics",
-                    "Sport-specific agility and plyometric training",
-                    "3D dynamic proprioception",
-                    "Power training and isokinetic strength"],
-                interventions:["Running program (3.5 - 6.0 MPH)",
-                    "Sport-specific training (Plyometrics / Agility)",
-                    "Full agility training (Carioca / shuttle run)",
-                    "3D dynamic proprioceptive training (Profitter™ / Trampoline)",
-                    "Power training (standing leg press)",
-                    "Isokinetic resisted program (60°×10, 300°×10, 120°×20)"],
-                precautions:["Progress running gradually 3.5 → 6.0 MPH",
-                    "Monitor effusion / pain after high-impact sessions",
-                    "Avoid contact sport until criteria met",
-                    "Avoid deep loaded squats until cleared"],
-                outcomes:["Test: Isokinetic strength at 60°/sec, 300°/sec, 120°/sec",
-                    "Test: Functional running on treadmill (3.5-6.0 MPH)",
-                    "Test: Plyometric and agility tolerance",
-                    "Check: 3D proprioception (Profitter / Trampoline)",
-                    "Check: Knee effusion / pain post-sessions"],
-                criteria:["To progress to Phase 4 (Return to Sport):",
-                    "ROM 0° → 130°",
-                    "Strength reach 80% of normal (uninvolved) knee",
-                    "Resolution of pain and joint effusion"]},
-            'phase4':{phase: "Phase 4: Return to Sport Program (6-12 months)",
-                brace: "? Return to Sport · Sport-specific independent training",
-                goals:["Return to non-contact sport, then progress to full sport",
-                    "Independent sport-specific training program",
-                    "Strength symmetry ≥80%"],
-                interventions:["Return to non-contact sport (if criteria met: ROM 0°→130°, strength ≥80%, no pain/effusion)",
-                    "Dynamic knee stability drills",
-                    "Combined muscular strength + endurance in sport-specific exercises",
-                    "Avoiding a 'heel-locked' position",
-                    "Develop independent training program, warm-up / cool-down program"],
-                precautions:["Non-contact sport before contact sport",
-                    "Avoid 'heel-locked' positions (deep squat with heel locked)",
-                    "Maintain warm-up and cool-down discipline",
-                    "Monitor for tendinopathy or recurrent effusion"],
-                outcomes:["Test: ROM 0° → 130° symmetric",
-                    "Test: Strength ≥80% of uninvolved",
-                    "Check: No pain or joint effusion with sport drills",
-                    "Sport-specific functional assessment"],
-                criteria:["Discharge / Return to full sport criteria:",
-                    "Full symmetric ROM",
-                    "Strength symmetry ≥80% (preferably ≥90% for full return)",
-                    "Pass sport-specific functional drills",
-                    "No pain or effusion with full sport demands"]}};
+        if (taOpDateInput){
+            taOpDateInput.addEventListener('input', handleDateInput);
+            taOpDateInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') generateTAProtocol(); });
+        }
+        if (taBtnGenerate) taBtnGenerate.addEventListener('click', generateTAProtocol);
+        if (taBtnCopy) taBtnCopy.addEventListener('click', function(){ copyFromTextarea('ta-generatedText'); });
+        if (taWeekSelector){
+            taWeekSelector.addEventListener('change', function(){ renderTAWeek(parseInt(taWeekSelector.value, 10)); });
+        }
+    }
 
-        var menOpDateGlobal = null;
-        var menActualDaysPast = 0;
-
-        function getMenProtocolForWeek(weekNum, weekStart){var months = calendarMonthsBetween(menOpDateGlobal, weekStart);
-            if (months >= 6) return menProtocolData['phase4'];
-            if (months >= 3) return menProtocolData['phase3'];
-            if (weekNum <= 2) return menProtocolData['wk0'];
-            if (weekNum <= 4) return menProtocolData['wk3'];
-            if (weekNum === 5) return menProtocolData['wk5'];
-            if (weekNum <= 7) return menProtocolData['wk6'];
-            if (weekNum <= 9) return menProtocolData['wk8'];
-            return menProtocolData['wk10'];}function formatMenSubtitle(weekStartDate, phaseLabel){if (!menOpDateGlobal) return '';
-            var months = calendarMonthsBetween(menOpDateGlobal, weekStartDate);
-            var monthsTxt;
-            if (months < 1) monthsTxt = 'Less than 1 month post-op';
-            else if (months === 1) monthsTxt = '1 month post-op';
-            else monthsTxt = months + ' months post-op';
-            return phaseLabel ? (phaseLabel + ' · ' + monthsTxt) : monthsTxt;}function formatMenTodayBadge(today, daysPast){if (!menOpDateGlobal) return '';
-            var months = calendarMonthsBetween(menOpDateGlobal, today);
-            if (months < 3){var weeks = Math.floor(daysPast / 7);
-                return 'Week ' + weeks + ' Post-Op (today)';}return 'Month ' + months + ' Post-Op (today)';}function populateMenWeekSelector(currentWeek){var sel = document.getElementById('men-weekSelector');
-            sel.innerHTML = '';
-            for (var i = 0; i <= 52; i++){var opt = document.createElement('option');
-                opt.value = i;
-                var label = 'Week ' + i;
-                if (menOpDateGlobal){var weekStart = new Date(menOpDateGlobal);
-                    weekStart.setDate(weekStart.getDate() + i * 7);
-                    var months = calendarMonthsBetween(menOpDateGlobal, weekStart);
-                    if (months >= 3) label += ' / Month ' + months;}if (i === currentWeek) label += '  (current)';
-                opt.text = label;
-                if (i === currentWeek) opt.selected = true;
-                sel.appendChild(opt);}}function renderMenWeek(weekNum){if (!menOpDateGlobal) return;
-
-            var weekStart = new Date(menOpDateGlobal);
-            weekStart.setDate(weekStart.getDate() + weekNum * 7);
-
-            var data = getMenProtocolForWeek(weekNum, weekStart);
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            document.getElementById('men-weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
-            document.getElementById('men-weekHeader').innerText = 'Post-Operation Week ' + weekNum;
-            document.getElementById('men-dayRange').innerText = formatMenSubtitle(weekStart, data.phase);
-            document.getElementById('men-daysPastBadge').innerText = formatMenTodayBadge(today, menActualDaysPast);
-
-            document.getElementById('men-braceText').innerText = data.brace || '';
-
-            renderList('men-goalList', data.goals);
-            renderList('men-interventionList', data.interventions);
-            renderList('men-precautionList', data.precautions);
-            renderList('men-outcomeList', data.outcomes);
-            renderCriteria('men-criteriaContent', 'men-criteriaBox', data.criteria);
-
-            var textBlock = 'BRACE / WB STATUS: ' + (data.brace || '') + '\n\n';
-            textBlock += 'INTERVENTIONS:\n- ' + data.interventions.join('\n- ') + '\n\n';
-            textBlock += 'Precautions given and contraindications checked for EPT';
-            document.getElementById('men-generatedText').value = textBlock;}function generateMenProtocol(){var dateInputStr = document.getElementById('men-opDate').value;
-            var errorMsg = document.getElementById('men-dateError');
-            var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-            var match = dateInputStr.match(datePattern);
-
-            if (!match){errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
-                errorMsg.style.display = 'block';
-                return;}errorMsg.style.display = 'none';
-
-            var day = parseInt(match[1], 10);
-            var month = parseInt(match[2], 10) - 1;
-            var year = parseInt(match[3], 10);
-            var opDate = new Date(year, month, day);
-            var today = new Date();
-
-            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){errorMsg.innerText = "Invalid calendar date.";
-                errorMsg.style.display = 'block';
-                return;}opDate.setHours(0, 0, 0, 0);
-            today.setHours(0, 0, 0, 0);
-            var diffTime = today - opDate;
-            var daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            if (daysPast < 0){errorMsg.innerText = "Operation date cannot be in the future.";
-                errorMsg.style.display = 'block';
-                return;}menOpDateGlobal = opDate;
-            menActualDaysPast = daysPast;
-            var currentWeek = Math.floor(daysPast / 7);
-            if (currentWeek > 52) currentWeek = 52;
-
-            document.getElementById('men-emptyState').style.display = 'none';
-            var outputContainer = document.getElementById('men-outputContainer');
-            outputContainer.classList.add('visible');
-            outputContainer.style.animation = 'none';
-            outputContainer.offsetHeight;
-            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
-
-            populateMenWeekSelector(currentWeek);
-            renderMenWeek(currentWeek);}var menOpDateInput = document.getElementById('men-opDate');
-        var menBtnGenerate = document.getElementById('men-btnGenerate');
-        var menBtnCopy = document.getElementById('men-btnCopy');
-        var menWeekSelector = document.getElementById('men-weekSelector');
-
-        if (menOpDateInput){menOpDateInput.addEventListener('input', handleDateInput);
-            menOpDateInput.addEventListener('keydown', function(e){if (e.key === 'Enter') generateMenProtocol();});}if (menBtnGenerate) menBtnGenerate.addEventListener('click', generateMenProtocol);
-        if (menBtnCopy) menBtnCopy.addEventListener('click', function(){copyFromTextarea('men-generatedText');});
-        if (menWeekSelector){menWeekSelector.addEventListener('change', function(){renderMenWeek(parseInt(menWeekSelector.value, 10));});}}/* ============================================================
+    /* ============================================================
        KSS TOOL  (Knee Society Score)
        ============================================================ */
-    function initKSSTool(){var SK ={nprs: null, painSub: null, pain: null,
+    function initKSSTool(){
+        var SK = {nprs: null, painSub: null, pain: null,
             rom: null, romDeg: null,
             ap: null, ml: null, stab: null,
             fc: null, el: null,
             alignType: null, align: null};
 
-        function updBadge(id, val){var el = document.getElementById(id);
+        function updBadge(id, val){
+            var el = document.getElementById(id);
             if (!el) return;
-            if (val === null || val === undefined){el.textContent = '--';
-                el.className = 'kss-sp mt';}else{el.textContent = (typeof val === 'number') ? Math.round(val * 10) / 10 : val;
-                el.className = val < 0 ? 'kss-sp neg' : 'kss-sp pos';}}/* ----- NPRS / Pain ----- */
+            if (val === null || val === undefined){
+                el.textContent = '--';
+                el.className = 'kss-sp mt';
+            } else {
+                el.textContent = (typeof val === 'number') ? Math.round(val * 10) / 10 : val;
+                el.className = val < 0 ? 'kss-sp neg' : 'kss-sp pos';
+            }
+        }
+
+        /* ----- NPRS / Pain ----- */
         var nprsRow = document.getElementById('kss-nprsRow');
-        for (var i = 0; i <= 10; i++){(function(v){var b = document.createElement('button');
+        for (var i = 0; i <= 10; i++){
+            (function(v){
+                var b = document.createElement('button');
                 b.type = 'button';
                 b.className = 'kss-nprs-btn';
                 b.textContent = v;
                 var c = v === 0 ? 'g' : v <= 3 ? 'lg' : v <= 6 ? 'y' : v <= 8 ? 'o' : 'r';
                 b.dataset.c = c;
-                b.addEventListener('click', function(){pickNPRS(v, b);});
-                nprsRow.appendChild(b);})(i);}function pickNPRS(v, btn){nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r');});
+                b.addEventListener('click', function(){ pickNPRS(v, b); });
+                nprsRow.appendChild(b);
+            })(i);
+        }
+
+        function pickNPRS(v, btn){
+            nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){ b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r'); });
             btn.classList.add('on', btn.dataset.c);
             SK.nprs = v;
             SK.painSub = null;
             var col = document.getElementById('kss-painCol');
             var opts = document.getElementById('kss-painOpts');
             var lbl = document.getElementById('kss-painSubLbl');
-            if (v === 0){col.classList.remove('show');
-                SK.pain = 50;}else if (v >= 1 && v <= 4){opts.innerHTML = '';
-                lbl.textContent = 'Pain description (NPRS ' + v + '):';[{l:'Occasional', s:45},{l:'Stairs only', s:40},{l:'Walking & Stairs', s:30}].forEach(function(o){opts.appendChild(makePainOpt(o.l, o.s));});
+            if (v === 0){
+                col.classList.remove('show');
+                SK.pain = 50;
+            } else if (v >= 1 && v <= 4){
+                opts.innerHTML = '';
+                lbl.textContent = 'Pain description (NPRS ' + v + '):';
+                [{l:'Occasional', s:45},{l:'Stairs only', s:40},{l:'Walking & Stairs', s:30}].forEach(function(o){ opts.appendChild(makePainOpt(o.l, o.s)); });
                 col.classList.add('show');
-                SK.pain = null;}else if (v >= 5 && v <= 7){opts.innerHTML = '';
-                lbl.textContent = 'Pain description (NPRS ' + v + '):';[{l:'Occasional', s:20},{l:'Continual', s:10}].forEach(function(o){opts.appendChild(makePainOpt(o.l, o.s));});
+                SK.pain = null;
+            } else if (v >= 5 && v <= 7){
+                opts.innerHTML = '';
+                lbl.textContent = 'Pain description (NPRS ' + v + '):';
+                [{l:'Occasional', s:20},{l:'Continual', s:10}].forEach(function(o){ opts.appendChild(makePainOpt(o.l, o.s)); });
                 col.classList.add('show');
-                SK.pain = null;}else{col.classList.remove('show');
-                SK.pain = 0;}updBadge('kss-s1', SK.pain);
-            calcKSS();}function makePainOpt(label, score){var d = document.createElement('div');
+                SK.pain = null;
+            } else {
+                col.classList.remove('show');
+                SK.pain = 0;
+            }
+            updBadge('kss-s1', SK.pain);
+            calcKSS();
+        }
+
+        function makePainOpt(label, score){
+            var d = document.createElement('div');
             d.className = 'kss-opt-item';
             d.innerHTML = '<div class="kss-opt-left"><span class="kss-opt-dot"></span><span>'
-                          + label + '</span></div><span class="kss-opt-pts">' + score + ' pts</span>';
-            d.addEventListener('click', function(){document.querySelectorAll('#kss-painOpts .kss-opt-item').forEach(function(x){x.classList.remove('sel');});
+                        + label + '</span></div><span class="kss-opt-pts">' + score + ' pts</span>';
+            d.addEventListener('click', function(){
+                document.querySelectorAll('#kss-painOpts .kss-opt-item').forEach(function(x){ x.classList.remove('sel'); });
                 d.classList.add('sel');
                 SK.painSub = score;
                 SK.pain = score;
                 updBadge('kss-s1', SK.pain);
-                calcKSS();});
-            return d;}/* ----- ROM ----- */
-        document.getElementById('kss-romIn').addEventListener('input', function(){var v = parseFloat(this.value);
-            if (isNaN(v) || this.value === ''){SK.rom = null; SK.romDeg = null;}else{SK.romDeg = v; SK.rom = Math.min(25, Math.floor(v / 5));}updBadge('kss-s2', SK.rom);
-            calcKSS();});
+                calcKSS();
+            });
+            return d;
+        }
+
+        /* ----- ROM ----- */
+        document.getElementById('kss-romIn').addEventListener('input', function(){
+            var v = parseFloat(this.value);
+            if (isNaN(v) || this.value === ''){ SK.rom = null; SK.romDeg = null; }
+            else { SK.romDeg = v; SK.rom = Math.min(25, Math.floor(v / 5)); }
+            updBadge('kss-s2', SK.rom);
+            calcKSS();
+        });
 
         /* ----- Stability ticks (AP & ML) ----- */
-        document.querySelectorAll('#kss-apT .kss-tick, #kss-mlT .kss-tick').forEach(function(tick){tick.addEventListener('click', function(){var grp = tick.dataset.grp;
+        document.querySelectorAll('#kss-apT .kss-tick, #kss-mlT .kss-tick').forEach(function(tick){
+            tick.addEventListener('click', function(){
+                var grp = tick.dataset.grp;
                 var val = parseInt(tick.dataset.val, 10);
-                tick.parentElement.querySelectorAll('.kss-tick').forEach(function(t){t.classList.remove('sel');});
+                tick.parentElement.querySelectorAll('.kss-tick').forEach(function(t){ t.classList.remove('sel'); });
                 tick.classList.add('sel');
-                SK[grp]= val;
+                SK[grp] = val;
                 SK.stab = (SK.ap !== null && SK.ml !== null) ? SK.ap + SK.ml : null;
                 updBadge('kss-s3', SK.stab);
-                calcKSS();});});
+                calcKSS();
+            });
+        });
 
         /* ----- Flexion contracture ----- */
-        document.getElementById('kss-fcIn').addEventListener('input', function(){var v = parseFloat(this.value);
+        document.getElementById('kss-fcIn').addEventListener('input', function(){
+            var v = parseFloat(this.value);
             if (isNaN(v) || this.value === '') SK.fc = null;
             else if (v < 5) SK.fc = 0;
             else if (v <= 10) SK.fc = -2;
@@ -1629,62 +2018,96 @@
             else if (v <= 20) SK.fc = -10;
             else SK.fc = -15;
             updBadge('kss-s4', SK.fc);
-            calcKSS();});
+            calcKSS();
+        });
 
         /* ----- Extension lag ----- */
-        document.getElementById('kss-elIn').addEventListener('input', function(){var v = parseFloat(this.value);
+        document.getElementById('kss-elIn').addEventListener('input', function(){
+            var v = parseFloat(this.value);
             if (isNaN(v) || this.value === '') SK.el = null;
             else if (v === 0) SK.el = 0;
             else if (v < 10) SK.el = -5;
             else if (v <= 20) SK.el = -10;
             else SK.el = -15;
             updBadge('kss-s5', SK.el);
-            calcKSS();});
+            calcKSS();
+        });
 
         /* ----- Alignment ----- */
-        function pickAlign(type){SK.alignType = type;
+        function pickAlign(type){
+            SK.alignType = type;
             document.getElementById('kss-varusBtn').classList.toggle('sel', type === 'varus');
             document.getElementById('kss-valgusBtn').classList.toggle('sel', type === 'valgus');
             var col = document.getElementById('kss-valgusCol');
-            if (type === 'varus'){col.classList.remove('show');
-                SK.align = -20;}else{col.classList.add('show');
-                calcValgus();}updBadge('kss-s6', SK.align);
-            calcKSS();}function calcValgus(){var v = parseFloat(document.getElementById('kss-valIn').value);
-            if (isNaN(v) || document.getElementById('kss-valIn').value === ''){SK.align = null;
-                return;}if (v >= 5 && v <= 10) SK.align = 0;
+            if (type === 'varus'){
+                col.classList.remove('show');
+                SK.align = -20;
+            } else {
+                col.classList.add('show');
+                calcValgus();
+            }
+            updBadge('kss-s6', SK.align);
+            calcKSS();
+        }
+
+        function calcValgus(){
+            var v = parseFloat(document.getElementById('kss-valIn').value);
+            if (isNaN(v) || document.getElementById('kss-valIn').value === ''){ SK.align = null; return; }
+            if (v >= 5 && v <= 10) SK.align = 0;
             else if (v >= 0 && v <= 4) SK.align = (5 - v) * -3;
             else if (v >= 11 && v <= 15) SK.align = (v - 10) * -3;
-            else SK.align = -20;}document.getElementById('kss-varusBtn').addEventListener('click', function(){pickAlign('varus');});
-        document.getElementById('kss-valgusBtn').addEventListener('click', function(){pickAlign('valgus');});
-        document.getElementById('kss-valIn').addEventListener('input', function(){calcValgus();
+            else SK.align = -20;
+        }
+
+        document.getElementById('kss-varusBtn').addEventListener('click', function(){ pickAlign('varus'); });
+        document.getElementById('kss-valgusBtn').addEventListener('click', function(){ pickAlign('valgus'); });
+        document.getElementById('kss-valIn').addEventListener('input', function(){
+            calcValgus();
             updBadge('kss-s6', SK.align);
-            calcKSS();});
+            calcKSS();
+        });
 
         /* ----- Total / Notes ----- */
-        function calcKSS(){var items =[SK.pain, SK.rom, SK.stab, SK.fc, SK.el, SK.align];
-            var names =['Pain', 'ROM', 'Stability', 'Flex Contract.', 'Ext Lag', 'Alignment'];
-            var filled = items.filter(function(x){return x !== null;});
+        function calcKSS(){
+            var items = [SK.pain, SK.rom, SK.stab, SK.fc, SK.el, SK.align];
+            var names = ['Pain', 'ROM', 'Stability', 'Flex Contract.', 'Ext Lag', 'Alignment'];
+            var filled = items.filter(function(x){ return x !== null; });
 
             var bd = document.getElementById('kss-bd');
             var tv = document.getElementById('kss-totalVal');
             var ta = document.getElementById('kss-generatedText');
 
-            if (filled.length === 0){tv.textContent = '--';
+            if (filled.length === 0){
+                tv.textContent = '--';
                 tv.style.opacity = '1';
                 bd.textContent = 'Complete all items';
                 ta.value = '';
-                return;}var sum = 0;
-            var parts =[];
-            items.forEach(function(v, i){if (v !== null){sum += v;
-                    parts.push(names[i]+ ': ' + (v >= 0 ? '+' : '') + v);}});
+                return;
+            }
+            var sum = 0;
+            var parts = [];
+            items.forEach(function(v, i){
+                if (v !== null){
+                    sum += v;
+                    parts.push(names[i] + ': ' + (v >= 0 ? '+' : '') + v);
+                }
+            });
             var clamped = Math.max(0, Math.min(100, sum));
             tv.textContent = clamped;
 
-            if (filled.length === 6){tv.style.opacity = '1';
+            if (filled.length === 6){
+                tv.style.opacity = '1';
                 bd.textContent = parts.join(' | ');
-                ta.value = buildKSSNotes();}else{tv.style.opacity = '.55';
+                ta.value = buildKSSNotes();
+            } else {
+                tv.style.opacity = '.55';
                 bd.textContent = parts.join(' | ') + ' (incomplete)';
-                ta.value = '';}}function buildKSSNotes(){var t = Math.max(0, Math.min(100, SK.pain + SK.rom + SK.stab + SK.fc + SK.el + SK.align));
+                ta.value = '';
+            }
+        }
+
+        function buildKSSNotes(){
+            var t = Math.max(0, Math.min(100, SK.pain + SK.rom + SK.stab + SK.fc + SK.el + SK.align));
             return 'Knee Society Score (Total 100)\n'
                  + 'Pain: ' + SK.pain + '\n'
                  + 'PROM (Flexion): ' + SK.rom + '\n'
@@ -1692,36 +2115,839 @@
                  + 'Flexion contracture: ' + SK.fc + '\n'
                  + 'Extension lag: ' + SK.el + '\n'
                  + 'Alignment: ' + SK.align + '\n'
-                 + 'Total: ' + t;}/* ----- Reset ----- */
-        document.getElementById('kss-resetBtn').addEventListener('click', function(){Object.keys(SK).forEach(function(k){SK[k]= null;});
-            nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r');});
+                 + 'Total: ' + t;
+        }
+
+        /* ----- Reset ----- */
+        document.getElementById('kss-resetBtn').addEventListener('click', function(){
+            Object.keys(SK).forEach(function(k){ SK[k] = null; });
+            nprsRow.querySelectorAll('.kss-nprs-btn').forEach(function(b){ b.classList.remove('on', 'g', 'lg', 'y', 'o', 'r'); });
             document.getElementById('kss-painCol').classList.remove('show');
-            document.getElementById('kss-painOpts').innerHTML = '';['kss-romIn', 'kss-fcIn', 'kss-elIn', 'kss-valIn'].forEach(function(id){document.getElementById(id).value = '';});
-            document.querySelectorAll('#panel-kss .kss-tick').forEach(function(t){t.classList.remove('sel');});
+            document.getElementById('kss-painOpts').innerHTML = '';
+            ['kss-romIn', 'kss-fcIn', 'kss-elIn', 'kss-valIn'].forEach(function(id){ document.getElementById(id).value = ''; });
+            document.querySelectorAll('#panel-kss .kss-tick').forEach(function(t){ t.classList.remove('sel'); });
             document.getElementById('kss-varusBtn').classList.remove('sel');
             document.getElementById('kss-valgusBtn').classList.remove('sel');
-            document.getElementById('kss-valgusCol').classList.remove('show');['kss-s1', 'kss-s2', 'kss-s3', 'kss-s4', 'kss-s5', 'kss-s6'].forEach(function(id){updBadge(id, null);});
-            calcKSS();});
+            document.getElementById('kss-valgusCol').classList.remove('show');
+            ['kss-s1', 'kss-s2', 'kss-s3', 'kss-s4', 'kss-s5', 'kss-s6'].forEach(function(id){ updBadge(id, null); });
+            calcKSS();
+        });
 
         /* ----- Copy ----- */
-        document.getElementById('kss-btnCopy').addEventListener('click', function(){var ta = document.getElementById('kss-generatedText');
-            if (!ta.value){showToast('Complete all 6 items first.');
-                return;}copyFromTextarea('kss-generatedText');});
+        document.getElementById('kss-btnCopy').addEventListener('click', function(){
+            var ta = document.getElementById('kss-generatedText');
+            if (!ta.value){ showToast('Complete all 6 items first.'); return; }
+            copyFromTextarea('kss-generatedText');
+        });
 
-        // Initial state
-        calcKSS();}/* ============================================================
-       TABS
+        calcKSS();
+    }
+
+    /* ============================================================
+       REGION + PROTOCOL TABS
        ============================================================ */
-    function setupTabs(){var tabs = document.querySelectorAll('.protocol-tab');
-        tabs.forEach(function(tab){tab.addEventListener('click', function(){var target = tab.getAttribute('data-target');
-                tabs.forEach(function(t){t.classList.remove('active');});
-                tab.classList.add('active');
-                document.querySelectorAll('.protocol-panel').forEach(function(p){p.classList.remove('active');});
-                var panel = document.getElementById(target);
-                if (panel) panel.classList.add('active');});});}function init(){initACLTool();
+    function setupTabs(){
+        var regionBtns = document.querySelectorAll('.region-btn');
+        var tabBars = document.querySelectorAll('.protocol-tabs');
+        var panels = document.querySelectorAll('.protocol-panel');
+
+        function showPanel(id){
+            panels.forEach(function(p){ p.classList.toggle('active', p.id === id); });
+        }
+
+        function activateTab(tab){
+            if (!tab) return;
+            var bar = tab.parentElement;
+            bar.querySelectorAll('.protocol-tab').forEach(function(t){
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            showPanel(tab.getAttribute('data-target'));
+        }
+
+        function activateRegion(region){
+            regionBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-region') === region); });
+            var activeBar = null;
+            tabBars.forEach(function(bar){
+                var on = bar.getAttribute('data-region') === region;
+                bar.classList.toggle('active', on);
+                if (on) activeBar = bar;
+            });
+            // Re-open the last-used tab of this region (or its first tab)
+            if (activeBar){
+                activateTab(activeBar.querySelector('.protocol-tab.active') || activeBar.querySelector('.protocol-tab'));
+            }
+        }
+
+        regionBtns.forEach(function(b){
+            b.addEventListener('click', function(){ activateRegion(b.getAttribute('data-region')); });
+        });
+        document.querySelectorAll('.protocol-tab').forEach(function(tab){
+            tab.addEventListener('click', function(){ activateTab(tab); });
+        });
+
+        var initial = document.querySelector('.region-btn.active');
+        activateRegion(initial ? initial.getAttribute('data-region') : 'll');
+    }
+
+    function init(){
+        initACLTool();
         initTATool();
-        initMeniscusTool();
         initKSSTool();
-        setupTabs();}if (document.readyState === 'loading'){document.addEventListener('DOMContentLoaded', init);}else{init();}})();
+        setupTabs();
+    }
+
+    if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+
+<!-- ===================== TFCC SCRIPT 1: DATE AUTO-FORMAT (standalone) ===================== -->
+<script data-skip-moving="true">
+(function () {
+    if (window.__tfccDateFmtLoaded) return;
+    window.__tfccDateFmtLoaded = true;
+
+    var DATE_IDS = { tfccInjuryDate: true, tfccUntilDate: true };
+
+    function formatDateField(e) {
+        var input = e.target;
+        if (!input || !DATE_IDS[input.id]) return;
+        if (e.inputType === 'deleteContentBackward') return;
+
+        var value = input.value.replace(/\D/g, '');
+        if (value.length >= 2) value = value.slice(0, 2) + '/' + value.slice(2);
+        if (value.length >= 5) value = value.slice(0, 5) + '/' + value.slice(5);
+        input.value = value.slice(0, 10);
+    }
+
+    document.addEventListener('input', formatDateField, true);
+})();
+</script>
+
+<!-- =====================================================================
+     ██  INSERT YOUR QR CODE LIBRARY HERE  ██
+     Paste your full inline QRCode library block below this comment, e.g.
+  <script>
+var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],d=0,e=this.data.length;e>d;d++){var f=this.data.charCodeAt(d);f>65536?(b[0]=240|(1835008&f)>>>18,b[1]=128|(258048&f)>>>12,b[2]=128|(4032&f)>>>6,b[3]=128|63&f):f>2048?(b[0]=224|(61440&f)>>>12,b[1]=128|(4032&f)>>>6,b[2]=128|63&f):f>128?(b[0]=192|(1984&f)>>>6,b[1]=128|63&f):b[0]=f,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function i(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=new Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function j(a,b){this.totalCount=a,this.dataCount=b}function k(){this.buffer=[],this.length=0}function m(){return"undefined"!=typeof CanvasRenderingContext2D}function n(){var a=!1,b=navigator.userAgent;return/android/i.test(b)&&(a=!0,aMat=b.toString().match(/android ([0-9]\.[0-9])/i),aMat&&aMat[1]&&(a=parseFloat(aMat[1]))),a}function r(a,b){for(var c=1,e=s(a),f=0,g=l.length;g>=f;f++){var h=0;switch(b){case d.L:h=l[f][0];break;case d.M:h=l[f][1];break;case d.Q:h=l[f][2];break;case d.H:h=l[f][3]}if(h>=e)break;c++}if(c>l.length)throw new Error("Too long data");return c}function s(a){var b=encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g,"a");return b.length+(b.length!=a?3:0)}a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}},b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=f.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){var d=a.createEmptyMovieClip(b,c),e=1;this.make();for(var f=0;f<this.modules.length;f++)for(var g=f*e,h=0;h<this.modules[f].length;h++){var i=h*e,j=this.modules[f][h];j&&(d.beginFill(0,100),d.moveTo(i,g),d.lineTo(i+e,g),d.lineTo(i+e,g+e),d.lineTo(i,g+e),d.endFill())}return d},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(var b=8;b<this.moduleCount-8;b++)null==this.modules[6][b]&&(this.modules[6][b]=0==b%2)},setupPositionAdjustPattern:function(){for(var a=f.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var g=-2;2>=g;g++)for(var h=-2;2>=h;h++)this.modules[d+g][e+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h?!0:!1}},setupTypeNumber:function(a){for(var b=f.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=f.getBCHTypeInfo(c),e=0;15>e;e++){var g=!a&&1==(1&d>>e);6>e?this.modules[e][8]=g:8>e?this.modules[e+1][8]=g:this.modules[this.moduleCount-15+e][8]=g}for(var e=0;15>e;e++){var g=!a&&1==(1&d>>e);8>e?this.modules[8][this.moduleCount-e-1]=g:9>e?this.modules[8][15-e-1+1]=g:this.modules[8][15-e-1]=g}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,g=0,h=this.moduleCount-1;h>0;h-=2)for(6==h&&h--;;){for(var i=0;2>i;i++)if(null==this.modules[d][h-i]){var j=!1;g<a.length&&(j=1==(1&a[g]>>>e));var k=f.getMask(b,d,h-i);k&&(j=!j),this.modules[d][h-i]=j,e--,-1==e&&(g++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},b.PAD0=236,b.PAD1=17,b.createData=function(a,c,d){for(var e=j.getRSBlocks(a,c),g=new k,h=0;h<d.length;h++){var i=d[h];g.put(i.mode,4),g.put(i.getLength(),f.getLengthInBits(i.mode,a)),i.write(g)}for(var l=0,h=0;h<e.length;h++)l+=e[h].dataCount;if(g.getLengthInBits()>8*l)throw new Error("code length overflow. ("+g.getLengthInBits()+">"+8*l+")");for(g.getLengthInBits()+4<=8*l&&g.put(0,4);0!=g.getLengthInBits()%8;)g.putBit(!1);for(;;){if(g.getLengthInBits()>=8*l)break;if(g.put(b.PAD0,8),g.getLengthInBits()>=8*l)break;g.put(b.PAD1,8)}return b.createBytes(g,e)},b.createBytes=function(a,b){for(var c=0,d=0,e=0,g=new Array(b.length),h=new Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k;d=Math.max(d,k),e=Math.max(e,l),g[j]=new Array(k);for(var m=0;m<g[j].length;m++)g[j][m]=255&a.buffer[m+c];c+=k;var n=f.getErrorCorrectPolynomial(l),o=new i(g[j],n.getLength()-1),p=o.mod(n);h[j]=new Array(n.getLength()-1);for(var m=0;m<h[j].length;m++){var q=m+p.getLength()-h[j].length;h[j][m]=q>=0?p.get(q):0}}for(var r=0,m=0;m<b.length;m++)r+=b[m].totalCount;for(var s=new Array(r),t=0,m=0;d>m;m++)for(var j=0;j<b.length;j++)m<g[j].length&&(s[t++]=g[j][m]);for(var m=0;e>m;m++)for(var j=0;j<b.length;j++)m<h[j].length&&(s[t++]=h[j][m]);return s};for(var c={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},d={L:1,M:0,Q:3,H:2},e={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},f={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;f.getBCHDigit(b)-f.getBCHDigit(f.G15)>=0;)b^=f.G15<<f.getBCHDigit(b)-f.getBCHDigit(f.G15);return(a<<10|b)^f.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;f.getBCHDigit(b)-f.getBCHDigit(f.G18)>=0;)b^=f.G18<<f.getBCHDigit(b)-f.getBCHDigit(f.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return f.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case e.PATTERN000:return 0==(b+c)%2;case e.PATTERN001:return 0==b%2;case e.PATTERN010:return 0==c%3;case e.PATTERN011:return 0==(b+c)%3;case e.PATTERN100:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case e.PATTERN101:return 0==b*c%2+b*c%3;case e.PATTERN110:return 0==(b*c%2+b*c%3)%2;case e.PATTERN111:return 0==(b*c%3+(b+c)%2)%2;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new i([1],0),c=0;a>c;c++)b=b.multiply(new i([1,g.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case c.MODE_NUMBER:return 10;case c.MODE_ALPHA_NUM:return 9;case c.MODE_8BIT_BYTE:return 8;case c.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case c.MODE_NUMBER:return 12;case c.MODE_ALPHA_NUM:return 11;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case c.MODE_NUMBER:return 14;case c.MODE_ALPHA_NUM:return 13;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(var e=0;b>e;e++)for(var d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(var k=0,e=0;b>e;e++)for(var d=0;b>d;d++)a.isDark(d,e)&&k++;var l=Math.abs(100*k/b/b-50)/5;return c+=10*l}},g={glog:function(a){if(1>a)throw new Error("glog("+a+")");return g.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return g.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)},h=0;8>h;h++)g.EXP_TABLE[h]=1<<h;for(var h=8;256>h;h++)g.EXP_TABLE[h]=g.EXP_TABLE[h-4]^g.EXP_TABLE[h-5]^g.EXP_TABLE[h-6]^g.EXP_TABLE[h-8];for(var h=0;255>h;h++)g.LOG_TABLE[g.EXP_TABLE[h]]=h;i.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=g.gexp(g.glog(this.get(c))+g.glog(a.get(d)));return new i(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;for(var b=g.glog(this.get(0))-g.glog(a.get(0)),c=new Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(var d=0;d<a.getLength();d++)c[d]^=g.gexp(g.glog(a.get(d))+b);return new i(c,0).mod(a)}},j.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],j.getRSBlocks=function(a,b){var c=j.getRsBlockTable(a,b);if(void 0==c)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,e=[],f=0;d>f;f++)for(var g=c[3*f+0],h=c[3*f+1],i=c[3*f+2],k=0;g>k;k++)e.push(new j(h,i));return e},j.getRsBlockTable=function(a,b){switch(b){case d.L:return j.RS_BLOCK_TABLE[4*(a-1)+0];case d.M:return j.RS_BLOCK_TABLE[4*(a-1)+1];case d.Q:return j.RS_BLOCK_TABLE[4*(a-1)+2];case d.H:return j.RS_BLOCK_TABLE[4*(a-1)+3];default:return void 0}},k.prototype={get:function(a){var b=Math.floor(a/8);return 1==(1&this.buffer[b]>>>7-a%8)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(1&a>>>b-c-1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var l=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],[586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],[929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],[1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],[1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],[2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]],o=function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){function g(a,b){var c=document.createElementNS("http://www.w3.org/2000/svg",a);for(var d in b)b.hasOwnProperty(d)&&c.setAttribute(d,b[d]);return c}var b=this._htOption,c=this._el,d=a.getModuleCount();Math.floor(b.width/d),Math.floor(b.height/d),this.clear();var h=g("svg",{viewBox:"0 0 "+String(d)+" "+String(d),width:"100%",height:"100%",fill:b.colorLight});h.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),c.appendChild(h),h.appendChild(g("rect",{fill:b.colorDark,width:"1",height:"1",id:"template"}));for(var i=0;d>i;i++)for(var j=0;d>j;j++)if(a.isDark(i,j)){var k=g("use",{x:String(i),y:String(j)});k.setAttributeNS("http://www.w3.org/1999/xlink","href","#template"),h.appendChild(k)}},a.prototype.clear=function(){for(;this._el.hasChildNodes();)this._el.removeChild(this._el.lastChild)},a}(),p="svg"===document.documentElement.tagName.toLowerCase(),q=p?o:m()?function(){function a(){this._elImage.src=this._elCanvas.toDataURL("image/png"),this._elImage.style.display="block",this._elCanvas.style.display="none"}function d(a,b){var c=this;if(c._fFail=b,c._fSuccess=a,null===c._bSupportDataURI){var d=document.createElement("img"),e=function(){c._bSupportDataURI=!1,c._fFail&&_fFail.call(c)},f=function(){c._bSupportDataURI=!0,c._fSuccess&&c._fSuccess.call(c)};return d.onabort=e,d.onerror=e,d.onload=f,d.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",void 0}c._bSupportDataURI===!0&&c._fSuccess?c._fSuccess.call(c):c._bSupportDataURI===!1&&c._fFail&&c._fFail.call(c)}if(this._android&&this._android<=2.1){var b=1/window.devicePixelRatio,c=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(a,d,e,f,g,h,i,j){if("nodeName"in a&&/img/i.test(a.nodeName))for(var l=arguments.length-1;l>=1;l--)arguments[l]=arguments[l]*b;else"undefined"==typeof j&&(arguments[1]*=b,arguments[2]*=b,arguments[3]*=b,arguments[4]*=b);c.apply(this,arguments)}}var e=function(a,b){this._bIsPainted=!1,this._android=n(),this._htOption=b,this._elCanvas=document.createElement("canvas"),this._elCanvas.width=b.width,this._elCanvas.height=b.height,a.appendChild(this._elCanvas),this._el=a,this._oContext=this._elCanvas.getContext("2d"),this._bIsPainted=!1,this._elImage=document.createElement("img"),this._elImage.style.display="none",this._el.appendChild(this._elImage),this._bSupportDataURI=null};return e.prototype.draw=function(a){var b=this._elImage,c=this._oContext,d=this._htOption,e=a.getModuleCount(),f=d.width/e,g=d.height/e,h=Math.round(f),i=Math.round(g);b.style.display="none",this.clear();for(var j=0;e>j;j++)for(var k=0;e>k;k++){var l=a.isDark(j,k),m=k*f,n=j*g;c.strokeStyle=l?d.colorDark:d.colorLight,c.lineWidth=1,c.fillStyle=l?d.colorDark:d.colorLight,c.fillRect(m,n,f,g),c.strokeRect(Math.floor(m)+.5,Math.floor(n)+.5,h,i),c.strokeRect(Math.ceil(m)-.5,Math.ceil(n)-.5,h,i)}this._bIsPainted=!0},e.prototype.makeImage=function(){this._bIsPainted&&d.call(this,a)},e.prototype.isPainted=function(){return this._bIsPainted},e.prototype.clear=function(){this._oContext.clearRect(0,0,this._elCanvas.width,this._elCanvas.height),this._bIsPainted=!1},e.prototype.round=function(a){return a?Math.floor(1e3*a)/1e3:a},e}():function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){for(var b=this._htOption,c=this._el,d=a.getModuleCount(),e=Math.floor(b.width/d),f=Math.floor(b.height/d),g=['<table style="border:0;border-collapse:collapse;">'],h=0;d>h;h++){g.push("<tr>");for(var i=0;d>i;i++)g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+e+"px;height:"+f+"px;background-color:"+(a.isDark(h,i)?b.colorDark:b.colorLight)+';"></td>');g.push("</tr>")}g.push("</table>"),c.innerHTML=g.join("");var j=c.childNodes[0],k=(b.width-j.offsetWidth)/2,l=(b.height-j.offsetHeight)/2;k>0&&l>0&&(j.style.margin=l+"px "+k+"px")},a.prototype.clear=function(){this._el.innerHTML=""},a}();QRCode=function(a,b){if(this._htOption={width:256,height:256,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:d.H},"string"==typeof b&&(b={text:b}),b)for(var c in b)this._htOption[c]=b[c];"string"==typeof a&&(a=document.getElementById(a)),this._android=n(),this._el=a,this._oQRCode=null,this._oDrawing=new q(this._el,this._htOption),this._htOption.text&&this.makeCode(this._htOption.text)},QRCode.prototype.makeCode=function(a){this._oQRCode=new b(r(a,this._htOption.correctLevel),this._htOption.correctLevel),this._oQRCode.addData(a),this._oQRCode.make(),this._el.title=a,this._oDrawing.draw(this._oQRCode),this.makeImage()},QRCode.prototype.makeImage=function(){"function"==typeof this._oDrawing.makeImage&&(!this._android||this._android>=3)&&this._oDrawing.makeImage()},QRCode.prototype.clear=function(){this._oDrawing.clear()},QRCode.CorrectLevel=d}();
+    </script>
+     ===================================================================== -->
+
+
+
+<!-- ===================== END QR CODE LIBRARY ===================== -->
+
+<!-- ===================== TFCC SCRIPT 3: MAIN TFCC TOOL ===================== -->
+<script data-skip-moving="true">
+(function () {
+
+    function initTFCCTool() {
+        var root = document.getElementById('tfccTool');
+        if (!root) return false;
+        if (root.getAttribute('data-tfcc-init') === '1') return true;
+        root.setAttribute('data-tfcc-init', '1');
+
+        var BASE_URL = 'https://pwhphysio.github.io/eps';
+
+        // ================= PROTOCOL DATA =================
+        var PHASES = {
+            1: {
+                title: "Acute Protection Phase", weeks: "Week 0\u20133",
+                goals: ["Immobilization for protection", "Pain and edema control"],
+                splint: ["Sugartong splint in neutral for full time"],
+                modalities: [
+                    { h: "Modalities & Exercise", note: "if not contraindicated", items: [
+                        "Pulsed electromagnetic field (PEMF)",
+                        "Therapeutic ultrasound (US)",
+                        "Isometric contraction exercise of TFCC-friendly muscles within splint",
+                        "Proximal muscle strengthening"
+                    ]}
+                ],
+                therapeutic: ["Edema control", "Uninvolved joints mobilization"],
+                avoid: ["All forearm rotation", "Radial / ulnar deviation (RD/UD)", "Wrist loading / traction"],
+                progTitle: "Progression Criteria",
+                progression: [{ items: ["Acute inflammation signs subside"] }],
+                exercises: {
+                    tf01: { name: "Active Range of Motion of Elbow and Fingers in Sugartong Splint" },
+                    tf02: { name: "Isometric TFCC-Friendly Muscle Training (Pronator Quadratus)", def: { hold: 5 } },
+                    tf03: { name: "Proximal Muscle Strengthening (Brachioradialis, Triceps)" },
+                    tf04: { name: "Isometric TFCC-Friendly Muscle Training (Extensor Carpi Ulnaris)", def: { hold: 5 } }
+                }
+            },
+            2: {
+                title: "Protected Mobilization Phase", weeks: "Week 4\u20136",
+                goals: ["Gentle, protected wrist and forearm AROM"],
+                splint: ["Continue sugartong splint in neutral for full time use"],
+                modalities: [
+                    { h: "Mobilization & Exercise", items: ["Co-contraction of TFCC-friendly muscles in different F/E range"] },
+                    { h: "Proprioception training", note: "neutral forearm position", items: ["Joint position sense training", "True balance"] }
+                ],
+                therapeutic: [
+                    "Allow out of splint for ROM exercise",
+                    "Gentle wrist F/E AROM exercise in neutral position as pain tolerated",
+                    "Gentle mid-range S/P AROM exercise as pain tolerated"
+                ],
+                avoid: ["Excessive forearm rotation", "Ulnar deviation (UD)", "Wrist loading / traction"],
+                progTitle: "Progression Criteria",
+                progression: [{ items: ["Able to perform wrist AROM with minimal pain"] }],
+                exercises: {
+                    tf05: { name: "Joint Position Sense" },
+                    tf06: { name: "True Balance", unit: "minutes" },
+                    tf07: { name: "Isometric TFCC-Friendly Muscle Training (Extensor Carpi Ulnaris, Pronator Quadratus)", def: { hold: 5 } },
+                    tf18: { name: "Wrist ROM Exercises (Flexion/Extension)" },
+                    tf19: { name: "Mid Range Supination/Pronation Exercise" }
+                }
+            },
+            3: {
+                title: "Controlled Mobilization Phase", weeks: "Week 7\u20139",
+                goals: ["Regain full ROM"],
+                splint: ["Short arm brace for daytime protective use", "Allow off daytime splint for exercise", "Sugartong splint for nocturnal use"],
+                modalities: [
+                    { h: "Mobilization & Exercise", items: ["Start with concentric exercise and slowly progress to eccentric exercise of TFCC-friendly muscles"] },
+                    { h: "Proprioception training", items: ["Wrist maze"] }
+                ],
+                therapeutic: ["Full forearm S/P AROM exercise", "Gradual PROM exercise", "Gentle grip & pinch strengthening (forearm in neutral)"],
+                avoid: ["Resisted rotation / deviation", "Wrist loading / traction"],
+                progTitle: "Progression Criteria",
+                progression: [{ items: ["Achieve nearly full wrist ROM with minimal pain"] }],
+                exercises: {
+                    tf08: { name: "Wrist Maze", unit: "minutes" },
+                    tf09: { name: "Isotonic TFCC-Friendly Muscle Training (Concentric \u2192 Eccentric)" },
+                    tf10: { name: "Gentle Grip & Pinch Strengthening with Putty" },
+                    tf20: { name: "Full Range Supination/Pronation Exercise" }
+                }
+            },
+            4: {
+                title: "Strengthening Phase", weeks: "Week 10\u201312",
+                goals: ["Progression of strengthening", "Restore pain-free functional ROM", "Return to daily activities"],
+                splint: ["Off splints", "+/- Soft wrist splint for PRN exertional use if painful at exertion"],
+                modalities: [
+                    { h: "Mobilization & Strengthening", items: [
+                        "Continue strengthening exercises of TFCC-friendly muscles with progression",
+                        "Start with concentric exercise and slowly progress to eccentric exercise of wrist F/E, S/P"
+                    ]},
+                    { h: "Advanced proprioception training", items: ["Object balancing exercise", "Flexbar, Bodyblade"] },
+                    { h: "Progressive weight-bearing exercise", items: ["Pressing soft ball against the wall"] }
+                ],
+                therapeutic: ["Grip strengthening", "TFCC-friendly muscles strengthening exercise with resistance", "Advanced proprioception training"],
+                avoid: [],
+                progTitle: "Progression Criteria",
+                progression: [{ items: [
+                    "Exercise with minimal pain",
+                    "Grip strength \u226560% of contralateral side",
+                    "Isometric S/P strength in neutral forearm \u226550% of contralateral side"
+                ]}],
+                exercises: {
+                    tf11: { name: "Proprioception with Perturbation (Bodyblade, Flexbar)" },
+                    tf12: { name: "Grip Strengthening (Powerweb, Putty, Digiflex)" },
+                    tf17: { name: "Labyrinth Game", unit: "minutes" },
+                    tf21: { name: "Ball Against Wall" },
+                    tf22: { name: "Wrist Isotonic Exercise (Flexion/Extension/Pronation/Supination)" }
+                }
+            },
+            5: {
+                title: "Progressive Strengthening and Return to Function", weeks: "Week 13\u201316",
+                goals: ["Restore full function and prepare for return to work / sports"],
+                splint: ["Continue soft wrist splint for PRN exertional use if painful at exertion"],
+                modalities: [
+                    { h: "Strengthening and weight-bearing exercise", items: [
+                        "Progress exercises by increasing resistance / sets",
+                        "PNF patterns with Theraband",
+                        "Wall push-ups (preferably not in pronation)",
+                        "Multigym training"
+                    ]},
+                    { h: "Advanced proprioception training", items: ["Gyroscope"] },
+                    { h: "Functional and work training", items: ["Lifting simulation", "BTE PrimusRS"] }
+                ],
+                therapeutic: ["Full strengthening exercise", "Functional training and work rehabilitation"],
+                avoid: [],
+                progTitle: "Discharge with Outcome Measures",
+                progression: [
+                    { h: "[Occu] Wrist assessment", items: ["DASH score", "PRWE score", "Performance / pain score"] },
+                    { h: "[Physio]", items: ["NGRCS", "NPRS", "Grip strength", "Isometric strength (S/P) in neutral forearm", "QuickDASH score"] }
+                ],
+                exercises: {
+                    tf13: { name: "Gyroscope", unit: "minutes" },
+                    tf14: { name: "Wall Push Up" },
+                    tf15: { name: "Bouncing Weightball on Powerweb" },
+                    tf16: { name: "PNF Patterns with Theraband" }
+                }
+            }
+        };
+
+        var FREQ_OPTS = [['daily', 'Daily'], ['2x-daily', '2x Daily'], ['3x-week', '3x/Week'], ['alternate', 'Alternate Days']];
+        var FREQ_LABEL = {}; FREQ_OPTS.forEach(function (f) { FREQ_LABEL[f[0]] = f[1]; });
+
+        var selected = {};
+        var st = { phase: null, suggested: null, weekNum: null, daysPast: null, injDate: null, manual: false };
+
+        // ================= HELPERS =================
+        function $(id) { return document.getElementById(id); }
+
+        function esc(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+
+        function fmtDate(d) {
+            return pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + '/' + d.getFullYear();
+        }
+
+        function fmtDateZh(d) {
+            return d.getFullYear() + '\u5E74' + (d.getMonth() + 1) + '\u6708' + d.getDate() + '\u65E5';
+        }
+
+        // Returns Date (midnight), null if empty, or false if invalid
+        function parseDMY(str) {
+            str = (str || '').trim();
+            if (!str) return null;
+            var m = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (!m) return false;
+            var d = parseInt(m[1], 10), mo = parseInt(m[2], 10) - 1, y = parseInt(m[3], 10);
+            var dt = new Date(y, mo, d);
+            if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return false;
+            dt.setHours(0, 0, 0, 0);
+            return dt;
+        }
+
+        function todayMidnight() { var t = new Date(); t.setHours(0, 0, 0, 0); return t; }
+
+        function phaseForWeek(w) {
+            if (w <= 3) return 1;
+            if (w <= 6) return 2;
+            if (w <= 9) return 3;
+            if (w <= 12) return 4;
+            return 5;
+        }
+
+        function findEx(code) {
+            for (var p = 1; p <= 5; p++) {
+                if (PHASES[p].exercises[code]) return { ex: PHASES[p].exercises[code], phase: p };
+            }
+            return null;
+        }
+
+        function makeSel(code) {
+            var f = findEx(code);
+            var unit = f.ex.unit || 'sets-reps';
+            var d;
+            switch (unit) {
+                case 'reps':         d = { reps: 5 }; break;
+                case 'breathing':    d = { breathingCycles: 5 }; break;
+                case 'minutes':      d = { minutes: 10 }; break;
+                case 'seconds-sets': d = { sets: 3, seconds: 30 }; break;
+                default:             d = { sets: 3, reps: 10, hold: '' };
+            }
+            if (f.ex.def) { for (var k in f.ex.def) d[k] = f.ex.def[k]; }
+            d.name = f.ex.name; d.unit = unit; d.freq = 'daily'; d.phase = f.phase;
+            return d;
+        }
+
+        function dosageText(s) {
+            switch (s.unit) {
+                case 'breathing':    return (s.breathingCycles || 5) + ' breathing cycles';
+                case 'minutes':      return (s.minutes || 10) + ' min';
+                case 'reps':         return (s.reps || 5) + ' reps';
+                case 'seconds-sets': return (s.sets || 3) + ' sets \u00D7 ' + (s.seconds || 30) + ' sec';
+                default:
+                    var t = (s.sets || 3) + ' sets \u00D7 ' + (s.reps || 10) + ' reps';
+                    if (s.hold && s.hold > 0) t += ', hold ' + s.hold + ' sec';
+                    return t;
+            }
+        }
+
+        function encodeEx(code, s) {
+            var p = code + ':';
+            switch (s.unit) {
+                case 'breathing':    p += 'b' + (s.breathingCycles || 5); break;
+                case 'minutes':      p += 'm' + (s.minutes || 10); break;
+                case 'reps':         p += 'r' + (s.reps || 5); break;
+                case 'seconds-sets': p += (s.sets || 3) + 'x' + (s.seconds || 30); break;
+                default:
+                    p += (s.sets || 3) + 'x' + (s.reps || 10);
+                    if (s.hold && s.hold > 0) p += 'h' + s.hold;
+            }
+            if (s.freq && s.freq !== 'daily') p += '.' + s.freq;
+            return p;
+        }
+
+        function renderList(id, items) {
+            var el = $(id); if (!el) return;
+            if (!items || !items.length) {
+                el.innerHTML = '<li style="color:#999;font-style:italic;">None specified in protocol</li>';
+                return;
+            }
+            el.innerHTML = items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('');
+        }
+
+        function renderGroups(id, groups) {
+            var el = $(id); if (!el) return;
+            var html = '';
+            groups.forEach(function (g) {
+                if (g.h) html += '<div class="tfcc-subhead">' + esc(g.h) + (g.note ? ' <em>(' + esc(g.note) + ')</em>' : '') + '</div>';
+                html += '<ul>' + g.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+            });
+            el.innerHTML = html;
+        }
+
+        // Uses the shared toast at the bottom of the page
+        var toastTimer = null;
+        function showToast(msg) {
+            var t = $('aclToast'); if (!t) return;
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
+        }
+
+        function copyToClipboard(text, okMsg) {
+            function fallback() {
+                var ta = document.createElement('textarea');
+                ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, 999999);
+                try { document.execCommand('copy') ? showToast(okMsg) : showToast('Could not copy. Please copy manually.'); }
+                catch (e) { showToast('Could not copy. Please copy manually.'); }
+                document.body.removeChild(ta);
+            }
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function () { showToast(okMsg); }).catch(fallback);
+            } else { fallback(); }
+        }
+
+        function showError(msg) { var e = $('tfccDateError'); e.textContent = msg; e.style.display = 'block'; }
+        function showUntilError(msg) { var e = $('tfccUntilError'); e.textContent = msg; e.style.display = 'block'; }
+        function hideUntilError() { $('tfccUntilError').style.display = 'none'; }
+
+        function getUntilDate() {
+            var d = parseDMY($('tfccUntilDate').value);
+            return (d && d >= todayMidnight()) ? d : null;
+        }
+
+        // ================= PROTOCOL =================
+        function generateProtocol() {
+            var dateStr = $('tfccInjuryDate').value.trim();
+            var override = $('tfccPhaseOverride').value;
+            $('tfccDateError').style.display = 'none';
+
+            var weekNum = null, daysPast = null, injDate = null;
+
+            if (dateStr) {
+                injDate = parseDMY(dateStr);
+                if (injDate === false) {
+                    showError(/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr) ? 'Invalid calendar date.' : 'Please enter a valid date in dd/mm/yyyy format.');
+                    return;
+                }
+                daysPast = Math.round((todayMidnight() - injDate) / 86400000);
+                if (daysPast < 0) { showError('Date of injury cannot be in the future.'); return; }
+                weekNum = Math.floor(daysPast / 7);
+            } else if (override === 'auto') {
+                showError('Please enter the date of injury, or select a phase manually.');
+                return;
+            }
+
+            st.weekNum = weekNum;
+            st.daysPast = daysPast;
+            st.injDate = injDate;
+            st.suggested = (weekNum !== null) ? phaseForWeek(weekNum) : null;
+            st.manual = (override !== 'auto');
+            st.phase = st.manual ? parseInt(override, 10) : st.suggested;
+
+            $('tfccEmptyState').style.display = 'none';
+            var out = $('tfccOutput');
+            out.classList.add('tfcc-visible');
+            out.style.animation = 'none'; out.offsetHeight; out.style.animation = '';
+            $('tfccExSection').style.display = 'block';
+
+            renderProtocol();
+            buildExercisePanel();
+            refreshSelected();
+        }
+
+        function getNotes() {
+            var notes = [];
+            if (st.manual && st.suggested !== null && st.suggested !== st.phase) {
+                notes.push('Phase ' + st.phase + ' manually selected \u2013 timeline suggests Phase ' + st.suggested + '. Ensure progression criteria are met.');
+            }
+            if (st.weekNum !== null && st.weekNum > 16) {
+                notes.push('Beyond the 16-week protocol timeline \u2013 consider discharge with outcome measures.');
+            }
+            return notes;
+        }
+
+        function renderProtocol() {
+            var ph = PHASES[st.phase];
+
+            if (st.weekNum !== null) {
+                $('tfccWeekHeader').textContent = 'Week ' + st.weekNum + ' Post-Injury';
+                $('tfccDayRange').textContent = '(Day ' + (st.weekNum * 7) + '\u2013' + (st.weekNum * 7 + 6) + ')';
+                $('tfccDaysBadge').textContent = st.daysPast + ' Days Post-Injury';
+                $('tfccDaysBadge').parentNode.style.display = '';
+            } else {
+                $('tfccWeekHeader').textContent = 'Phase Selected Manually';
+                $('tfccDayRange').textContent = 'No date of injury entered';
+                $('tfccDaysBadge').parentNode.style.display = 'none';
+            }
+            $('tfccPhasePill').textContent = 'Phase ' + st.phase + ': ' + ph.title + ' (' + ph.weeks + ')';
+
+            var notes = getNotes();
+            $('tfccNotesList').innerHTML = notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('');
+            $('tfccNotes').style.display = notes.length ? 'block' : 'none';
+
+            renderList('tfccGoalList', ph.goals);
+            renderList('tfccSplintList', ph.splint);
+            renderList('tfccAvoidList', ph.avoid);
+            renderList('tfccTherList', ph.therapeutic);
+            renderGroups('tfccModList', ph.modalities);
+            renderGroups('tfccProgList', ph.progression);
+            $('tfccProgTitle').textContent = ph.progTitle;
+
+            updateRecordText();
+        }
+
+        // Treatment record text - same format as ACL / TA (treatment only)
+        function updateRecordText() {
+            if (!st.phase) return;
+            var ph = PHASES[st.phase];
+
+            var interventions = [];
+            ph.modalities.forEach(function (g) {
+                g.items.forEach(function (i) { interventions.push(i); });
+            });
+            ph.therapeutic.forEach(function (i) { interventions.push(i); });
+
+            var t = 'INTERVENTIONS:\n- ' + interventions.join('\n- ') + '\n\n';
+
+            // HEP block (only shown when exercises are selected)
+            var keys = Object.keys(selected);
+            if (keys.length) {
+                t += 'HOME EXERCISE PROGRAMME:\n';
+                keys.forEach(function (k) {
+                    var s = selected[k];
+                    t += '- ' + s.name + ': ' + dosageText(s) + ', ' + FREQ_LABEL[s.freq] + '\n';
+                });
+                var until = getUntilDate();
+                if (until) t += '- Continue HEP until: ' + fmtDate(until) + '\n';
+                t += '\n';
+            }
+
+            t += 'Precautions given and contraindications checked for EPT';
+            $('tfccGeneratedText').value = t;
+        }
+
+        // ================= EXERCISES =================
+        function buildExercisePanel() {
+            var html = '';
+            for (var p = 1; p <= 5; p++) {
+                var ph = PHASES[p];
+                var cur = (p === st.phase);
+                html += '<div class="tfcc-ex-phase' + (cur ? ' tfcc-current' : '') + '">';
+                html += '<div class="tfcc-ex-phase-header" data-tfcc-toggle="' + p + '">';
+                html += '<span class="tfcc-chevron' + (cur ? '' : ' tfcc-collapsed') + '"></span>';
+                html += '<span class="tfcc-ex-phase-label">Phase ' + p + ' \u2013 ' + esc(ph.title) + ' <small>(' + ph.weeks + ')</small></span>';
+                if (cur) html += '<span class="tfcc-cur-badge">Current</span>';
+                html += '<button type="button" class="tfcc-selall" data-tfcc-selall="' + p + '">Select All</button>';
+                html += '</div>';
+                html += '<div class="tfcc-ex-list' + (cur ? '' : ' tfcc-hidden') + '" id="tfccExList' + p + '">';
+                for (var code in ph.exercises) {
+                    var ex = ph.exercises[code];
+                    html += '<div class="tfcc-ex-item">';
+                    html += '<input type="checkbox" id="tfcc_cb_' + code + '" data-tfcc-code="' + code + '"' + (selected[code] ? ' checked' : '') + '>';
+                    html += '<label for="tfcc_cb_' + code + '">' + esc(ex.name) +
+                            (ex.unit === 'minutes' ? '<span class="tfcc-unit-min">Minutes</span>' : '') + '</label>';
+                    if (p > st.phase) html += '<span class="tfcc-later">Later phase</span>';
+                    html += '<span class="tfcc-code">' + code + '</span>';
+                    html += '</div>';
+                }
+                html += '</div></div>';
+            }
+            $('tfccExPanel').innerHTML = html;
+        }
+
+        function togglePhase(p) {
+            var list = $('tfccExList' + p); if (!list) return;
+            var chev = list.previousElementSibling.querySelector('.tfcc-chevron');
+            list.classList.toggle('tfcc-hidden');
+            var hidden = list.classList.contains('tfcc-hidden');
+            if (chev) {
+                if (hidden) chev.classList.add('tfcc-collapsed');
+                else chev.classList.remove('tfcc-collapsed');
+            }
+        }
+
+        function toggleExercise(code, checked) {
+            if (checked) {
+                selected[code] = makeSel(code);
+                if (selected[code].phase > st.phase) {
+                    showToast('Note: ' + code + ' is from Phase ' + selected[code].phase + ' (later than current Phase ' + st.phase + ')');
+                }
+            } else {
+                delete selected[code];
+            }
+            refreshSelected();
+        }
+
+        function selectAllPhase(p) {
+            var codes = Object.keys(PHASES[p].exercises);
+            var all = codes.every(function (c) { return !!selected[c]; });
+            codes.forEach(function (c) {
+                if (all) delete selected[c];
+                else if (!selected[c]) selected[c] = makeSel(c);
+                var cb = $('tfcc_cb_' + c); if (cb) cb.checked = !all;
+            });
+            if (!all && p > st.phase) showToast('Note: Phase ' + p + ' exercises are later than current Phase ' + st.phase);
+            refreshSelected();
+        }
+
+        function removeExercise(code) {
+            delete selected[code];
+            var cb = $('tfcc_cb_' + code); if (cb) cb.checked = false;
+            refreshSelected();
+        }
+
+        function clearExercises() {
+            selected = {};
+            var cbs = root.querySelectorAll('[data-tfcc-code]');
+            for (var i = 0; i < cbs.length; i++) cbs[i].checked = false;
+            refreshSelected();
+        }
+
+        function numInput(label, field, code, val, min, max, ph) {
+            return ' <label>' + label + ' <input type="number" value="' + val + '" min="' + min + '" max="' + max + '"' +
+                   (ph ? ' placeholder="' + ph + '"' : '') + ' data-tfcc-field="' + field + '" data-tfcc-fcode="' + code + '"></label>';
+        }
+
+        function refreshSelected() {
+            var keys = Object.keys(selected);
+            $('tfccCount').textContent = keys.length;
+            $('tfccBtnQR').disabled = !keys.length;
+            var el = $('tfccSelectedList');
+
+            if (!keys.length) {
+                el.innerHTML = '<div class="tfcc-empty-msg">No exercises selected yet.</div>';
+            } else {
+                var html = '';
+                keys.forEach(function (code) {
+                    var s = selected[code];
+                    html += '<div class="tfcc-sel-ex">';
+                    html += '<span class="tfcc-sel-name">' + esc(s.name) + ' <span class="tfcc-code">' + code + '</span><span class="tfcc-ptag">P' + s.phase + '</span></span>';
+                    switch (s.unit) {
+                        case 'breathing':    html += numInput('Breathing Cycles', 'breathingCycles', code, s.breathingCycles || 5, 1, 30); break;
+                        case 'minutes':      html += numInput('Minutes', 'minutes', code, s.minutes || 10, 1, 60); break;
+                        case 'reps':         html += numInput('Reps', 'reps', code, s.reps || 5, 1, 50); break;
+                        case 'seconds-sets':
+                            html += numInput('Sets', 'sets', code, s.sets || 3, 1, 10);
+                            html += numInput('Seconds', 'seconds', code, s.seconds || 30, 5, 120);
+                            break;
+                        default:
+                            html += numInput('Sets', 'sets', code, s.sets || 3, 1, 10);
+                            html += numInput('Reps', 'reps', code, s.reps || 10, 1, 30);
+                            html += numInput('Hold(s)', 'hold', code, s.hold || '', 0, 60, '-');
+                    }
+                    html += ' <label>Freq <select data-tfcc-field="freq" data-tfcc-fcode="' + code + '">';
+                    FREQ_OPTS.forEach(function (f) {
+                        html += '<option value="' + f[0] + '"' + (s.freq === f[0] ? ' selected' : '') + '>' + f[1] + '</option>';
+                    });
+                    html += '</select></label>';
+                    html += ' <button type="button" class="tfcc-remove" data-tfcc-remove="' + code + '">&#x2715;</button>';
+                    html += '</div>';
+                });
+                el.innerHTML = html;
+            }
+            updateRecordText();
+            hideQR();
+        }
+
+        // ================= QR + PRINT =================
+        function cleanupPrint() {
+            document.body.classList.remove('tfcc-printing');
+            var old = $('tfccPrintSheet');
+            if (old) old.parentNode.removeChild(old);
+        }
+
+        function hideQR() {
+            var out = $('tfccQrOutput');
+            if (out) out.style.display = 'none';
+            cleanupPrint();
+        }
+
+        function buildURL() {
+            var parts = Object.keys(selected).map(function (k) { return encodeEx(k, selected[k]); });
+            return BASE_URL + '/plan.html?ex=' + parts.join(',');
+        }
+
+        function generateQR() {
+            if (!Object.keys(selected).length) return;
+            var url = buildURL();
+            $('tfccUrlBox').textContent = url;
+            var qrDiv = $('tfccQrcode');
+            qrDiv.innerHTML = '';
+            if (typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrDiv, {
+                        text: url, width: 256, height: 256,
+                        colorDark: '#2c3e50', colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.M
+                    });
+                } catch (err) {
+                    qrDiv.innerHTML = '<p style="color:#e74c3c;font-weight:bold;">QR error: ' + esc(err.message || err) + '</p>';
+                }
+            } else {
+                qrDiv.innerHTML = '<p style="color:#e74c3c;font-weight:bold;">\u26A0\uFE0F QR library not loaded. Paste the QRCode library script (not a CDN link) in the marked "INSERT YOUR QR CODE LIBRARY HERE" section, then reload.</p>';
+            }
+            var out = $('tfccQrOutput');
+            out.style.display = 'block';
+            if (out.scrollIntoView) out.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function validateUntil() {
+            var raw = $('tfccUntilDate').value.trim();
+            var d = parseDMY(raw);
+            hideUntilError();
+            if (d === false) {
+                showUntilError(/^\d{2}\/\d{2}\/\d{4}$/.test(raw) ? 'Invalid calendar date.' : 'Please enter the date in dd/mm/yyyy format, or leave blank.');
+                return false;
+            }
+            if (d && d < todayMidnight()) {
+                showUntilError('The end date cannot be earlier than today.');
+                return false;
+            }
+            return true;
+        }
+
+        function printPlan() {
+            if (!validateUntil()) { $('tfccUntilDate').focus(); return; }
+            var until = getUntilDate();
+
+            var qrDiv = $('tfccQrcode');
+            var canvas = qrDiv.querySelector('canvas');
+            var img = qrDiv.querySelector('img');
+            var src = '';
+            if (canvas) { try { src = canvas.toDataURL('image/png'); } catch (e) {} }
+            if (!src && img && img.src) src = img.src;
+            var qrHtml = src ? '<img src="' + src + '" alt="QR code">' : qrDiv.innerHTML;
+
+            var ph = PHASES[st.phase];
+            var untilHtml = until
+                ? '<strong>' + fmtDateZh(until) + '</strong>'
+                : '<span class="ps-line ps-year"></span>\u5E74<span class="ps-line"></span>\u6708<span class="ps-line"></span>\u65E5';
+
+            var html =
+                '<div class="ps-phase">TFCC \u5FA9\u5EB7\u904B\u52D5 \u2013 \u7B2C ' + st.phase + ' \u968E\u6BB5</div>' +
+                '<div class="ps-phase-en">Phase ' + st.phase + ': ' + esc(ph.title) + ' (' + esc(ph.weeks) + ')</div>' +
+                '<div class="ps-qr">' + qrHtml +
+                    '<div class="ps-qr-caption">\u8ACB\u6383\u63CF\u4EE5\u4E0A\u4E8C\u7DAD\u78BC\uFF0C\u67E5\u770B\u4F60\u7684\u5BB6\u5C45\u904B\u52D5</div></div>' +
+                '<div class="ps-until">\u8ACB\u6301\u7E8C\u9032\u884C\u4EE5\u4E0A\u904B\u52D5\u76F4\u81F3\uFF1A' + untilHtml + '</div>';
+
+            cleanupPrint();
+            var sheet = document.createElement('div');
+            sheet.id = 'tfccPrintSheet';
+            sheet.setAttribute('lang', 'zh-Hant');
+            sheet.innerHTML = html;
+            document.body.appendChild(sheet);
+            document.body.classList.add('tfcc-printing');
+            window.print();
+        }
+
+        window.addEventListener('afterprint', cleanupPrint);
+
+        // ================= LISTENERS =================
+        var dateInput = $('tfccInjuryDate');
+        dateInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') generateProtocol(); });
+
+        var untilInput = $('tfccUntilDate');
+        untilInput.addEventListener('input', function () {
+            hideUntilError();
+            updateRecordText();
+        });
+        untilInput.addEventListener('blur', function () { validateUntil(); });
+        untilInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') validateUntil(); });
+
+        function closestAttr(el, attr) {
+            while (el && el !== root) {
+                if (el.nodeType === 1 && el.hasAttribute(attr)) return el;
+                el = el.parentNode;
+            }
+            return null;
+        }
+        function closestId(el, id) {
+            while (el && el !== root) {
+                if (el.id === id) return el;
+                el = el.parentNode;
+            }
+            return null;
+        }
+
+        root.addEventListener('click', function (e) {
+            var t = e.target, b;
+            if ((b = closestAttr(t, 'data-tfcc-selall'))) { e.preventDefault(); e.stopPropagation(); selectAllPhase(parseInt(b.getAttribute('data-tfcc-selall'), 10)); return; }
+            if ((b = closestAttr(t, 'data-tfcc-toggle'))) { togglePhase(b.getAttribute('data-tfcc-toggle')); return; }
+            if ((b = closestAttr(t, 'data-tfcc-remove'))) { removeExercise(b.getAttribute('data-tfcc-remove')); return; }
+            if (closestId(t, 'tfccBtnGenerate')) { generateProtocol(); return; }
+            if (closestId(t, 'tfccBtnCopyText')) { copyToClipboard($('tfccGeneratedText').value, 'Copied to clipboard!'); return; }
+            if (closestId(t, 'tfccBtnQR')) { generateQR(); return; }
+            if (closestId(t, 'tfccBtnClear')) { clearExercises(); return; }
+            if (closestId(t, 'tfccBtnCopyLink')) { copyToClipboard($('tfccUrlBox').textContent, 'Link copied!'); return; }
+            if (closestId(t, 'tfccBtnPrint')) { printPlan(); return; }
+        });
+
+        root.addEventListener('change', function (e) {
+            var t = e.target;
+            if (t.hasAttribute('data-tfcc-code')) { toggleExercise(t.getAttribute('data-tfcc-code'), t.checked); return; }
+            if (t.hasAttribute('data-tfcc-field')) {
+                var code = t.getAttribute('data-tfcc-fcode');
+                var field = t.getAttribute('data-tfcc-field');
+                if (selected[code]) {
+                    selected[code][field] = (t.tagName === 'SELECT') ? t.value : (t.value === '' ? '' : +t.value);
+                    updateRecordText();
+                    hideQR();
+                }
+                return;
+            }
+            if (t.id === 'tfccPhaseOverride') { if (st.phase) generateProtocol(); return; }
+        });
+
+        return true;
+    }
+
+    // ===== Safe start: shows any error on screen instead of failing silently =====
+    function startTFCC() {
+        var notice = document.getElementById('tfccLoadError');
+        try {
+            var ok = initTFCCTool();
+            if (ok === false) {
+                window.addEventListener('load', function () {
+                    try { if (initTFCCTool() && notice) notice.style.display = 'none'; }
+                    catch (err2) { reportError(err2); }
+                });
+                return;
+            }
+            if (notice) notice.style.display = 'none';
+        } catch (err) {
+            reportError(err);
+        }
+    }
+
+    function reportError(err) {
+        var notice = document.getElementById('tfccLoadError');
+        if (notice) {
+            notice.style.display = 'block';
+            notice.textContent = 'TFCC script error: ' + (err && err.message ? err.message : String(err)) +
+                ' \u2013 please send a screenshot of this message to the developer.';
+        }
+        if (window.console && console.error) console.error(err);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startTFCC);
+    } else {
+        startTFCC();
+    }
+})();
 </script>
 </section>
