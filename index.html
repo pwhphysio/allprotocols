@@ -865,6 +865,17 @@
     #panel-rc .tfcc-phase-pill{background: #0369a1;}
     #panel-rc .ul-phase-start{border-color: #7dd3fc;}
     #panel-rc .ul-phase-start strong{color: #0c4a6e;}
+    .rc-run-error{display: none;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-left: 4px solid #ef4444;
+        color: #991b1b;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 18px;
+        font-size: 13px;
+        font-weight: 600;
+        word-break: break-word;}
     .rc-tenodesis{display: inline-flex;
         align-items: center;
         gap: 10px;
@@ -1786,11 +1797,15 @@
                 <p>Enter the operation date to generate goals, interventions, precautions and assessments for any post-op week.</p>
             </div>
 
+            <div id="rc-loadError" class="tfcc-load-error">
+                Loading tool&hellip; If this message does not disappear, the Rotator Cuff script (v2) has not run &ndash; an old cached copy may be loaded. Press Ctrl+F5 to reload.
+            </div>
+
             <div class="acl-input-section">
                 <label class="acl-label">Operation Date (dd/mm/yyyy)</label>
                 <div class="acl-controls">
                     <input type="text" id="rc-opDate" placeholder="dd/mm/yyyy" maxlength="10" class="acl-input" inputmode="numeric" autocomplete="off">
-                    <button id="rc-btnGenerate" class="acl-btn">Enter</button>
+                    <button type="button" id="rc-btnGenerate" class="acl-btn">Enter</button>
                 </div>
                 <label class="rc-tenodesis" for="rc-tenodesis">
                     <input type="checkbox" id="rc-tenodesis">
@@ -1802,6 +1817,8 @@
             </div>
 
             <div id="rc-outputContainer" class="acl-output">
+                <div id="rc-runError" class="rc-run-error"></div>
+
                 <div class="week-selector-bar">
                     <label for="rc-weekSelector">View programme for:</label>
                     <select id="rc-weekSelector"></select>
@@ -1822,33 +1839,33 @@
                     </div>
                 </div>
 
-                <div class="tfcc-notes" id="rc-notes"><ul id="rc-notesList"></ul></div>
+                <div class="tfcc-notes" id="rc-notes"><ul id="rc-notesList"><li>-</li></ul></div>
 
                 <div class="info-grid">
                     <div>
                         <div class="info-box box-green">
                             <h3>Goals</h3>
-                            <ul id="rc-goalList"></ul>
+                            <ul id="rc-goalList"><li>-</li></ul>
                         </div>
                         <div class="info-box box-red">
-                            <h3>Precautions & ROM Limits</h3>
-                            <ul id="rc-precautionList"></ul>
+                            <h3>Precautions &amp; ROM Limits</h3>
+                            <ul id="rc-precautionList"><li>-</li></ul>
                         </div>
                         <div class="info-box box-purple">
                             <h3>Outcome Measures / Assessment</h3>
                             <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
-                            <ul id="rc-outcomeList"></ul>
+                            <ul id="rc-outcomeList"><li>-</li></ul>
                         </div>
                     </div>
                     <div>
                         <div class="info-box box-indigo">
                             <h3>Interventions</h3>
-                            <ul id="rc-interventionList"></ul>
+                            <ul id="rc-interventionList"><li>-</li></ul>
                         </div>
                         <div>
                             <div class="copy-header">
                                 <span class="copy-label">Generated Treatment Record Text</span>
-                                <button id="rc-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
+                                <button type="button" id="rc-btnCopy" class="btn-copy-small">Copy to Clipboard</button>
                             </div>
                             <textarea id="rc-generatedText" class="generated-text" readonly></textarea>
                         </div>
@@ -1866,7 +1883,7 @@
     <div id="aclToast" class="acl-toast"></div>
 </div>
 
-<!-- ===================== MAIN SCRIPT: ACL / TA / RC / KSS / KSFA / NOMOGRAM / TABS ===================== -->
+<!-- ===================== MAIN SCRIPT: ACL / TA / KSS / KSFA / NOMOGRAM / TABS ===================== -->
 <script data-skip-moving="true">
 (function(){
     /* ============================================================
@@ -2451,437 +2468,6 @@
     }
 
     /* ============================================================
-       STANDARD ROTATOR CUFF REPAIR TOOL
-       Items can be a plain string, or {t: "text", bt: true} for
-       items that only apply when biceps tenodesis was performed.
-       ============================================================ */
-    function initRCTool(){
-        var RC_MAX_WEEK = 52;
-        var RC_END_DAY = 365;
-
-        var rcPhases = [
-            {
-                phaseName: "Post-op 0-1 Week",
-                startDay: 0, endDay: 13,
-                goals: [
-                    "Maintain repair integrity",
-                    "Minimize pain and inflammation",
-                    "Normalize scapula position and mobility",
-                    "Initial staged PROM exercises (<15% supraspinatus EMG activity)",
-                    "Aim PROM F/Abd 60-90°, ER 0-20° at 20° Abd, IR to belly by 2 weeks"
-                ],
-                precautions: [
-                    "Avoid shoulder AROM exercise",
-                    "Avoid excessive stretching or sudden movements",
-                    "Avoid lifting/supporting of body weight by hands",
-                    "ADL: Avoid cloth donning with the affected limb",
-                    "Avoid clothing with small buttons, hooks or zips",
-                    "Ladies may prefer to wear a front fastening bra"
-                ],
-                outcomes: [
-                    "Check wound healing",
-                    "Pain levels (VAS)",
-                    "Sling fit and position"
-                ],
-                interventions: [
-                    "Arm sling in neutral position",
-                    "Pendulum exercise",
-                    "PROM F/Abd < 90°, ER < 20° at 20° Abd",
-                    "Self forward bow",
-                    "Self-assisted passive F with opposite hand",
-                    "Bar-assisted ER in supine/upright position",
-                    "Therapist assisted F in seated/side lying/supine",
-                    "Active scapula retraction & depression in side-lying",
-                    "Active neck mobilization exercise",
-                    "Elbow/wrist/finger mobilizing exercise",
-                    { t: "PROM for elbow only if bicep Tenodesis performed (allow AROM at 6 weeks)", bt: true },
-                    "Cryotherapy and electrotherapy for swelling control",
-                    "Manual soft-tissue techniques"
-                ]
-            },
-            {
-                phaseName: "Post-op 2 Weeks",
-                startDay: 14, endDay: 20,
-                goals: [
-                    "Progress staged PROM exercises (<15% supraspinatus EMG activity)",
-                    "Aim PROM F 90-120°, ER 20-30° at 20° Abd by 6 weeks"
-                ],
-                precautions: [
-                    "Continue previous precautions",
-                    "Sling use continues"
-                ],
-                outcomes: [
-                    "PROM measurements",
-                    "Scapular mobility check"
-                ],
-                interventions: [
-                    "PROM F < 120°, ER < 30° at 20° Abd",
-                    "Grade I & II shoulder girdle joints gliding (GH, SC, AC, ST)",
-                    "Continue previous appropriate exercises"
-                ]
-            },
-            {
-                phaseName: "Post-op 3-5 Weeks",
-                startDay: 21, endDay: 41,
-                goals: [
-                    "Initial AAROM exercises (<15% supraspinatus EMG activity)",
-                    "Aim AAROM F/Abd 60-90°, ER 0-20° at 20° of Abd by 6 weeks"
-                ],
-                precautions: [
-                    { t: "Delay elbow strengthening till 6 weeks if bicep tenodesis performed", bt: true }
-                ],
-                outcomes: [
-                    "Criteria to advance to Phase 2 (6 weeks): PROM F 90-120°, ER 20-30° at 20° Abd"
-                ],
-                interventions: [
-                    "AAROM F/Abd < 90°, ER < 30°",
-                    "Supine press up",
-                    "Supine active assisted ER",
-                    "Supine active assisted Abd",
-                    "Side-lying assisted active F",
-                    "Elbow/wrist/fingers light strengthening"
-                ]
-            },
-            {
-                phaseName: "Post-op 6-9 Weeks",
-                startDay: 42, endDay: 69,
-                goals: [
-                    "Regain full A/PROM in all direction (< 20% supraspinatus EMG activity)",
-                    "Restore stability, strength and scapular neuromuscular control",
-                    "Initiate light, non-repetitive muscle activities/ADL below chest level"
-                ],
-                precautions: [
-                    "Avoid active over-head lifting/ ADL",
-                    "Avoid sudden jerking movements",
-                    "Avoid supporting of body weight by hands",
-                    "Avoid cloth donning with the affected limb till 8 weeks"
-                ],
-                outcomes: [
-                    "ROM Assessment (A/PROM)",
-                    "Scapular control assessment"
-                ],
-                interventions: [
-                    "Full A/PROM as pain tolerated",
-                    "Inclined/seated press up",
-                    "Seated ER at 90° of Abd",
-                    "Towel slides at sagittal/ medial/ scapular plane",
-                    "Wall slides/ wall walks",
-                    "Ball roll",
-                    "Pulley",
-                    "Grade III & IV shoulder girdle joints gliding (GH, SC,AC, ST)",
-                    "Proprioception exercises",
-                    "Scapula and core strengthening",
-                    "Muscle re-education with ES in symmetrical pattern",
-                    "Light isometric/ isotonic ex (ER/IR/Ext)",
-                    "Light isotonic ex for shoulder ER in side lying (low-weight/high-rep)"
-                ]
-            },
-            {
-                phaseName: "Post-op 10-11 Weeks",
-                startDay: 70, endDay: 83,
-                goals: [
-                    "Regain full A/PROM in all direction",
-                    "Restore stability, strength and scapular neuromuscular control",
-                    "Initiate light, non-repetitive muscle activities/ADL below chest level"
-                ],
-                precautions: [
-                    "Avoid active over-head lifting/ ADL",
-                    "Avoid sudden jerking movements",
-                    "Avoid supporting of body weight by hands"
-                ],
-                outcomes: [
-                    "Criteria to advance to Phase 3 (12 weeks): PROM FF >140°, ER > 30° at 20° Abd, ER > 75° at 90° Abd",
-                    "AROM FF >120°",
-                    "Satisfactory posture/ scapular control"
-                ],
-                interventions: [
-                    "Continue Full A/PROM as pain tolerated",
-                    "Continue strengthening exercises from previous phase",
-                    "Grade III & IV shoulder girdle joints gliding",
-                    "Proprioception exercises",
-                    "Scapula and core strengthening",
-                    "Muscle re-education"
-                ]
-            },
-            {
-                phaseName: "Post-op 12-19 Weeks",
-                startDay: 84, endDay: 149,
-                goals: [
-                    "Optimize neuromuscular control",
-                    "Gradually restore strength, power and endurance",
-                    "Return to ADL/ work/ recreational activities that do not require heavy lifting"
-                ],
-                precautions: [
-                    "Avoid lifting of objects heavier than 15-20lbs",
-                    "Avoid sudden lifting, jerking or pushing activities",
-                    "Avoid uncontrolled movements"
-                ],
-                outcomes: [
-                    "Criteria to advance to Phase 4 (5 months): MMT > 4+/5",
-                    "Completed basic ADL and phase 3 strengthening with satisfactory dynamic stability",
-                    "Surgeon approval"
-                ],
-                interventions: [
-                    "Capsular stretching (corner, towel, cross-body, sleeper stretch)",
-                    "Aggressive strengthening",
-                    "Thera band x F/ER/IR/ throwing accelerate ex",
-                    "High, middle and low scapular rows",
-                    "OB pulley",
-                    "PNF pattern",
-                    "Body-blade ex",
-                    "Locked elbow extension for trapezius",
-                    "Press-up ex with dumbbell for serratus"
-                ]
-            },
-            {
-                phaseName: "Post-op 5-6 Months+",
-                startDay: 150, endDay: 365,
-                goals: [
-                    "Normalize muscular strength, power and endurance",
-                    "Returning to demanding functional activities",
-                    "Complete return to sports training"
-                ],
-                precautions: [
-                    "Avoid exercises that provide a large increase in load compared to previous exercises",
-                    "Avoid exercises significantly more stressful/ demanding than functional needs"
-                ],
-                outcomes: [
-                    "Termination Assessment (5-8 months): Surgeon clearance (UCLA/Constant-Murley score)",
-                    "Symmetrical scapula-thoracic mobility and strength",
-                    "Complete functional progression with minimal pain",
-                    "Return to Sport: Initiate interval sport program after successful 3-6 weeks of plyometric program"
-                ],
-                interventions: [
-                    "Advance strengthening (Gradual increase weight over 6-12 weeks)",
-                    "Multi push and lift machine",
-                    "Forward punch",
-                    "Dynamic hugs with OB pulley",
-                    "Prone ER x 90°",
-                    "Prone horizontal ABD x 90°",
-                    "Push-up/ push-up plus",
-                    "BTE Isokinetic training at 90/90°",
-                    "Activity specific training and technique modification",
-                    "Thrower ten Program",
-                    "Plyometric program"
-                ]
-            }
-        ];
-
-        var rcOpDate = null;
-        var rcDaysPast = 0;
-
-        function rcPhaseIndexForDay(d){
-            for (var i = 0; i < rcPhases.length; i++){
-                if (d >= rcPhases[i].startDay && d <= rcPhases[i].endDay) return i;
-            }
-            return rcPhases.length - 1;   // beyond 1 year -> last phase
-        }
-
-        function tenodesisOn(){
-            var cb = document.getElementById('rc-tenodesis');
-            return !!(cb && cb.checked);
-        }
-        function isBT(it){ return typeof it !== 'string' && it && it.bt; }
-        function itemText(it){ return typeof it === 'string' ? it : it.t; }
-        function visibleItems(items){
-            var on = tenodesisOn();
-            return (items || []).filter(function(it){ return !isBT(it) || on; });
-        }
-
-        function renderRCList(id, items, emptyMsg){
-            var list = document.getElementById(id);
-            if (!list) return;
-            list.innerHTML = '';
-            var vis = visibleItems(items);
-            if (!vis.length){
-                list.innerHTML = '<li style="color:#999; font-style:italic;">' + (emptyMsg || 'None specified') + '</li>';
-                return;
-            }
-            vis.forEach(function(it){
-                var li = document.createElement('li');
-                if (isBT(it)){
-                    li.className = 'rc-bt-item';
-                    li.appendChild(document.createTextNode(it.t + ' '));
-                    var tag = document.createElement('span');
-                    tag.className = 'rc-bt-tag';
-                    tag.textContent = 'Biceps tenodesis';
-                    li.appendChild(tag);
-                } else {
-                    li.textContent = itemText(it);
-                }
-                list.appendChild(li);
-            });
-        }
-
-        function rcMonthsText(date){
-            var months = calendarMonthsBetween(rcOpDate, date);
-            if (months < 1) return 'Less than 1 month post-op';
-            if (months === 1) return '1 month post-op';
-            return months + ' months post-op';
-        }
-
-        function rcTodayBadge(today){
-            var months = calendarMonthsBetween(rcOpDate, today);
-            if (months < 3) return 'Day ' + rcDaysPast + ' · Week ' + Math.floor(rcDaysPast / 7) + ' Post-Op (today)';
-            return 'Day ' + rcDaysPast + ' · Month ' + months + ' Post-Op (today)';
-        }
-
-        function populateRCWeekSelector(currentWeek){
-            var sel = document.getElementById('rc-weekSelector');
-            sel.innerHTML = '';
-            for (var i = 0; i <= RC_MAX_WEEK; i++){
-                var opt = document.createElement('option');
-                opt.value = i;
-                var label = 'Week ' + i;
-                var weekStart = new Date(rcOpDate);
-                weekStart.setDate(weekStart.getDate() + i * 7);
-                var months = calendarMonthsBetween(rcOpDate, weekStart);
-                if (months >= 3) label += ' / Month ' + months;
-                if (i === currentWeek) label += '  (current)';
-                opt.text = label;
-                if (i === currentWeek) opt.selected = true;
-                sel.appendChild(opt);
-            }
-        }
-
-        function renderRCWeek(weekNum){
-            if (!rcOpDate) return;
-            var weekStartDay = weekNum * 7;
-            var weekStart = new Date(rcOpDate);
-            weekStart.setDate(weekStart.getDate() + weekStartDay);
-
-            var currentWeek = Math.min(Math.floor(rcDaysPast / 7), RC_MAX_WEEK);
-            var isCurrent = (weekNum === currentWeek);
-            // Current week -> use today's exact day post-op; other weeks -> first day of that week
-            var dayUsed = isCurrent ? rcDaysPast : weekStartDay;
-            var idx = rcPhaseIndexForDay(dayUsed);
-            var ph = rcPhases[idx];
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            document.getElementById('rc-weekStartDate').innerText = formatDateDDMMYYYY(weekStart);
-            document.getElementById('rc-weekHeader').innerText = 'Post-Operation Week ' + weekNum;
-            document.getElementById('rc-dayRange').innerText = '(Day ' + weekStartDay + '\u2013' + (weekStartDay + 6) + ' \u00B7 ' + rcMonthsText(weekStart) + ')';
-            document.getElementById('rc-daysPastBadge').innerText = rcTodayBadge(today);
-            document.getElementById('rc-phasePill').innerText = 'Phase ' + (idx + 1) + ': ' + ph.phaseName;
-
-            var phaseStart = new Date(rcOpDate);
-            phaseStart.setDate(phaseStart.getDate() + ph.startDay);
-            document.getElementById('rc-phaseStartDate').innerText = formatDateDDMMYYYY(phaseStart) + ' (Day ' + ph.startDay + ')';
-
-            // ---- Notes ----
-            var notes = [];
-            if (dayUsed > RC_END_DAY){
-                notes.push('Beyond 1-year protocol timeline (Day ' + dayUsed + ' post-op) \u2013 showing the last phase ("' + ph.phaseName + '").');
-            }
-            for (var j = 1; j < rcPhases.length; j++){
-                var s = rcPhases[j].startDay;
-                if (s > weekStartDay && s <= weekStartDay + 6){
-                    var sd = new Date(rcOpDate);
-                    sd.setDate(sd.getDate() + s);
-                    notes.push('Phase change within this week: "' + rcPhases[j].phaseName + '" starts on Day ' + s +
-                        ' (' + formatDateDDMMYYYY(sd) + '). Programme shown is based on ' +
-                        (isCurrent ? 'today (Day ' + rcDaysPast + ')' : 'the first day of this week (Day ' + weekStartDay + ')') + '.');
-                }
-            }
-            var notesBox = document.getElementById('rc-notes');
-            var notesList = document.getElementById('rc-notesList');
-            notesList.innerHTML = '';
-            notes.forEach(function(n){
-                var li = document.createElement('li');
-                li.textContent = n;
-                notesList.appendChild(li);
-            });
-            notesBox.style.display = notes.length ? 'block' : 'none';
-
-            // ---- Lists ----
-            renderRCList('rc-goalList', ph.goals);
-            renderRCList('rc-precautionList', ph.precautions, 'No additional precautions listed in protocol for this phase');
-            renderRCList('rc-outcomeList', ph.outcomes);
-            renderRCList('rc-interventionList', ph.interventions);
-
-            // ---- Record text ----
-            var interventions = visibleItems(ph.interventions).map(itemText);
-            var t = 'INTERVENTIONS:\n- ' + interventions.join('\n- ') + '\n\n';
-            if (tenodesisOn()){
-                var btPrec = (ph.precautions || []).filter(isBT).map(itemText);
-                if (btPrec.length) t += 'BICEPS TENODESIS PRECAUTIONS:\n- ' + btPrec.join('\n- ') + '\n\n';
-            }
-            t += 'Precautions given and contraindications checked for EPT';
-            document.getElementById('rc-generatedText').value = t;
-        }
-
-        function generateRCProtocol(){
-            var dateInputStr = document.getElementById('rc-opDate').value;
-            var errorMsg = document.getElementById('rc-dateError');
-            var match = dateInputStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-
-            if (!match){
-                errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-            errorMsg.style.display = 'none';
-
-            var day = parseInt(match[1], 10);
-            var month = parseInt(match[2], 10) - 1;
-            var year = parseInt(match[3], 10);
-            var opDate = new Date(year, month, day);
-            var today = new Date();
-
-            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){
-                errorMsg.innerText = "Invalid calendar date.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-            opDate.setHours(0, 0, 0, 0);
-            today.setHours(0, 0, 0, 0);
-            var daysPast = Math.floor((today - opDate) / (1000 * 60 * 60 * 24));
-
-            if (daysPast < 0){
-                errorMsg.innerText = "Operation date cannot be in the future.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-            rcOpDate = opDate;
-            rcDaysPast = daysPast;
-            var currentWeek = Math.min(Math.floor(daysPast / 7), RC_MAX_WEEK);
-
-            document.getElementById('rc-emptyState').style.display = 'none';
-            var outputContainer = document.getElementById('rc-outputContainer');
-            outputContainer.classList.add('visible');
-            outputContainer.style.animation = 'none';
-            outputContainer.offsetHeight;
-            outputContainer.style.animation = 'fadeIn 0.5s ease-in-out';
-
-            populateRCWeekSelector(currentWeek);
-            renderRCWeek(currentWeek);
-        }
-
-        var rcDateInput = document.getElementById('rc-opDate');
-        var rcBtnGenerate = document.getElementById('rc-btnGenerate');
-        var rcBtnCopy = document.getElementById('rc-btnCopy');
-        var rcWeekSelector = document.getElementById('rc-weekSelector');
-        var rcTenodesis = document.getElementById('rc-tenodesis');
-
-        if (rcDateInput){
-            rcDateInput.addEventListener('input', handleDateInput);
-            rcDateInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') generateRCProtocol(); });
-        }
-        if (rcBtnGenerate) rcBtnGenerate.addEventListener('click', generateRCProtocol);
-        if (rcBtnCopy) rcBtnCopy.addEventListener('click', function(){ copyFromTextarea('rc-generatedText'); });
-        if (rcWeekSelector){
-            rcWeekSelector.addEventListener('change', function(){ renderRCWeek(parseInt(rcWeekSelector.value, 10)); });
-        }
-        if (rcTenodesis){
-            rcTenodesis.addEventListener('change', function(){
-                if (rcOpDate) renderRCWeek(parseInt(rcWeekSelector.value, 10));
-            });
-        }
-    }
-
-    /* ============================================================
        KSS TOOL  (Knee Society Score)
        ============================================================ */
     function initKSSTool(){
@@ -3426,7 +3012,6 @@
                 bar.classList.toggle('active', on);
                 if (on) activeBar = bar;
             });
-            // Re-open the last-used tab of this region (or its first tab)
             if (activeBar){
                 activateTab(activeBar.querySelector('.protocol-tab.active') || activeBar.querySelector('.protocol-tab'));
             }
@@ -3455,7 +3040,6 @@
     function init(){
         safeRun('ACL tool', initACLTool);
         safeRun('TA tool', initTATool);
-        safeRun('Rotator Cuff tool', initRCTool);
         safeRun('KSS tool', initKSSTool);
         safeRun('KSFA tool', initKSFATool);
         safeRun('Nomogram tool', initNomoTool);
@@ -3470,6 +3054,517 @@
 })();
 </script>
 
+<!-- ===================== ROTATOR CUFF SCRIPT (v2, standalone, self-diagnosing) ===================== -->
+<script data-skip-moving="true">
+(function(){
+    var RC_VERSION = 'v2';
+    var RC_MAX_WEEK = 52;
+    var RC_END_DAY = 365;
+    var BT = 'BT::';   // prefix = item only applies when biceps tenodesis performed
+
+    /* ------------------------------------------------------------
+       PROTOCOL DATA (plain strings only)
+       ------------------------------------------------------------ */
+    var rcPhases = [
+        {
+            phaseName: "Post-op 0-1 Week", startDay: 0, endDay: 13,
+            goals: [
+                "Maintain repair integrity",
+                "Minimize pain and inflammation",
+                "Normalize scapula position and mobility",
+                "Initial staged PROM exercises (<15% supraspinatus EMG activity)",
+                "Aim PROM F/Abd 60-90\u00B0, ER 0-20\u00B0 at 20\u00B0 Abd, IR to belly by 2 weeks"
+            ],
+            precautions: [
+                "Avoid shoulder AROM exercise",
+                "Avoid excessive stretching or sudden movements",
+                "Avoid lifting/supporting of body weight by hands",
+                "ADL: Avoid cloth donning with the affected limb",
+                "Avoid clothing with small buttons, hooks or zips",
+                "Ladies may prefer to wear a front fastening bra"
+            ],
+            outcomes: [
+                "Check wound healing",
+                "Pain levels (VAS)",
+                "Sling fit and position"
+            ],
+            interventions: [
+                "Arm sling in neutral position",
+                "Pendulum exercise",
+                "PROM F/Abd < 90\u00B0, ER < 20\u00B0 at 20\u00B0 Abd",
+                "Self forward bow",
+                "Self-assisted passive F with opposite hand",
+                "Bar-assisted ER in supine/upright position",
+                "Therapist assisted F in seated/side lying/supine",
+                "Active scapula retraction & depression in side-lying",
+                "Active neck mobilization exercise",
+                "Elbow/wrist/finger mobilizing exercise",
+                BT + "PROM for elbow only if bicep Tenodesis performed (allow AROM at 6 weeks)",
+                "Cryotherapy and electrotherapy for swelling control",
+                "Manual soft-tissue techniques"
+            ]
+        },
+        {
+            phaseName: "Post-op 2 Weeks", startDay: 14, endDay: 20,
+            goals: [
+                "Progress staged PROM exercises (<15% supraspinatus EMG activity)",
+                "Aim PROM F 90-120\u00B0, ER 20-30\u00B0 at 20\u00B0 Abd by 6 weeks"
+            ],
+            precautions: [
+                "Continue previous precautions",
+                "Sling use continues"
+            ],
+            outcomes: [
+                "PROM measurements",
+                "Scapular mobility check"
+            ],
+            interventions: [
+                "PROM F < 120\u00B0, ER < 30\u00B0 at 20\u00B0 Abd",
+                "Grade I & II shoulder girdle joints gliding (GH, SC, AC, ST)",
+                "Continue previous appropriate exercises"
+            ]
+        },
+        {
+            phaseName: "Post-op 3-5 Weeks", startDay: 21, endDay: 41,
+            goals: [
+                "Initial AAROM exercises (<15% supraspinatus EMG activity)",
+                "Aim AAROM F/Abd 60-90\u00B0, ER 0-20\u00B0 at 20\u00B0 of Abd by 6 weeks"
+            ],
+            precautions: [
+                BT + "Delay elbow strengthening till 6 weeks if bicep tenodesis performed"
+            ],
+            outcomes: [
+                "Criteria to advance to Phase 2 (6 weeks): PROM F 90-120\u00B0, ER 20-30\u00B0 at 20\u00B0 Abd"
+            ],
+            interventions: [
+                "AAROM F/Abd < 90\u00B0, ER < 30\u00B0",
+                "Supine press up",
+                "Supine active assisted ER",
+                "Supine active assisted Abd",
+                "Side-lying assisted active F",
+                "Elbow/wrist/fingers light strengthening"
+            ]
+        },
+        {
+            phaseName: "Post-op 6-9 Weeks", startDay: 42, endDay: 69,
+            goals: [
+                "Regain full A/PROM in all direction (< 20% supraspinatus EMG activity)",
+                "Restore stability, strength and scapular neuromuscular control",
+                "Initiate light, non-repetitive muscle activities/ADL below chest level"
+            ],
+            precautions: [
+                "Avoid active over-head lifting/ ADL",
+                "Avoid sudden jerking movements",
+                "Avoid supporting of body weight by hands",
+                "Avoid cloth donning with the affected limb till 8 weeks"
+            ],
+            outcomes: [
+                "ROM Assessment (A/PROM)",
+                "Scapular control assessment"
+            ],
+            interventions: [
+                "Full A/PROM as pain tolerated",
+                "Inclined/seated press up",
+                "Seated ER at 90\u00B0 of Abd",
+                "Towel slides at sagittal/ medial/ scapular plane",
+                "Wall slides/ wall walks",
+                "Ball roll",
+                "Pulley",
+                "Grade III & IV shoulder girdle joints gliding (GH, SC,AC, ST)",
+                "Proprioception exercises",
+                "Scapula and core strengthening",
+                "Muscle re-education with ES in symmetrical pattern",
+                "Light isometric/ isotonic ex (ER/IR/Ext)",
+                "Light isotonic ex for shoulder ER in side lying (low-weight/high-rep)"
+            ]
+        },
+        {
+            phaseName: "Post-op 10-11 Weeks", startDay: 70, endDay: 83,
+            goals: [
+                "Regain full A/PROM in all direction",
+                "Restore stability, strength and scapular neuromuscular control",
+                "Initiate light, non-repetitive muscle activities/ADL below chest level"
+            ],
+            precautions: [
+                "Avoid active over-head lifting/ ADL",
+                "Avoid sudden jerking movements",
+                "Avoid supporting of body weight by hands"
+            ],
+            outcomes: [
+                "Criteria to advance to Phase 3 (12 weeks): PROM FF >140\u00B0, ER > 30\u00B0 at 20\u00B0 Abd, ER > 75\u00B0 at 90\u00B0 Abd",
+                "AROM FF >120\u00B0",
+                "Satisfactory posture/ scapular control"
+            ],
+            interventions: [
+                "Continue Full A/PROM as pain tolerated",
+                "Continue strengthening exercises from previous phase",
+                "Grade III & IV shoulder girdle joints gliding",
+                "Proprioception exercises",
+                "Scapula and core strengthening",
+                "Muscle re-education"
+            ]
+        },
+        {
+            phaseName: "Post-op 12-19 Weeks", startDay: 84, endDay: 149,
+            goals: [
+                "Optimize neuromuscular control",
+                "Gradually restore strength, power and endurance",
+                "Return to ADL/ work/ recreational activities that do not require heavy lifting"
+            ],
+            precautions: [
+                "Avoid lifting of objects heavier than 15-20lbs",
+                "Avoid sudden lifting, jerking or pushing activities",
+                "Avoid uncontrolled movements"
+            ],
+            outcomes: [
+                "Criteria to advance to Phase 4 (5 months): MMT > 4+/5",
+                "Completed basic ADL and phase 3 strengthening with satisfactory dynamic stability",
+                "Surgeon approval"
+            ],
+            interventions: [
+                "Capsular stretching (corner, towel, cross-body, sleeper stretch)",
+                "Aggressive strengthening",
+                "Thera band x F/ER/IR/ throwing accelerate ex",
+                "High, middle and low scapular rows",
+                "OB pulley",
+                "PNF pattern",
+                "Body-blade ex",
+                "Locked elbow extension for trapezius",
+                "Press-up ex with dumbbell for serratus"
+            ]
+        },
+        {
+            phaseName: "Post-op 5-6 Months+", startDay: 150, endDay: 365,
+            goals: [
+                "Normalize muscular strength, power and endurance",
+                "Returning to demanding functional activities",
+                "Complete return to sports training"
+            ],
+            precautions: [
+                "Avoid exercises that provide a large increase in load compared to previous exercises",
+                "Avoid exercises significantly more stressful/ demanding than functional needs"
+            ],
+            outcomes: [
+                "Termination Assessment (5-8 months): Surgeon clearance (UCLA/Constant-Murley score)",
+                "Symmetrical scapula-thoracic mobility and strength",
+                "Complete functional progression with minimal pain",
+                "Return to Sport: Initiate interval sport program after successful 3-6 weeks of plyometric program"
+            ],
+            interventions: [
+                "Advance strengthening (Gradual increase weight over 6-12 weeks)",
+                "Multi push and lift machine",
+                "Forward punch",
+                "Dynamic hugs with OB pulley",
+                "Prone ER x 90\u00B0",
+                "Prone horizontal ABD x 90\u00B0",
+                "Push-up/ push-up plus",
+                "BTE Isokinetic training at 90/90\u00B0",
+                "Activity specific training and technique modification",
+                "Thrower ten Program",
+                "Plyometric program"
+            ]
+        }
+    ];
+
+    /* ------------------------------------------------------------
+       HELPERS (all lookups are limited to the RC panel)
+       ------------------------------------------------------------ */
+    var panel = null;
+    function q(id){
+        var el = panel ? panel.querySelector('[id="' + id + '"]') : null;
+        if (!el) el = document.getElementById(id);
+        if (!el) throw new Error('Element "' + id + '" not found on page');
+        return el;
+    }
+    function esc(s){
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function pad2(n){ n = String(n); return n.length < 2 ? '0' + n : n; }
+    function fmtDate(d){ return pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + '/' + d.getFullYear(); }
+    function addDays(base, n){ var d = new Date(base.getTime()); d.setDate(d.getDate() + n); return d; }
+    function monthsBetween(a, b){
+        var m = (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth());
+        if (b.getDate() < a.getDate()) m -= 1;
+        return m < 0 ? 0 : m;
+    }
+    function isBT(s){ return String(s).indexOf(BT) === 0; }
+    function itemText(s){ s = String(s); return isBT(s) ? s.substring(BT.length) : s; }
+
+    function toast(msg){
+        var t = document.getElementById('aclToast');
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); }, 2500);
+    }
+    function copyText(text){
+        function fallback(){
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { toast(document.execCommand('copy') ? 'Copied to clipboard!' : 'Could not copy. Please copy manually.'); }
+            catch (e){ toast('Could not copy. Please copy manually.'); }
+            document.body.removeChild(ta);
+        }
+        if (navigator.clipboard && window.isSecureContext){
+            navigator.clipboard.writeText(text).then(function(){ toast('Copied to clipboard!'); }).catch(fallback);
+        } else { fallback(); }
+    }
+
+    /* ------------------------------------------------------------
+       ERROR REPORTING (shown on screen)
+       ------------------------------------------------------------ */
+    var errors = [];
+    function step(name, fn){
+        try { fn(); }
+        catch (err){
+            errors.push(name + ': ' + (err && err.message ? err.message : String(err)));
+            if (window.console && console.error) console.error('[RC ' + RC_VERSION + '] ' + name, err);
+        }
+    }
+    function showErrors(){
+        var box = null;
+        try { box = q('rc-runError'); } catch (e){}
+        if (!box){ if (errors.length) alert('Rotator Cuff tool error: ' + errors.join(' | ')); return; }
+        if (errors.length){
+            box.style.display = 'block';
+            box.textContent = 'Rotator Cuff tool error (' + RC_VERSION + ') \u2013 please screenshot this: ' + errors.join(' | ');
+        } else {
+            box.style.display = 'none';
+            box.textContent = '';
+        }
+    }
+
+    /* ------------------------------------------------------------
+       STATE
+       ------------------------------------------------------------ */
+    var rcOpDate = null;
+    var rcDaysPast = 0;
+
+    function tenodesisOn(){
+        try { return !!q('rc-tenodesis').checked; } catch (e){ return false; }
+    }
+    function visibleItems(items){
+        var on = tenodesisOn();
+        var out = [];
+        for (var i = 0; i < (items || []).length; i++){
+            if (!isBT(items[i]) || on) out.push(items[i]);
+        }
+        return out;
+    }
+    function phaseIndexForDay(d){
+        for (var i = 0; i < rcPhases.length; i++){
+            if (d >= rcPhases[i].startDay && d <= rcPhases[i].endDay) return i;
+        }
+        return rcPhases.length - 1;
+    }
+
+    function renderRCList(id, items, emptyMsg){
+        var list = q(id);
+        var vis = visibleItems(items);
+        if (!vis.length){
+            list.innerHTML = '<li style="color:#999;font-style:italic;">' + esc(emptyMsg || 'None specified') + '</li>';
+            return;
+        }
+        var html = '';
+        for (var i = 0; i < vis.length; i++){
+            if (isBT(vis[i])){
+                html += '<li class="rc-bt-item">' + esc(itemText(vis[i])) + ' <span class="rc-bt-tag">Biceps tenodesis</span></li>';
+            } else {
+                html += '<li>' + esc(vis[i]) + '</li>';
+            }
+        }
+        list.innerHTML = html;
+    }
+
+    function populateWeekSelector(currentWeek){
+        var sel = q('rc-weekSelector');
+        var html = '';
+        for (var i = 0; i <= RC_MAX_WEEK; i++){
+            var label = 'Week ' + i;
+            var m = monthsBetween(rcOpDate, addDays(rcOpDate, i * 7));
+            if (m >= 3) label += ' / Month ' + m;
+            if (i === currentWeek) label += '  (current)';
+            html += '<option value="' + i + '"' + (i === currentWeek ? ' selected' : '') + '>' + esc(label) + '</option>';
+        }
+        sel.innerHTML = html;
+        sel.value = String(currentWeek);
+    }
+
+    /* ------------------------------------------------------------
+       RENDER ONE WEEK
+       ------------------------------------------------------------ */
+    function renderWeek(weekNum){
+        if (!rcOpDate) return;
+        errors = [];
+
+        var weekStartDay = weekNum * 7;
+        var weekStart = addDays(rcOpDate, weekStartDay);
+        var currentWeek = Math.min(Math.floor(rcDaysPast / 7), RC_MAX_WEEK);
+        var isCurrent = (weekNum === currentWeek);
+        var dayUsed = isCurrent ? rcDaysPast : weekStartDay;
+        var idx = phaseIndexForDay(dayUsed);
+        var ph = rcPhases[idx];
+
+        // 1. Lists first (most important content)
+        step('Goals', function(){ renderRCList('rc-goalList', ph.goals); });
+        step('Precautions', function(){ renderRCList('rc-precautionList', ph.precautions, 'No additional precautions listed in protocol for this phase'); });
+        step('Outcomes', function(){ renderRCList('rc-outcomeList', ph.outcomes); });
+        step('Interventions', function(){ renderRCList('rc-interventionList', ph.interventions); });
+
+        // 2. Record text
+        step('Record text', function(){
+            var iv = visibleItems(ph.interventions);
+            var lines = [];
+            for (var i = 0; i < iv.length; i++) lines.push(itemText(iv[i]));
+            var t = 'INTERVENTIONS:\n- ' + lines.join('\n- ') + '\n\n';
+            if (tenodesisOn()){
+                var bp = [];
+                for (var j = 0; j < (ph.precautions || []).length; j++){
+                    if (isBT(ph.precautions[j])) bp.push(itemText(ph.precautions[j]));
+                }
+                if (bp.length) t += 'BICEPS TENODESIS PRECAUTIONS:\n- ' + bp.join('\n- ') + '\n\n';
+            }
+            t += 'Precautions given and contraindications checked for EPT';
+            q('rc-generatedText').value = t;
+        });
+
+        // 3. Header
+        step('Header', function(){
+            q('rc-weekStartDate').textContent = fmtDate(weekStart);
+            q('rc-weekHeader').textContent = 'Post-Operation Week ' + weekNum;
+            var m = monthsBetween(rcOpDate, weekStart);
+            var mt = m < 1 ? 'Less than 1 month post-op' : (m === 1 ? '1 month post-op' : m + ' months post-op');
+            q('rc-dayRange').textContent = '(Day ' + weekStartDay + '\u2013' + (weekStartDay + 6) + ' \u00B7 ' + mt + ')';
+            var today = new Date(); today.setHours(0, 0, 0, 0);
+            var tm = monthsBetween(rcOpDate, today);
+            q('rc-daysPastBadge').textContent = (tm < 3)
+                ? 'Day ' + rcDaysPast + ' \u00B7 Week ' + Math.floor(rcDaysPast / 7) + ' Post-Op (today)'
+                : 'Day ' + rcDaysPast + ' \u00B7 Month ' + tm + ' Post-Op (today)';
+            q('rc-phasePill').textContent = 'Phase ' + (idx + 1) + ': ' + ph.phaseName;
+            q('rc-phaseStartDate').textContent = fmtDate(addDays(rcOpDate, ph.startDay)) + ' (Day ' + ph.startDay + ')';
+        });
+
+        // 4. Notes (last)
+        step('Notes', function(){
+            var notes = [];
+            if (dayUsed > RC_END_DAY){
+                notes.push('Beyond 1-year protocol timeline (Day ' + dayUsed + ' post-op) \u2013 showing the last phase ("' + ph.phaseName + '").');
+            }
+            for (var j = 1; j < rcPhases.length; j++){
+                var s = rcPhases[j].startDay;
+                if (s > weekStartDay && s <= weekStartDay + 6){
+                    notes.push('Phase change within this week: "' + rcPhases[j].phaseName + '" starts on Day ' + s +
+                        ' (' + fmtDate(addDays(rcOpDate, s)) + '). Programme shown is based on ' +
+                        (isCurrent ? 'today (Day ' + rcDaysPast + ')' : 'the first day of this week (Day ' + weekStartDay + ')') + '.');
+                }
+            }
+            var html = '';
+            for (var k = 0; k < notes.length; k++) html += '<li>' + esc(notes[k]) + '</li>';
+            q('rc-notesList').innerHTML = html;
+            q('rc-notes').style.display = notes.length ? 'block' : 'none';
+        });
+
+        showErrors();
+    }
+
+    /* ------------------------------------------------------------
+       GENERATE FROM DATE
+       ------------------------------------------------------------ */
+    function generate(){
+        errors = [];
+        var input = q('rc-opDate');
+        var errorMsg = q('rc-dateError');
+        var str = (input.value || '').trim();
+        var m = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+        if (!m){
+            errorMsg.textContent = 'Please enter a valid date in dd/mm/yyyy format.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        var d = parseInt(m[1], 10), mo = parseInt(m[2], 10) - 1, y = parseInt(m[3], 10);
+        var opDate = new Date(y, mo, d);
+        if (opDate.getFullYear() !== y || opDate.getMonth() !== mo || opDate.getDate() !== d){
+            errorMsg.textContent = 'Invalid calendar date.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        opDate.setHours(0, 0, 0, 0);
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var daysPast = Math.round((today - opDate) / 86400000);
+        if (daysPast < 0){
+            errorMsg.textContent = 'Operation date cannot be in the future.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        errorMsg.style.display = 'none';
+
+        rcOpDate = opDate;
+        rcDaysPast = daysPast;
+        var currentWeek = Math.min(Math.floor(daysPast / 7), RC_MAX_WEEK);
+
+        q('rc-emptyState').style.display = 'none';
+        q('rc-outputContainer').classList.add('visible');
+
+        step('Week selector', function(){ populateWeekSelector(currentWeek); });
+        renderWeek(currentWeek);
+    }
+
+    /* ------------------------------------------------------------
+       START
+       ------------------------------------------------------------ */
+    function init(){
+        panel = document.getElementById('panel-rc');
+        if (!panel) return;
+        if (panel.getAttribute('data-rc-init') === '1') return;
+        panel.setAttribute('data-rc-init', '1');
+
+        try {
+            var dateInput = q('rc-opDate');
+            dateInput.addEventListener('input', function(e){
+                if (e.inputType === 'deleteContentBackward') return;
+                var v = dateInput.value.replace(/\D/g, '');
+                if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2);
+                if (v.length >= 5) v = v.slice(0, 5) + '/' + v.slice(5);
+                dateInput.value = v.slice(0, 10);
+            });
+            dateInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') generate(); });
+            q('rc-btnGenerate').addEventListener('click', generate);
+            q('rc-btnCopy').addEventListener('click', function(){ copyText(q('rc-generatedText').value); });
+            q('rc-weekSelector').addEventListener('change', function(){
+                renderWeek(parseInt(q('rc-weekSelector').value, 10));
+            });
+            q('rc-tenodesis').addEventListener('change', function(){
+                if (rcOpDate) renderWeek(parseInt(q('rc-weekSelector').value, 10));
+            });
+
+            // Diagnostics: was the tool pasted twice?
+            var dupPanels = document.querySelectorAll('[id="panel-rc"]').length;
+            var dupGoals = document.querySelectorAll('[id="rc-goalList"]').length;
+            var notice = q('rc-loadError');
+            if (dupPanels > 1 || dupGoals > 1){
+                notice.textContent = '\u26A0\uFE0F The Rotator Cuff tool appears ' + Math.max(dupPanels, dupGoals) +
+                    ' times on this page. Please delete the old copy/block and keep only one.';
+                notice.style.display = 'block';
+            } else {
+                notice.style.display = 'none';
+            }
+            window.__rcVersion = RC_VERSION;
+        } catch (err){
+            var n = document.getElementById('rc-loadError');
+            if (n){
+                n.style.display = 'block';
+                n.textContent = 'Rotator Cuff tool (' + RC_VERSION + ') failed to start: ' + (err && err.message ? err.message : err) + ' \u2013 please screenshot this.';
+            }
+            if (window.console && console.error) console.error(err);
+        }
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
+
 <!-- ===================== UPPER LIMB SCRIPT 1: DATE AUTO-FORMAT (standalone) ===================== -->
 <script data-skip-moving="true">
 (function () {
@@ -3477,7 +3572,7 @@
     window.__ulDateFmtLoaded = true;
 
     // Add new date-field IDs here when adding more upper limb protocols
-    // (the Rotator Cuff date field is handled by the main script)
+    // (the Rotator Cuff date field is handled by its own script)
     var DATE_IDS = {
         tfccInjuryDate: true, tfccUntilDate: true,
         slInjuryDate: true,   slUntilDate: true
@@ -3800,8 +3895,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     /* =================================================================
        TOOL CONFIGURATIONS
-       To add another wrist/hand protocol later: add its PHASES data,
-       copy one config below, and copy the panel HTML with a new prefix.
        ================================================================= */
     var TOOLS = [
         {
@@ -3839,7 +3932,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     function fmtDate(d) { return pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + '/' + d.getFullYear(); }
     function fmtDateZh(d) { return d.getFullYear() + '\u5E74' + (d.getMonth() + 1) + '\u6708' + d.getDate() + '\u65E5'; }
 
-    // Returns Date (midnight), null if empty, or false if invalid
     function parseDMY(str) {
         str = (str || '').trim();
         if (!str) return null;
@@ -3853,7 +3945,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
     function todayMidnight() { var t = new Date(); t.setHours(0, 0, 0, 0); return t; }
 
-    // Same timeline logic for TFCC and SL
     function standardPhaseForWeek(w) {
         if (w <= 3) return 1;
         if (w <= 6) return 2;
@@ -3872,7 +3963,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
     }
 
-    // Used for the QR code link only (record text shows names only)
     function encodeEx(code, s) {
         var p = code + ':';
         switch (s.unit) {
@@ -3903,7 +3993,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         return html;
     }
 
-    // Shared toast at the bottom of the page
     var toastTimer = null;
     function showToast(msg) {
         var t = document.getElementById('aclToast'); if (!t) return;
@@ -3913,7 +4002,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
     }
 
-    // Works on http:// intranet pages too (falls back to execCommand)
     function copyToClipboard(text, okMsg) {
         function fallback() {
             var ta = document.createElement('textarea');
@@ -3972,7 +4060,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         function renderList(name, items) {
-            var el = $(name); if (!el) return;   // box not present in this panel -> skip
+            var el = $(name); if (!el) return;
             if (!items || !items.length) {
                 el.innerHTML = '<li style="color:#999;font-style:italic;">None specified in protocol</li>';
                 return;
@@ -3994,7 +4082,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             return (d && d >= todayMidnight()) ? d : null;
         }
 
-        // ---------- PROTOCOL ----------
         function generateProtocol() {
             var dateStr = $('InjuryDate').value.trim();
             var override = $('PhaseOverride').value;
@@ -4046,7 +4133,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             return notes;
         }
 
-        // "First day of this phase: dd/mm/yyyy (Week X)" next to the phase pill
         function renderPhaseStart() {
             var wrap = $('PhaseStart');
             var dateEl = $('PhaseStartDate');
@@ -4093,7 +4179,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             updateRecordText();
         }
 
-        // Treatment record text: INTERVENTIONS, then HOME EXERCISE PROGRAMME (names only)
         function updateRecordText() {
             if (!st.phase) return;
             var ph = PHASES[st.phase];
@@ -4106,7 +4191,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
             var t = 'INTERVENTIONS:\n- ' + interventions.join('\n- ') + '\n\n';
 
-            // HOME EXERCISE PROGRAMME – exercise names only (no sets / reps / frequency)
             var keys = Object.keys(selected);
             var hepNames = [];
             if (keys.length) {
@@ -4125,7 +4209,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             $('GeneratedText').value = t;
         }
 
-        // ---------- EXERCISES ----------
         function buildExercisePanel() {
             var html = '';
             for (var p = 1; p <= NUM_PHASES; p++) {
@@ -4248,7 +4331,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             hideQR();
         }
 
-        // ---------- QR + PRINT ----------
         function hideQR() {
             var out = $('QrOutput');
             if (out) out.style.display = 'none';
@@ -4333,7 +4415,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             window.print();
         }
 
-        // ---------- LISTENERS ----------
         $('InjuryDate').addEventListener('keydown', function (e) { if (e.key === 'Enter') generateProtocol(); });
 
         var untilInput = $('UntilDate');
@@ -4392,8 +4473,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
 
     /* =================================================================
-       SAFE START – each tool starts independently; errors are shown
-       on screen instead of failing silently
+       SAFE START
        ================================================================= */
     function reportError(cfg, err) {
         var notice = document.getElementById(cfg.prefix + 'LoadError');
